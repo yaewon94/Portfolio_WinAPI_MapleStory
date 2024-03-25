@@ -37,6 +37,9 @@
     <ClInclude Include="Engine.h">
       <Filter>game</Filter>
     </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>game\00-Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">

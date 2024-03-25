@@ -11,7 +11,6 @@
 #include "Engine.h"
 
 #define MAX_LOADSTRING 50
-#define FULL_HD POINT{1920, 1080}
 
 // 전역 변수:
 HINSTANCE g_hInst;  // 현재 인스턴스입니다.
@@ -34,7 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     // 메모리 누수 관련, 디버그 출력
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(215);
+    _CrtSetBreakAlloc(89);
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, g_szTitle, MAX_LOADSTRING);
@@ -56,7 +55,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UpdateWindow(g_hWnd);
 
     // 게임엔진 초기화
-    if (FAILED(Engine::GetInstance()->Init(g_hInst, g_hWnd, FULL_HD)))
+    if (FAILED(Engine::GetInstance()->Init(g_hInst, g_hWnd)))
     {
         MessageBox(nullptr, L"게임엔진 초기화 실패", L"ERROR", MB_OK);
         return 0;
