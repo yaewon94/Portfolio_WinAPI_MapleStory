@@ -5,7 +5,7 @@
 UINT Entity::nextID = 0;
 
 // »ý¼ºÀÚ
-Entity::Entity() : ID(nextID++)
+Entity::Entity(const wstring& name) : ID(nextID++), name(name)
 {
 }
 

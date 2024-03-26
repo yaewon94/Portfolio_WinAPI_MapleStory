@@ -11,7 +11,7 @@ protected:
 	const UINT ID;
 	wstring name;
 
-	Entity();
+	Entity(const wstring& name);
 	Entity(const Entity& origin);
 	virtual ~Entity();
 
