@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "Engine.h"
+#include "LevelManager.h"
 
 # define FULL_HD Vec2{1920,1080}
 
@@ -32,6 +33,9 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	// DC 생성
 	CreateDefaultGDIobject();
 
+	// 게임매니저 초기화
+	LevelManager::GetInstance()->Init();
+
     return S_OK;
 }
 
@@ -39,29 +43,27 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 // 한 프레임에 해야할 작업이 늘어날수록 FPS 감소
 void Engine::Progress()
 {
-	static int left = 0;
-	static int right = 500;
-	static int frame = 0;
-
-	if (frame < 1000000)
-	{
-		++frame;
-		return;
-	}
-
-	frame = 0;
-
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
 	Rectangle(subDC, -1, -1, resolution.x + 1, resolution.y + 1);
 	SelectObject(subDC, prevBrush);
 
+	// 게임매니저 Tick()
+	LevelManager::GetInstance()->Tick();
+
+	// 게임매니저 FinalTick()
+	LevelManager::GetInstance()->FinalTick();
+
+	// 게임매니저 렌더링
+	LevelManager::GetInstance()->Render();
+	/*
 	// 렌더링 테스트
 	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
 	Rectangle(subDC, left, left, right, right);
 	left += 100;
 	right += 100;
 	SelectObject(subDC, prevPen);
+	*/
 
 	// sub -> main 윈도우
 	BitBlt(mainDC, 0, 0, resolution.x, resolution.y, subDC, 0, 0, SRCCOPY);

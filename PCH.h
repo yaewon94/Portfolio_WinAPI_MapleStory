@@ -36,5 +36,7 @@ using std::string;
 using std::wstring;
 
 // 사용자 정의 헤더파일
+#include "GameException.h"
 #include "DesignPatterns.h"
 #include "Types.h"
+#include "Functions.h"
