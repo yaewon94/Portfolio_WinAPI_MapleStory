@@ -55,7 +55,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UpdateWindow(g_hWnd);
 
     // 게임엔진 초기화
-    if (FAILED(Engine::GetInstance()->Init(g_hInst, g_hWnd)))
+    if (FAILED(Engine::GetInstance().Init(g_hInst, g_hWnd)))
     {
         MessageBox(nullptr, L"게임엔진 초기화 실패", L"ERROR", MB_OK);
         return 0;
@@ -86,7 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 메세지가 큐에 없을 때에는 게임 코드 실행
-            Engine::GetInstance()->Progress();
+            Engine::GetInstance().Progress();
         }
     }
 

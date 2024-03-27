@@ -1,5 +1,7 @@
 #include "PCH.h"
 #include "Engine.h"
+
+#include "InputManager.h"
 #include "LevelManager.h"
 
 # define FULL_HD Vec2{1920,1080}
@@ -7,7 +9,7 @@
 // 생성자
 Engine::Engine() : resolution(FULL_HD), hInst(nullptr), hWnd(nullptr), mainDC(nullptr)
 , subDC(nullptr), subBitmap(nullptr)
-, pen(nullptr), brush(nullptr)
+, brush(nullptr)
 {}
 
 // 소멸자
@@ -17,7 +19,6 @@ Engine::~Engine()
 	// 운영체제가 직접 관리하는 것이기 때문에 delete로 해제하지 않음
 	ReleaseDC(hWnd, mainDC);
 	DeleteObject(brush);
-	DeleteObject(pen);
 }
 
 // 초기화
@@ -34,7 +35,8 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	CreateDefaultGDIobject();
 
 	// 게임매니저 초기화
-	LevelManager::GetInstance()->Init();
+	LevelManager::GetInstance().Init();
+	InputManager::GetInstance().Init();
 
     return S_OK;
 }
@@ -49,21 +51,14 @@ void Engine::Progress()
 	SelectObject(subDC, prevBrush);
 
 	// 게임매니저 Tick()
-	LevelManager::GetInstance()->Tick();
+	InputManager::GetInstance().Tick();
+	LevelManager::GetInstance().Tick();
 
 	// 게임매니저 FinalTick()
-	LevelManager::GetInstance()->FinalTick();
+	LevelManager::GetInstance().FinalTick();
 
 	// 게임매니저 렌더링
-	LevelManager::GetInstance()->Render();
-	/*
-	// 렌더링 테스트
-	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
-	Rectangle(subDC, left, left, right, right);
-	left += 100;
-	right += 100;
-	SelectObject(subDC, prevPen);
-	*/
+	LevelManager::GetInstance().Render();
 
 	// sub -> main 윈도우
 	BitBlt(mainDC, 0, 0, resolution.x, resolution.y, subDC, 0, 0, SRCCOPY);
@@ -103,7 +98,6 @@ void Engine::CreateDefaultGDIobject()
 	DeleteObject(hPrevBitmap);
 	
 	// 자주 사용할 브러쉬, 펜 생성
-	brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	//brush = CreateSolidBrush(RGB(255, 255, 255));
-	pen = CreatePen(PS_SOLID, 10, RGB(255, 0, 0));
+	//brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	brush = CreateSolidBrush(RGB(255, 255, 255));
 }

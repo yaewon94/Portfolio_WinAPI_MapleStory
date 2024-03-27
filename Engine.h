@@ -12,11 +12,12 @@ private:
 	HDC mainDC;
 	HDC subDC;
 	HBITMAP subBitmap;
-
-	HPEN pen;
 	HBRUSH brush;
 
 public:
+	const HWND& GetMainWindow() { return hWnd; }
+	const HDC& GetSubDC() { return subDC; }
+
 	int Init(HINSTANCE hInst, HWND hWnd);
 	void Progress();
 	void ChangeWindowSize(Vec2 resolution);
