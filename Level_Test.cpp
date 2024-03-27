@@ -17,7 +17,7 @@ void Level_Test::Enter()
 {
 	// 오브젝트 추가
 	GameObject* player = new Player(L"Player", Vec2(500, 500), Vec2(100, 100));
-	objects.push_back(player);
+	AddObject(*player, LAYER_TYPE::PLAYER);
 }
 
 // 레벨 종료시 호출

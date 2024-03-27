@@ -7,15 +7,22 @@ class GameObject;
 // abstract class
 class Level : public Entity
 {
-protected:
-	vector<GameObject*> objects;
+	typedef vector<GameObject*> Layer;
 
+private:
+	array<Layer, (UINT)LAYER_TYPE::LAYER_TYPE_COUNT> objects;
+
+protected:
 	Level(const wstring&);
 	Level(const Level&) = delete;
 	virtual ~Level();
 
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
+
+public:
+	void AddObject(GameObject& object, LAYER_TYPE layer);
+	GameObject& FindObject(LAYER_TYPE layer);
 
 private:
 	friend class LevelManager;
