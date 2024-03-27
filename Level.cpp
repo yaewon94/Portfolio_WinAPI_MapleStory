@@ -18,23 +18,33 @@ Level::~Level()
 void Level::AddObject(GameObject& object, LAYER_TYPE layer)
 {
 	assert(&object);
-	assert((UINT)layer < objects.size());
-	objects[(UINT)layer].push_back(&object);
+	
+	if (objectMap.find(layer) == objectMap.end())
+	{
+		vector<GameObject*> objects;
+		objects.push_back(&object);
+		objectMap.insert(make_pair(layer, objects));
+	}
+	else
+	{
+		vector<GameObject*>& objects = objectMap.find(layer)->second;
+		objects.push_back(&object);
+	}
 }
 
 // 오브젝트 찾기
 GameObject& Level::FindObject(LAYER_TYPE layer)
 {
-	assert((UINT)layer < objects.size());
-	return *(objects[(UINT)layer][0]);
+	if (objectMap.find(layer) == objectMap.end()) throw GameException(LAYER_NAME[(UINT)layer] + L" 오브젝트를 찾을 수 없습니다");
+	return *(objectMap.find(layer)->second[0]);
 }
 
 // 초기화
 void Level::Init()
 {
-	for (const auto& layer : objects)
+	for (const auto& objects : objectMap)
 	{
-		for (const auto& object : layer)
+		for (const auto object : objects.second)
 		{
 			assert(object);
 			object->Init();
@@ -45,9 +55,9 @@ void Level::Init()
 // 매 프레임마다 호출
 void Level::Tick()
 {
-	for (const auto& layer : objects)
+	for (const auto& objects : objectMap)
 	{
-		for (const auto& object : layer)
+		for (const auto& object : objects.second)
 		{
 			assert(object);
 			object->Tick();
@@ -58,9 +68,9 @@ void Level::Tick()
 // 매 프레임마다 호출
 void Level::FinalTick()
 {
-	for (const auto& layer : objects)
+	for (const auto& objects : objectMap)
 	{
-		for (const auto& object : layer)
+		for (const auto object : objects.second)
 		{
 			object->FinalTick();
 		}
@@ -70,9 +80,9 @@ void Level::FinalTick()
 // 렌더링
 void Level::Render()
 {
-	for (const auto& layer : objects)
+	for (const auto& objects : objectMap)
 	{
-		for (const auto& object : layer)
+		for (const auto object : objects.second)
 		{
 			object->Render();
 		}
@@ -82,9 +92,9 @@ void Level::Render()
 // 현재 레벨의 오브젝트 모두 지우기
 void Level::DeleteObjects()
 {
-	for (auto& layer : objects)
+	for (auto& objects : objectMap)
 	{
-		for (auto& object : layer)
+		for (auto object : objects.second)
 		{
 			if (object != nullptr)
 			{
@@ -93,6 +103,8 @@ void Level::DeleteObjects()
 			}
 		}
 
-		layer.clear();
+		objects.second.clear();
 	}
+
+	objectMap.clear();
 }

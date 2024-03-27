@@ -1,6 +1,5 @@
 #pragma once
-
-class Level;
+#include "Level.h"
 
 // 레벨 관리 클래스
 class LevelManager final
@@ -12,6 +11,8 @@ private:
 	Level* curLevel;
 
 public:
+	Level& GetCurrentLevel() { return *curLevel; }
+
 	void Init();
 	void Tick();
 	void FinalTick();

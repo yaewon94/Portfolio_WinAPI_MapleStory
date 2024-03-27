@@ -7,10 +7,8 @@ class GameObject;
 // abstract class
 class Level : public Entity
 {
-	typedef vector<GameObject*> Layer;
-
 private:
-	array<Layer, (UINT)LAYER_TYPE::LAYER_TYPE_COUNT> objects;
+	map<LAYER_TYPE, vector<GameObject*>> objectMap;
 
 protected:
 	Level(const wstring&);

@@ -14,7 +14,11 @@ LevelManager::~LevelManager()
 	curLevel->DeleteObjects();
 
 	// 메모리 해제
-	if (curLevel != nullptr) delete curLevel;
+	if (curLevel != nullptr)
+	{
+		delete curLevel;
+		curLevel = nullptr;
+	}
 }
 
 // 초기화

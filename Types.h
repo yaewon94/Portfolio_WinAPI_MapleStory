@@ -11,7 +11,13 @@ struct Vec2
 // 오브젝트 레이어 타입
 enum class LAYER_TYPE
 {
-	PLAYER, LAYER_TYPE_COUNT
+	PLAYER
+};
+
+// 오브젝트 레이어 이름
+static const wstring LAYER_NAME[] = 
+{
+	L"Player"
 };
 
 // 레벨
