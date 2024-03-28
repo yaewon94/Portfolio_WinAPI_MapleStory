@@ -4,7 +4,7 @@
 class Player;
 
 // 사용자 입력 처리를 위한 클래스
-class InputManager
+class InputManager final
 {
 	SINGLETON(InputManager);
 

@@ -24,8 +24,6 @@ using namespace Gdiplus;
 #pragma comment(lib, "dsound.lib")
 
 // 자료구조
-#include <array>
-using std::array;
 #include <vector>
 using std::vector;
 #include <list>
@@ -41,3 +39,4 @@ using std::wstring;
 #include "GameException.h"
 #include "DesignPatterns.h"
 #include "Types.h"
+#include "Functions.h"

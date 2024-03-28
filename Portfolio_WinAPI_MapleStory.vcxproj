@@ -129,18 +129,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Functions.h" />
+    <ClInclude Include="GameException.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IKeyEvent.h" />
+    <ClInclude Include="IMovable.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="Level_Test.h" />
     <ClInclude Include="PCH.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="GameException.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="Level_Test.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc" />

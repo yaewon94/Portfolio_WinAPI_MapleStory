@@ -3,6 +3,7 @@
 
 #include "InputManager.h"
 #include "LevelManager.h"
+#include "DebugRender.h"
 
 # define FULL_HD Vec2{1920,1080}
 
@@ -37,6 +38,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	// 게임매니저 초기화
 	LevelManager::GetInstance().Init();
 	InputManager::GetInstance().Init();
+	DebugRender::GetInstance().Init();
 
     return S_OK;
 }
@@ -51,6 +53,7 @@ void Engine::Progress()
 
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
+	DebugRender::GetInstance().FinalTick();
 
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
@@ -59,6 +62,7 @@ void Engine::Progress()
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();
+	DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
 	BitBlt(mainDC, 0, 0, resolution.x, resolution.y, subDC, 0, 0, SRCCOPY);

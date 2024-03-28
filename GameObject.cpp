@@ -27,15 +27,4 @@ void GameObject::Render()
 	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
 	Rectangle(subDC, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
 	SelectObject(subDC, prevPen);
-
-	// 로그 출력
-	SetBkMode(subDC, TRANSPARENT);
-
-	wstring posStr = L"pos.x=" + std::to_wstring(pos.x) + L", pos.y=" + std::to_wstring(pos.y);
-	LPCWSTR pos = posStr.c_str();
-	TextOutW(subDC, 100, 800, pos, posStr.length());
-
-	wstring scaleStr = L"scale.x=" + std::to_wstring(scale.x) + L", scale.y=" + std::to_wstring(scale.y);
-	LPCWSTR scale = scaleStr.c_str();
-	TextOutW(subDC, 100, 900, scale, scaleStr.length());
 }

@@ -10,6 +10,8 @@ protected:
 	Vec2 scale;
 
 public:
+	const Vec2 GetPos() const { return pos; }
+
 	GameObject(const wstring& name, Vec2 pos, Vec2 Scale);
 	GameObject(const GameObject& origin);
 	virtual ~GameObject();
