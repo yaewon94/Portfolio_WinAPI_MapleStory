@@ -23,7 +23,7 @@ Engine::~Engine()
 
 // 초기화
 int Engine::Init(HINSTANCE hInst, HWND hWnd)
-{
+{	
 	// 멤버 초기화
 	this->hInst = hInst;
 	this->hWnd = hWnd;
@@ -45,17 +45,17 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 // 한 프레임에 해야할 작업이 늘어날수록 FPS 감소
 void Engine::Progress()
 {
-	// 이전 화면 Clear
-	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
-	Rectangle(subDC, -1, -1, resolution.x + 1, resolution.y + 1);
-	SelectObject(subDC, prevBrush);
-
 	// 게임매니저 Tick()
 	InputManager::GetInstance().Tick();
 	LevelManager::GetInstance().Tick();
 
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
+
+	// 이전 화면 Clear
+	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
+	Rectangle(subDC, -1, -1, resolution.x + 1, resolution.y + 1);
+	SelectObject(subDC, prevBrush);
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();

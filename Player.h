@@ -7,7 +7,7 @@
 class Player final : public GameObject, public IKeyEvent, IMovable
 {
 	// 이동 방향 enum
-	enum class MOVE_DIRECTION
+	enum class MOVE_DIRECTION : int
 	{
 		LEFT = -1, RIGHT = 1
 	};

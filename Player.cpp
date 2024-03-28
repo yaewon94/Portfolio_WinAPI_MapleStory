@@ -2,7 +2,7 @@
 #include "Player.h"
 
 // 생성자
-Player::Player(const wstring& name, Vec2 pos, Vec2 Scale) : GameObject(name, pos, scale), move_direction(MOVE_DIRECTION::LEFT)
+Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale), move_direction(MOVE_DIRECTION::LEFT)
 {
 	speed = 10;
 }
@@ -48,4 +48,6 @@ void Player::OnKeyDown(KEY_CODE key)
 // 이동
 void Player::Move()
 {
+	//assert(nullptr);
+	pos.x = pos.x + (int)move_direction;
 }
