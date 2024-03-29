@@ -4,6 +4,7 @@
 #define SINGLETON(type) private:\
 							type();\
 							type(const type& other) = delete;\
+							type& operator=(const type& other) = delete;\
 						public:\
 							static type& GetInstance()\
 							{\
