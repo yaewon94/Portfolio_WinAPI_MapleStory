@@ -1,22 +1,12 @@
 #pragma once
-#include "GameObject.h"
-#include "IMovable.h"
+#include "Component.h"
 #include "IKeyEvent.h"
+#include "IMovable.h"
 
-// 플레이어 클래스
-class Player final : public GameObject, public IKeyEvent, IMovable
+class Player final : public Component, public IKeyEvent, IMovable
 {
-	// 이동 방향 enum
-	enum class MOVE_DIRECTION : int
-	{
-		LEFT = -1, RIGHT = 1
-	};
-
-private:
-	MOVE_DIRECTION move_direction;
-
-public :
-	Player(const wstring& name, Vec2 pos, Vec2 Scale);
+public:
+	Player(GameObject* owner);
 	Player(const Player& origin);
 	~Player();
 
@@ -26,6 +16,8 @@ public :
 
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;
+
+	virtual Player* Clone() override { return new Player(*this); }
 
 private:
 	virtual void Move() override;

@@ -1,6 +1,6 @@
 #pragma once
 
-class Player;
+class GameObject;
 
 // 디버깅 모드 렌더링 클래스
 class DebugRender final
@@ -9,9 +9,7 @@ class DebugRender final
 
 private:
 	vector<Log*> renderLogs;
-
-	HDC DC;
-	Player* player;
+	GameObject* player;
 
 public:
 	void Init();

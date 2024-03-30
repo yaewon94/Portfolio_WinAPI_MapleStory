@@ -9,9 +9,8 @@ private:
 
 protected:
 	const UINT ID;
-	wstring name;
 
-	Entity(const wstring& name);
+	Entity();
 	Entity(const Entity& origin);
 	virtual ~Entity();
 
@@ -19,5 +18,5 @@ public:
 	virtual void Init() = 0;
 	virtual void Tick() = 0;
 	virtual void FinalTick() = 0;
-	virtual void Render() = 0;
+	//virtual void Render() = 0;
 };

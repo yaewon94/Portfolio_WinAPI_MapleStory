@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "DebugRender.h"
+#include "GameObject.h"
 
 # define FULL_HD Vec2{1920,1080}
 
@@ -80,6 +81,26 @@ void Engine::ChangeWindowSize(Vec2 resolution)
 	// 윈도우 크기 변경
 	// @param : (x,y)좌상단 좌표, (cx,cy)해상도
 	SetWindowPos(hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
+}
+
+// 렌더링
+// HDC, HWND를 클래스 외부에 노출시키지 않기 위해 구현함
+void Engine::Render(const GameObject& obj)
+{
+	Vec2 pos = obj.GetPos();
+	Vec2 scale = obj.GetScale();
+	// [임시 코드]
+	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
+	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
+	Rectangle(subDC, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+	SelectObject(subDC, prevPen);
+}
+
+// 텍스트 렌더링
+void Engine::Render(Vec2 pos, const wstring& text)
+{
+	SetBkMode(subDC, TRANSPARENT);
+	TextOutW(subDC, pos.x, pos.y, text.c_str(), (int)text.length());
 }
 
 // 윈도우 렌더링에 필요한 오브젝트 생성

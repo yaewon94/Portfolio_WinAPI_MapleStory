@@ -1,6 +1,8 @@
 #include "PCH.h"
 #include "LevelManager.h"
+#include "Level.h"
 #include "Level_Test.h"
+#include "GameObject.h"
 
 // 생성자
 LevelManager::LevelManager() : level_ID(LEVEL_TYPE::NONE), curLevel(nullptr)
@@ -10,12 +12,9 @@ LevelManager::LevelManager() : level_ID(LEVEL_TYPE::NONE), curLevel(nullptr)
 // 소멸자
 LevelManager::~LevelManager()
 {
-	// 레벨매니저의 소멸자가 호출될 때는 게임이 종료될 때 이므로, 현재 레벨의 오브젝트 모두 제거
-	curLevel->DeleteObjects();
-
-	// 메모리 해제
 	if (curLevel != nullptr)
 	{
+		curLevel->DeleteObjects();
 		delete curLevel;
 		curLevel = nullptr;
 	}
@@ -31,6 +30,7 @@ void LevelManager::Init()
 // 매 프레임마다 호출
 void LevelManager::Tick()
 {
+	assert(curLevel);
 	curLevel->Tick();
 }
 
@@ -47,16 +47,16 @@ void LevelManager::Render()
 }
 
 // 레벨 전환
-void LevelManager::ChangeLevel(const LEVEL_TYPE level)
+void LevelManager::ChangeLevel(LEVEL_TYPE level)
 {
-	if (level_ID == level) throw GameException(L"현재 레벨과 변경하려는 레벨이 같습니다");
+	if (level_ID == level)
+	{
+		//Log(LOG_TYPE::LOG_ERROR, L"현재 레벨과 변경하려는 레벨이 같습니다");
+		return;
+	}
 
 	// 현재 레벨 Exit()
-	if (curLevel != nullptr)
-	{
-		curLevel->Exit();
-		delete curLevel;
-	}
+	if (curLevel != nullptr) curLevel->Exit();
 
 	// 레벨 전환
 	switch (level)
@@ -65,11 +65,18 @@ void LevelManager::ChangeLevel(const LEVEL_TYPE level)
 		curLevel = new Level_Test;
 		break;
 	default:
-		throw GameException(L"바꾸려는 레벨이 없습니다");
+		//Log(LOG_TYPE::LOG_ERROR, L"바꾸려는 레벨이 없습니다");
 		break;
 	}
 
 	// 현재 레벨 Enter(), 초기화
 	curLevel->Enter();
 	curLevel->Init();
+}
+
+// 현재 레벨의 오브젝트 찾기
+GameObject* LevelManager::FindObject(LAYER_TYPE layer)
+{
+	assert(curLevel);
+	return curLevel->FindObject(layer);
 }

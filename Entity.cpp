@@ -5,12 +5,12 @@
 UINT Entity::nextID = 0;
 
 // 持失切
-Entity::Entity(const wstring& name) : ID(nextID++), name(name)
+Entity::Entity() : ID(nextID++)
 {
 }
 
 // 差紫 持失切
-Entity::Entity(const Entity& origin) : ID(nextID++), name(origin.name)
+Entity::Entity(const Entity& origin) : ID(nextID++)
 {
 }
 

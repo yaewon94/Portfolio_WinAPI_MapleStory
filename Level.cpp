@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 // 생성자
-Level::Level(const wstring& name) : Entity(name)
+Level::Level(const wstring& name) : name(name)
 {
 }
 
@@ -14,37 +14,25 @@ Level::~Level()
 	// 각 레벨에 맞게 오브젝트를 지우도록 구현
 }
 
-// 오브젝트 추가
-void Level::AddObject(GameObject& object, LAYER_TYPE layer)
+// 현재 레벨에 게임오브젝트 추가
+GameObject& Level::AddObject(LAYER_TYPE layer, const wstring& name, Vec2 pos, Vec2 scale)
 {
-	assert(&object);
-	
-	if (objectMap.find(layer) == objectMap.end())
-	{
-		vector<GameObject*> objects;
-		objects.push_back(&object);
-		objectMap.insert(make_pair(layer, objects));
-	}
-	else
-	{
-		vector<GameObject*>& objects = objectMap.find(layer)->second;
-		objects.push_back(&object);
-	}
-}
+	size_t layer_idx = (size_t)layer;
+	GameObject* obj = nullptr;
 
-// 오브젝트 찾기
-GameObject& Level::FindObject(LAYER_TYPE layer)
-{
-	if (objectMap.find(layer) == objectMap.end()) throw GameException(LAYER_NAME[(UINT)layer] + L" 오브젝트를 찾을 수 없습니다");
-	return *(objectMap.find(layer)->second[0]);
+	assert(layer_idx < objects.max_size());
+	obj = &GameObject::Create(name, pos, scale);
+	objects[layer_idx].push_back(obj);
+
+	return *obj;
 }
 
 // 초기화
 void Level::Init()
 {
-	for (const auto& objects : objectMap)
+	for (auto& layer : objects)
 	{
-		for (const auto object : objects.second)
+		for (auto object : layer)
 		{
 			assert(object);
 			object->Init();
@@ -55,11 +43,10 @@ void Level::Init()
 // 매 프레임마다 호출
 void Level::Tick()
 {
-	for (const auto& objects : objectMap)
+	for (auto& layer : objects)
 	{
-		for (const auto& object : objects.second)
+		for (auto object : layer)
 		{
-			assert(object);
 			object->Tick();
 		}
 	}
@@ -68,43 +55,51 @@ void Level::Tick()
 // 매 프레임마다 호출
 void Level::FinalTick()
 {
-	for (const auto& objects : objectMap)
+	for (auto& layer : objects)
 	{
-		for (const auto object : objects.second)
+		for (auto object : layer)
 		{
 			object->FinalTick();
 		}
 	}
 }
 
-// 렌더링
+// 매 프레임마다 렌더링
 void Level::Render()
 {
-	for (const auto& objects : objectMap)
+	for (auto& layer : objects)
 	{
-		for (const auto object : objects.second)
+		for (auto object : layer)
 		{
+			assert(object);
 			object->Render();
 		}
 	}
 }
 
+// 게임오브젝트 찾기
+GameObject* Level::FindObject(LAYER_TYPE layer)
+{
+	size_t layerIdx = (size_t)layer;
+
+	assert(layerIdx < objects.size());
+
+	if (objects[layerIdx][0] == nullptr) return nullptr;
+	return objects[layerIdx][0];
+}
+
 // 현재 레벨의 오브젝트 모두 지우기
 void Level::DeleteObjects()
 {
-	for (auto& objects : objectMap)
+	for (auto& layer : objects)
 	{
-		for (auto object : objects.second)
+		for (auto object : layer)
 		{
 			if (object != nullptr)
 			{
-				delete object;
+				object->Destroy();
 				object = nullptr;
 			}
 		}
-
-		objects.second.clear();
 	}
-
-	objectMap.clear();
 }

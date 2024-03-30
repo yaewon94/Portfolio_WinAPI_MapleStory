@@ -24,6 +24,8 @@ using namespace Gdiplus;
 #pragma comment(lib, "dsound.lib")
 
 // 자료구조
+#include <array>
+using std::array;
 #include <vector>
 using std::vector;
 #include <list>
@@ -35,8 +37,16 @@ using std::make_pair;
 using std::string;
 using std::wstring;
 
+// 스마트 포인터
+#include <memory>
+using std::shared_ptr;
+using std::make_shared;
+
+// 런타임 타입
+#include <typeinfo>
+
 // 사용자 정의 헤더파일
-#include "GameException.h"
 #include "DesignPatterns.h"
 #include "Types.h"
+#include "Log.h"
 #include "Functions.h"

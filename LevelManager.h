@@ -1,5 +1,7 @@
 #pragma once
-#include "Level.h"
+
+class Level;
+class GameObject;
 
 // 레벨 관리 클래스
 class LevelManager final
@@ -11,12 +13,11 @@ private:
 	Level* curLevel;
 
 public:
-	Level& GetCurrentLevel() { return *curLevel; }
-
 	void Init();
 	void Tick();
 	void FinalTick();
 	void Render();
 
-	void ChangeLevel(const LEVEL_TYPE level);
+	void ChangeLevel(LEVEL_TYPE level);
+	GameObject* FindObject(LAYER_TYPE layer);
 };

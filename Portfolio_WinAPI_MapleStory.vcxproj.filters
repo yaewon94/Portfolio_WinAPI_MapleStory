@@ -10,35 +10,42 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="game\00-Header">
-      <UniqueIdentifier>{d2b36229-c1dd-4f08-86d0-c5c6cfd0b5a3}</UniqueIdentifier>
+      <UniqueIdentifier>{9df2a320-d598-4840-83f7-f1470c0ad08b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\01-Manager">
-      <UniqueIdentifier>{69387979-aca6-427d-b232-6f449d04c91b}</UniqueIdentifier>
+    <Filter Include="game\01-Level">
+      <UniqueIdentifier>{365bd9b6-2ddb-481e-be5a-57c032a590b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\02-Level">
-      <UniqueIdentifier>{b9c04ae9-e4ee-439a-b23a-292910e900e2}</UniqueIdentifier>
+    <Filter Include="game\02-Object">
+      <UniqueIdentifier>{972cda4c-585f-4f3f-a5d6-e07de73b6a59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Object">
-      <UniqueIdentifier>{46f9ea44-7a79-4526-89a9-2f37934cac0b}</UniqueIdentifier>
+    <Filter Include="game\03-Component">
+      <UniqueIdentifier>{26b9ebe4-ca6b-472c-ac8c-d70a2d7ad8be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Object\Player">
-      <UniqueIdentifier>{aee4d4a6-db79-4aaa-918d-30015a5de75b}</UniqueIdentifier>
+    <Filter Include="game\03-Component\Player">
+      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Component">
-      <UniqueIdentifier>{1792bf84-2b29-466f-8dc3-e06bf17db4e7}</UniqueIdentifier>
+    <Filter Include="game\03-Component\Interface">
+      <UniqueIdentifier>{8960c93b-4f27-4ee2-9377-497d301f66f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\05-Asset">
-      <UniqueIdentifier>{95a994f7-5745-4cf4-adbc-1ebca5fe5171}</UniqueIdentifier>
+    <Filter Include="game\04-Util">
+      <UniqueIdentifier>{1d665e56-6ad8-42d1-a1dd-051b2a52d93e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\06-Util">
-      <UniqueIdentifier>{d4de01a1-6f30-4880-89a6-317e81fb6d13}</UniqueIdentifier>
+    <Filter Include="game\04-Util\Input">
+      <UniqueIdentifier>{31994e6a-af9f-4778-8d93-1b2006784890}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Object\Interface">
-      <UniqueIdentifier>{b86068dd-3052-4982-ae30-d4f6b2c30ae0}</UniqueIdentifier>
+    <Filter Include="game\04-Util\Debug">
+      <UniqueIdentifier>{d5a901a8-72c4-4a4a-bd71-6d9e31996194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Util\Log">
+      <UniqueIdentifier>{8b288f97-8e44-43c5-ac0e-41ddec1bc7e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="targetver.h" />
     <ClInclude Include="DesignPatterns.h">
       <Filter>game\00-Header</Filter>
     </ClInclude>
@@ -48,42 +55,41 @@
     <ClInclude Include="Types.h">
       <Filter>game\00-Header</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>game\02-Level</Filter>
-    </ClInclude>
     <ClInclude Include="LevelManager.h">
-      <Filter>game\01-Manager</Filter>
+      <Filter>game\01-Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>game\01-Level</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>game\03-Object</Filter>
-    </ClInclude>
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="Player.h">
-      <Filter>game\03-Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Level_Test.h">
-      <Filter>game\02-Level</Filter>
+      <Filter>game\01-Level</Filter>
     </ClInclude>
-    <ClInclude Include="GameException.h">
-      <Filter>game</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>game\02-Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>game\03-Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>game\03-Component\Player</Filter>
     </ClInclude>
     <ClInclude Include="IMovable.h">
-      <Filter>game\03-Object\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>game\01-Manager</Filter>
+      <Filter>game\03-Component\Interface</Filter>
     </ClInclude>
     <ClInclude Include="IKeyEvent.h">
-      <Filter>game\03-Object\Interface</Filter>
+      <Filter>game\04-Util\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>game\04-Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="DebugRender.h">
-      <Filter>game\06-Util</Filter>
+      <Filter>game\04-Util\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>game\04-Util\Log</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>game\00-Header</Filter>
@@ -108,31 +114,34 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
-      <Filter>game\01-Manager</Filter>
+      <Filter>game\01-Level</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
-      <Filter>game\02-Level</Filter>
+      <Filter>game\01-Level</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="Level_Test.cpp">
+      <Filter>game\01-Level</Filter>
+    </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>game\03-Object</Filter>
+      <Filter>game\02-Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>game\03-Component</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>game\03-Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Level_Test.cpp">
-      <Filter>game\02-Level</Filter>
-    </ClCompile>
-    <ClCompile Include="GameException.cpp">
-      <Filter>game</Filter>
+      <Filter>game\03-Component\Player</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>game\01-Manager</Filter>
+      <Filter>game\04-Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="DebugRender.cpp">
-      <Filter>game\06-Util</Filter>
+      <Filter>game\04-Util\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>game\04-Util\Log</Filter>
     </ClCompile>
     <ClCompile Include="Functions.cpp">
       <Filter>game\00-Header</Filter>

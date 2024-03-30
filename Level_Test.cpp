@@ -1,9 +1,10 @@
 #include "PCH.h"
 #include "Level_Test.h"
+#include "GameObject.h"
 #include "Player.h"
 
 // 생성자
-Level_Test::Level_Test() : Level(L"테스트 레벨")
+Level_Test::Level_Test() : Level(L"Level_Test")
 {
 }
 
@@ -16,8 +17,9 @@ Level_Test::~Level_Test()
 void Level_Test::Enter()
 {
 	// 오브젝트 추가
-	GameObject* player = new Player(L"Player", Vec2(500, 500), Vec2(100, 100));
-	AddObject(*player, LAYER_TYPE::PLAYER);
+	GameObject& player = AddObject(LAYER_TYPE::PLAYER, L"Player", Vec2(100, 100), Vec2(100, 100));
+	// 컴포넌트 추가
+	player.AddComponent<Player>();
 }
 
 // 레벨 종료시 호출
