@@ -12,7 +12,6 @@ private:
 	Vec2 pos;
 	Vec2 scale;
 	vector<Component*> components;
-
 	GameObject(const wstring& name, Vec2 pos, Vec2 Scale);
 	~GameObject();
 
@@ -26,7 +25,12 @@ public:
 	static GameObject& Create(const wstring& name, Vec2 pos, Vec2 scale);
 	void Destroy();
 
-	template<typename T> requires std::derived_from<T, Component> void AddComponent();
+	// [check] 이거 파라미터로 넘길때 new로 생성해서 만든거 지워버리고 함수 내부에서 동적할당 하려고 한건데
+	// 뭔 똥꼬쇼를 해도 막기가 힘든듯 AddComponent(new Player) 이렇게 넘겨버리면
+	// AddComponent 내부에서 파라미터로 넘긴거 delete 해버리자니 다른 오브젝트가 가지고 있는 컴포넌트 넘겨버리면
+	// 그 컴포넌트 지워버리니까 안돼고
+	template<typename T> requires std::derived_from<T, Component> T* AddComponent(const T& component);
+	template<typename T> requires std::derived_from<T, Component> T* AddComponent(T&& component);
 
 public:
 	// [check] Component 만 접근할 수 있게
@@ -53,10 +57,43 @@ inline void GameObject::Destroy()
 }
 
 // 컴포넌트 추가
+// @ param : 파라미터에 이미 선언한 객체를 넘길 때 사용
 template<typename T> requires std::derived_from<T, Component>
-inline void GameObject::AddComponent()
+inline T* GameObject::AddComponent(const T& component)
 {
-	components.push_back(new T(this));
+	T* clone = nullptr;
+
+	if (GetComponent<T>() != nullptr)
+	{
+		Log(LOG_TYPE::LOG_ERROR, name + L"이 이미 가지고 있는 컴포넌트 입니다 : " + ::to_wstring(typeid(T).name()));
+	}
+	else
+	{
+		clone = new T(component);
+		components.push_back(clone);
+	}
+
+	return clone;
+}
+
+// 컴포넌트 추가
+// @ param : 임시객체를 파라미터에 넘길 때 사용
+template<typename T> requires std::derived_from<T, Component>
+inline T* GameObject::AddComponent(T&& component)
+{
+	T* clone = nullptr;
+
+	if (GetComponent<T>() != nullptr)
+	{
+		Log(LOG_TYPE::LOG_ERROR, name + L"이 이미 가지고 있는 컴포넌트 입니다 : " + ::to_wstring(typeid(T).name()));
+	}
+	else 
+	{
+		clone = new T(std::move(component));
+		components.push_back(clone);
+	}
+
+	return clone;
 }
 
 // 컴포넌트 가져오기

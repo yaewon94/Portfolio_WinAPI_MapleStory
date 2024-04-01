@@ -19,7 +19,7 @@ void Level_Test::Enter()
 	// 오브젝트 추가
 	GameObject& player = AddObject(LAYER_TYPE::PLAYER, L"Player", Vec2(100, 100), Vec2(100, 100));
 	// 컴포넌트 추가
-	player.AddComponent<Player>();
+	player.AddComponent(Player(player));
 }
 
 // 레벨 종료시 호출

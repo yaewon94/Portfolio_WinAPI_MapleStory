@@ -12,6 +12,10 @@ protected:
 
 	Entity();
 	Entity(const Entity& origin);
+	Entity(Entity&& origin) noexcept;
+	
+	Entity& operator=(const Entity& origin);
+	Entity& operator=(Entity&& origin) noexcept;
 	virtual ~Entity();
 
 public:

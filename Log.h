@@ -15,7 +15,7 @@ private:
 	Vec2 renderPos;
 
 public:
-	Log(LOG_TYPE type, wstring message, Vec2 renderPos);
+	Log(LOG_TYPE type, wstring message, Vec2 renderPos=Vec2(0,0));
 	~Log();
 
 	Vec2 GetPos() const { return renderPos; }
