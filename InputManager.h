@@ -13,10 +13,10 @@ class InputManager final
 	// 키 상태 타입
 	enum class KEY_STATE
 	{
-		NONE = 0,				// 이전 프레임에도 안눌리고, 이번에도 안눌림
-		KEY_PRESSED = 0x8000,	// 이전 프레임에 안눌리고, 이번에 눌림
-		KEY_DOWN = 0x8001,		// 이전 프레임에도 눌리고, 이번에도 눌림
-		KEY_RELEASED = 1		// 이전 프레임에 눌리고, 이번에 안눌림
+		NONE// = 0,				// 이전 프레임에도 안눌리고, 이번에도 안눌림
+		,KEY_PRESSED// = 0x8000,	// 이전 프레임에 안눌리고, 이번에 눌림
+		,KEY_DOWN// = 0x8001,		// 이전 프레임에도 눌리고, 이번에도 눌림
+		,KEY_RELEASED// = 1,		// 이전 프레임에 눌리고, 이번에 안눌림
 	};
 
 	// 키 입력 타입
@@ -29,12 +29,14 @@ class InputManager final
 	struct KeyInfo
 	{
 		KEY_TYPE type;
-		map<KEY_STATE, KEY_CALLBACK> keyStateCallback; // 키 상태 - 콜백 메소드 (1:1 대응)
-		KeyInfo(KEY_TYPE type, map<KEY_STATE, KEY_CALLBACK> keyStateCallback) : type(type), keyStateCallback(keyStateCallback) {}
+		KEY_STATE curState = KEY_STATE::NONE;
+		shared_ptr<map<KEY_STATE, KEY_CALLBACK>> stateCallback_map; // 키 상태 - 콜백 메소드 (1:1 대응)
+		KeyInfo(KEY_TYPE type, shared_ptr<map<KEY_STATE, KEY_CALLBACK>> stateCallback_map) 
+			: type(type), stateCallback_map(stateCallback_map) {}
 	};
 
 private:
-	map<KEY_CODE, shared_ptr<KeyInfo>> keyMap;	// 키 값 - 키 상태 (1:N 대응)
+	map<KEY_CODE, KeyInfo*> keyMap;	// 키 값 - 키 상태 (1:N 대응)
 	Player* player;
 
 public:
