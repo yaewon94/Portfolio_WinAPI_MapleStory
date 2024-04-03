@@ -1,7 +1,13 @@
 #pragma once
 
-// 복사, 대입 금지
-# define NO_COPY_CSTR(type) private:\
+// 복사, 이동 생성자, 할당연산자 추가
+#define CSTR_COPY_ASSIGN(type) type(const type&);\
+								type(type&&) noexcept;\
+								type& operator=(const type&);\
+								type& operator=(type&&) noexcept;\
+
+// 복사, 이동 금지
+# define NO_CSTR_COPY_ASSIGN(type) private:\
 								type(const type&) = delete;\
 								type(type&&) = delete;\
 								type& operator=(const type&) = delete;\
@@ -12,7 +18,7 @@
 #define SINGLETON(type) private:\
 							type();\
 							~type();\
-							NO_COPY_CSTR(type);\
+							NO_CSTR_COPY_ASSIGN(type);\
 						public:\
 							static type& GetInstance()\
 							{\

@@ -1,20 +1,22 @@
 #include "PCH.h"
 #include "Player.h"
+#include "TimeManager.h"
 #include "GameObject.h"
+#include "Rigidbody.h"
 
 // 생성자
-Player::Player(GameObject& owner) : Component(owner)
+Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale)
 {
 }
 
 // 복사 생성자
-Player::Player(const Player& origin) : Component(origin)
+Player::Player(const Player& origin) : GameObject(origin)
 {
-	speed = origin.speed;
+	*this = origin;
 }
 
 // 이동 생성자
-Player::Player(Player&& origin) noexcept : Component(std::move(origin))
+Player::Player(Player&& origin) noexcept : GameObject(std::move(origin))
 {
 	*this = std::move(origin);
 }
@@ -28,6 +30,7 @@ Player::~Player()
 Player& Player::operator=(const Player& origin)
 {
 	speed = origin.speed;
+	jumpPower = origin.jumpPower;
 	return *this;
 }
 
@@ -37,7 +40,9 @@ Player& Player::operator=(Player&& origin) noexcept
 	if (this != &origin)
 	{
 		speed = origin.speed;
+		jumpPower = origin.jumpPower;
 		origin.speed = 0;
+		origin.jumpPower = 0;
 	}
 	return *this;
 }
@@ -45,20 +50,19 @@ Player& Player::operator=(Player&& origin) noexcept
 // 이번 프레임에 처음 눌렸을 때 호출
 void Player::OnKeyPressed(KEY_CODE key)
 {
+	// [check] 키세팅 커스터마이징 할 때는 자기가 셋팅한 키값대로 분기시켜야 함
 	switch (key)
 	{
 	case KEY_CODE::LEFT:
-		direction = MOVE_DIRECTION::LEFT;
+		dir = Vec2::Left();
 		Move();
 		break;
 	case KEY_CODE::RIGHT:
-		direction = MOVE_DIRECTION::RIGHT;
+		dir = Vec2::Right();
 		Move();
 		break;
-	default:
-		assert(false);
-		//throw GameException(L"알맞은 이동키가 아닙니다");
-		//return;
+	case KEY_CODE::SHIFT:
+		Jump();
 	}
 }
 
@@ -71,7 +75,17 @@ void Player::OnKeyDown(KEY_CODE key)
 // 이동
 void Player::Move()
 {
-	Vec2 pos = GetOwner()->GetPos();
-	pos.x += (int)direction * speed;
-	GetOwner()->SetPos(Vec2(pos.x, pos.y));
+	pos += (dir * speed * TimeManager::GetInstance().GetDeltaTime());
+}
+
+// 점프
+void Player::Jump()
+{
+	static bool canJump = true;
+	if (!canJump) return;
+	canJump = false;
+
+	Rigidbody* rb = GetComponent<Rigidbody>();
+	rb->UseGravity(true);
+	rb->AddForce(Vec2::Up() * jumpPower);
 }

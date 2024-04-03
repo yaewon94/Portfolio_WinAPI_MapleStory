@@ -3,6 +3,7 @@
 
 #include "InputManager.h"
 #include "LevelManager.h"
+#include "TimeManager.h"
 #include "DebugRender.h"
 #include "GameObject.h"
 
@@ -37,6 +38,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	CreateDefaultGDIobject();
 
 	// 게임매니저 초기화
+	TimeManager::GetInstance().Init();
 	LevelManager::GetInstance().Init();
 	InputManager::GetInstance().Init();
 	DebugRender::GetInstance().Init();
@@ -49,6 +51,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 void Engine::Progress()
 {
 	// 게임매니저 Tick()
+	TimeManager::GetInstance().Tick();
 	InputManager::GetInstance().Tick();
 	LevelManager::GetInstance().Tick();
 
@@ -58,7 +61,7 @@ void Engine::Progress()
 
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
-	Rectangle(subDC, -1, -1, resolution.x + 1, resolution.y + 1);
+	Rectangle(subDC, -1, -1, (int)resolution.x + 1, (int)resolution.y + 1);
 	SelectObject(subDC, prevBrush);
 
 	// 게임매니저 렌더링
@@ -66,14 +69,14 @@ void Engine::Progress()
 	DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
-	BitBlt(mainDC, 0, 0, resolution.x, resolution.y, subDC, 0, 0, SRCCOPY);
+	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subDC, 0, 0, SRCCOPY);
 }
 
 // 윈도우 크기 변경
 void Engine::ChangeWindowSize(Vec2 resolution)
 {
 	// 입력된 해상도에 맞게 실제 윈도우 크기 계산
-	RECT rt{ 0, 0, resolution.x, resolution.y };
+	RECT rt{ 0, 0, (LONG)resolution.x, (LONG)resolution.y };
 
 	// 메뉴 사용 여부에 따라 윈도우 크기 설정
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
@@ -92,7 +95,7 @@ void Engine::Render(const GameObject& obj)
 	// [임시 코드]
 	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
 	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
-	Rectangle(subDC, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+	Rectangle(subDC, (int)pos.x, (int)pos.y, (int)(pos.x + scale.x), (int)(pos.y + scale.y));
 	SelectObject(subDC, prevPen);
 }
 
@@ -100,7 +103,7 @@ void Engine::Render(const GameObject& obj)
 void Engine::Render(Vec2 pos, const wstring& text)
 {
 	SetBkMode(subDC, TRANSPARENT);
-	TextOutW(subDC, pos.x, pos.y, text.c_str(), (int)text.length());
+	TextOutW(subDC, (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
 }
 
 // 윈도우 렌더링에 필요한 오브젝트 생성
@@ -116,7 +119,7 @@ void Engine::CreateDefaultGDIobject()
 
 	// 보조 비트맵 생성
 	// 메모리 상에만 존재하는 비트맵에 미리 그려놓고, 한번에 렌더링 송출
-	subBitmap = CreateCompatibleBitmap(mainDC, resolution.x, resolution.y);
+	subBitmap = CreateCompatibleBitmap(mainDC, (int)resolution.x, (int)resolution.y);
 
 	// 보조DC가 보조비트맵을 지정하게 함
 	HBITMAP hPrevBitmap = (HBITMAP)SelectObject(subDC, subBitmap);

@@ -8,15 +8,11 @@ private:
 	static UINT nextID;
 
 protected:
-	const UINT ID;
-
+	CSTR_COPY_ASSIGN(Entity);
 	Entity();
-	Entity(const Entity& origin);
-	Entity(Entity&& origin) noexcept;
-	
-	Entity& operator=(const Entity& origin);
-	Entity& operator=(Entity&& origin) noexcept;
 	virtual ~Entity();
+
+	const UINT ID;
 
 public:
 	virtual void Init() = 0;

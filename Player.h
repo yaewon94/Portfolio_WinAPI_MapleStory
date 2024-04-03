@@ -1,27 +1,20 @@
 #pragma once
-#include "Component.h"
+#include "GameObject.h"
 #include "IKeyEvent.h"
 #include "IMovable.h"
+#include "IJumpable.h"
 
-class Player final : public Component, public IKeyEvent, IMovable
+class Player final : public GameObject, public IKeyEvent, IMovable, IJumpable
 {
 public:
-	Player(GameObject& owner);
-	Player(const Player& origin);
-	Player(Player&& origin) noexcept;
+	CSTR_COPY_ASSIGN(Player);
+	Player(const wstring& name, Vec2 pos, Vec2 scale);
 	~Player();
-
-	Player& operator=(const Player& origin);
-	Player& operator=(Player&& origin) noexcept;
-	virtual Player* Clone() override { return new Player(*this); }
-
-	virtual void Init() override {}
-	virtual void Tick() override {}
-	virtual void FinalTick() override {}
 
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;
 
 private:
 	virtual void Move() override;
+	virtual void Jump() override;
 };

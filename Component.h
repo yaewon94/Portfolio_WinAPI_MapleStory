@@ -10,15 +10,24 @@ class Component : public Entity
 private:
 	GameObject* owner;
 
-public:
+protected:
+	CSTR_COPY_ASSIGN(Component);
 	Component(GameObject& owner);
-	Component(const Component& origin);
-	Component(Component&& origin) noexcept;
 	~Component();
 
-	Component& operator=(const Component& origin);
-	Component& operator=(Component&& origin) noexcept;
+public:
+	void Destroy();
 	virtual Component* Clone() = 0;
 
 	GameObject* GetOwner() { return owner; }
+
+	// [check] 임시
+	virtual void Init() override {}
+	virtual void Tick() override {}
 };
+
+// 컴포넌트 삭제
+inline void Component::Destroy()
+{
+	if (this != nullptr) delete this;
+}

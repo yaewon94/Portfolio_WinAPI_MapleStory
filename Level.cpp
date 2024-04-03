@@ -14,19 +14,6 @@ Level::~Level()
 	// 각 레벨에 맞게 오브젝트를 지우도록 구현
 }
 
-// 현재 레벨에 게임오브젝트 추가
-GameObject& Level::AddObject(LAYER_TYPE layer, const wstring& name, Vec2 pos, Vec2 scale)
-{
-	size_t layer_idx = (size_t)layer;
-	GameObject* obj = nullptr;
-
-	assert(layer_idx < objects.max_size());
-	obj = &GameObject::Create(name, pos, scale);
-	objects[layer_idx].push_back(obj);
-
-	return *obj;
-}
-
 // 초기화
 void Level::Init()
 {
