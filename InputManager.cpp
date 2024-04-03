@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "Player.h"
 
+int InputManager::KeyState = 0; // TEST
+
 // 생성자
 InputManager::InputManager() : player(nullptr)
 {
@@ -41,7 +43,7 @@ void InputManager::Init()
 
 	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo {KEY_TYPE::PLAYER, player_callback}));
 	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo {KEY_TYPE::PLAYER, player_callback }));
-	keyMap.insert(make_pair(KEY_CODE::ALT, new KeyInfo {KEY_TYPE::PLAYER, player_callback }));
+	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo {KEY_TYPE::PLAYER, player_callback }));
 }
 
 // 매 프레임마다 호출
@@ -56,17 +58,24 @@ void InputManager::Tick()
 			auto keyInfo = key.second;
 			auto& curState = keyInfo->curState;
 			auto& stateMap = keyInfo->stateCallback_map;
+			
+			// TEST
+			if (keyCode == KEY_CODE::SHIFT)
+			{
+				KeyState = GetAsyncKeyState((int)keyCode);
+				//KeyState = GetKeyState((int)keyCode);
+			}
 
-			// [문제] 이동중에 점프를 누르면 이동도 안되고, 점프도 안됨. 일단 점프가 되게하자
 			// 키 상태 확인
+			// [CHECK] 다른 키들은 손떼면 바로 0되는데 alt 종류는 적용이 안됨
 			if (GetAsyncKeyState((int)keyCode))
 			{
 				if (curState == KEY_STATE::KEY_PRESSED) curState = KEY_STATE::KEY_DOWN;
-				else curState = KEY_STATE::KEY_PRESSED;
+				else if(curState == KEY_STATE::NONE || curState == KEY_STATE::KEY_RELEASED) curState = KEY_STATE::KEY_PRESSED;
 			}
 			else
 			{
-				if (curState == KEY_STATE::KEY_DOWN) curState = KEY_STATE::KEY_RELEASED;
+				if (curState == KEY_STATE::KEY_PRESSED || curState == KEY_STATE::KEY_DOWN) curState = KEY_STATE::KEY_RELEASED;
 				else curState = KEY_STATE::NONE;
 			}
 

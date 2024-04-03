@@ -42,4 +42,6 @@ private:
 public:
 	void Init();
 	void Tick();
+
+	static int KeyState; // TEST
 };
