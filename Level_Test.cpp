@@ -24,7 +24,7 @@ void Level_Test::Enter()
 	player->AddComponent<Rigidbody>();
 	player->AddComponent<Collider>()->Set(Vec2(0,0), player->GetScale());
 	GameObject* ground = AddObject(LAYER_TYPE::GROUND, Ground(Vec2(0,800), Vec2(1000, 100)));
-	ground->AddComponent<Collider>()->Set(Vec2(0,0), ground->GetScale());
+	ground->AddComponent<Collider>()->Set(Vec2(0,0), Vec2(ground->GetScale().x, 10));
 }
 
 // 레벨 종료시 호출
