@@ -5,9 +5,9 @@
 class IJumpable
 {
 protected:
-	int jumpPower;
+	float jumpPower;
 
-	IJumpable(int power = 700) : jumpPower(power) {}
+	IJumpable(float power = 700.f) : jumpPower(power) {}
 
 public:
 	virtual void Jump() = 0;

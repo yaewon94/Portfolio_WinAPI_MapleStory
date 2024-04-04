@@ -8,13 +8,15 @@ private:
 	static UINT nextID;
 
 protected:
-	CSTR_COPY_ASSIGN(Entity);
 	Entity();
+	Entity(const Entity& origin);
 	virtual ~Entity();
 
 	const UINT ID;
 
 public:
+	const UINT GetID() const { return ID; }
+
 	virtual void Init() = 0;
 	virtual void Tick() = 0;
 	virtual void FinalTick() = 0;

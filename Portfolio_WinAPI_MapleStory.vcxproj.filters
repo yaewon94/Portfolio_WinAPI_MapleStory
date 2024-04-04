@@ -21,9 +21,6 @@
     <Filter Include="game\03-Component">
       <UniqueIdentifier>{26b9ebe4-ca6b-472c-ac8c-d70a2d7ad8be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Component\Player">
-      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\03-Component\Interface">
       <UniqueIdentifier>{8960c93b-4f27-4ee2-9377-497d301f66f2}</UniqueIdentifier>
     </Filter>
@@ -38,6 +35,21 @@
     </Filter>
     <Filter Include="game\04-Util\Log">
       <UniqueIdentifier>{8b288f97-8e44-43c5-ac0e-41ddec1bc7e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\Rigidbody">
+      <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\Player">
+      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Util\Time">
+      <UniqueIdentifier>{1c858c5f-9244-480d-b780-7d94d33e16ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\Ground">
+      <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\Collider">
+      <UniqueIdentifier>{06ef432b-8932-4e5c-990e-1e97845623b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +85,6 @@
     <ClInclude Include="Component.h">
       <Filter>game\03-Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>game\03-Component\Player</Filter>
-    </ClInclude>
     <ClInclude Include="IMovable.h">
       <Filter>game\03-Component\Interface</Filter>
     </ClInclude>
@@ -93,6 +102,27 @@
     </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>game\00-Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>game\03-Component\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="IJumpable.h">
+      <Filter>game\03-Component\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>game\02-Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>game\04-Util\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>game\02-Object\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>game\03-Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>game\03-Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +161,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>game\03-Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>game\03-Component\Player</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>game\04-Util\Input</Filter>
     </ClCompile>
@@ -145,6 +172,24 @@
     </ClCompile>
     <ClCompile Include="Functions.cpp">
       <Filter>game\00-Header</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>game\03-Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>game\02-Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>game\04-Util\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>game\02-Object\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>game\03-Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>game\03-Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

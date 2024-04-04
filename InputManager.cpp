@@ -5,8 +5,6 @@
 #include "GameObject.h"
 #include "Player.h"
 
-int InputManager::KeyState = 0; // TEST
-
 // 생성자
 InputManager::InputManager() : player(nullptr)
 {
@@ -54,21 +52,13 @@ void InputManager::Tick()
 	{
 		for (auto& key : keyMap)
 		{
-			auto keyCode = key.first;
 			auto keyInfo = key.second;
 			auto& curState = keyInfo->curState;
 			auto& stateMap = keyInfo->stateCallback_map;
-			
-			// TEST
-			if (keyCode == KEY_CODE::SHIFT)
-			{
-				KeyState = GetAsyncKeyState((int)keyCode);
-				//KeyState = GetKeyState((int)keyCode);
-			}
 
 			// 키 상태 확인
 			// [CHECK] 다른 키들은 손떼면 바로 0되는데 alt 종류는 적용이 안됨
-			if (GetAsyncKeyState((int)keyCode))
+			if (GetAsyncKeyState((int)key.first))
 			{
 				if (curState == KEY_STATE::KEY_PRESSED) curState = KEY_STATE::KEY_DOWN;
 				else if(curState == KEY_STATE::NONE || curState == KEY_STATE::KEY_RELEASED) curState = KEY_STATE::KEY_PRESSED;

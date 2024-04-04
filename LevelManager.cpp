@@ -51,7 +51,7 @@ void LevelManager::ChangeLevel(LEVEL_TYPE level)
 {
 	if (level_ID == level)
 	{
-		//Log(LOG_TYPE::LOG_ERROR, L"현재 레벨과 변경하려는 레벨이 같습니다");
+		Log(LOG_TYPE::LOG_ERROR, L"현재 레벨과 변경하려는 레벨이 같습니다");
 		return;
 	}
 
@@ -65,7 +65,7 @@ void LevelManager::ChangeLevel(LEVEL_TYPE level)
 		curLevel = new Level_Test;
 		break;
 	default:
-		//Log(LOG_TYPE::LOG_ERROR, L"바꾸려는 레벨이 없습니다");
+		Log(LOG_TYPE::LOG_ERROR, L"바꾸려는 레벨이 없습니다");
 		break;
 	}
 

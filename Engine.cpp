@@ -1,6 +1,6 @@
 #include "PCH.h"
 #include "Engine.h"
-
+#include "CollisionManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "TimeManager.h"
@@ -41,7 +41,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	TimeManager::GetInstance().Init();
 	LevelManager::GetInstance().Init();
 	InputManager::GetInstance().Init();
-	DebugRender::GetInstance().Init();
+	//DebugRender::GetInstance().Init();
 
     return S_OK;
 }
@@ -57,7 +57,8 @@ void Engine::Progress()
 
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
-	DebugRender::GetInstance().FinalTick();
+	CollisionManager::GetInstance().FinalTick();
+	//DebugRender::GetInstance().FinalTick();
 
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
@@ -66,7 +67,7 @@ void Engine::Progress()
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();
-	DebugRender::GetInstance().Render();
+	//DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
 	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subDC, 0, 0, SRCCOPY);

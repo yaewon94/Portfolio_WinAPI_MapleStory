@@ -5,46 +5,18 @@
 #include "Rigidbody.h"
 
 // 생성자
-Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale)
+Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale, LAYER_TYPE::PLAYER)
 {
 }
 
 // 복사 생성자
 Player::Player(const Player& origin) : GameObject(origin)
 {
-	*this = origin;
-}
-
-// 이동 생성자
-Player::Player(Player&& origin) noexcept : GameObject(std::move(origin))
-{
-	*this = std::move(origin);
 }
 
 // 소멸자
 Player::~Player()
 {
-}
-
-// 대입 연산자
-Player& Player::operator=(const Player& origin)
-{
-	speed = origin.speed;
-	jumpPower = origin.jumpPower;
-	return *this;
-}
-
-// 이동대입 연산자
-Player& Player::operator=(Player&& origin) noexcept
-{
-	if (this != &origin)
-	{
-		speed = origin.speed;
-		jumpPower = origin.jumpPower;
-		origin.speed = 0;
-		origin.jumpPower = 0;
-	}
-	return *this;
 }
 
 // 이번 프레임에 처음 눌렸을 때 호출
@@ -72,6 +44,29 @@ void Player::OnKeyDown(KEY_CODE key)
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT) Move();
 }
 
+// 충돌 진입
+void Player::OnCollisionEnter(GameObject& other)
+{
+	if (other.GetLayer() == LAYER_TYPE::GROUND)
+	{
+		GetComponent<Rigidbody>()->UseGravity(false);
+		canJump = true;
+	}
+}
+
+// 충돌 중
+void Player::OnCollisionStay(GameObject& other)
+{
+	
+}
+
+// 충돌 해제
+void Player::OnCollisionExit(GameObject& other)
+{
+	GetComponent<Rigidbody>()->UseGravity(true);
+	canJump = false;
+}
+
 // 이동
 void Player::Move()
 {
@@ -81,9 +76,7 @@ void Player::Move()
 // 점프
 void Player::Jump()
 {
-	static bool canJump = true;
 	if (!canJump) return;
-	canJump = false;
 
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	rb->UseGravity(true);

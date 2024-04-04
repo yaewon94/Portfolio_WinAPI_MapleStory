@@ -11,19 +11,20 @@ private:
 	GameObject* owner;
 
 protected:
-	CSTR_COPY_ASSIGN(Component);
 	Component(GameObject& owner);
+	Component(const Component& origin);
 	~Component();
 
 public:
 	void Destroy();
 	virtual Component* Clone() = 0;
 
-	GameObject* GetOwner() { return owner; }
+	GameObject* GetOwner() const { return owner; }
 
 	// [check] 임시
 	virtual void Init() override {}
 	virtual void Tick() override {}
+	virtual void FinalTick() override {}
 };
 
 // 컴포넌트 삭제

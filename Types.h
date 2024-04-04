@@ -5,7 +5,7 @@
 // 오브젝트 레이어 타입
 enum class LAYER_TYPE
 {
-	PLAYER, LAYER_TYPE_COUNT
+	GROUND, PLAYER, LAYER_TYPE_COUNT
 };
 
 // 오브젝트 레이어 이름
@@ -36,6 +36,7 @@ struct Vec2
 	static Vec2 Down() { return Vec2(0, 1); }
 
 	Vec2 operator+(const Vec2& other) { return Vec2(this->x + other.x, this->y + other.y); }
+	Vec2 operator-(const Vec2 other) { return Vec2(this->x - other.x, this->y - other.y); }
 	Vec2 operator*(float i) { return Vec2(this->x*i, this->y*i); }
 	Vec2 operator/(int i)
 	{

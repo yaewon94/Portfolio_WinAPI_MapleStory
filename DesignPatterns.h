@@ -1,11 +1,5 @@
 #pragma once
 
-// 복사, 이동 생성자, 할당연산자 추가
-#define CSTR_COPY_ASSIGN(type) type(const type&);\
-								type(type&&) noexcept;\
-								type& operator=(const type&);\
-								type& operator=(type&&) noexcept;\
-
 // 복사, 이동 금지
 # define NO_CSTR_COPY_ASSIGN(type) private:\
 								type(const type&) = delete;\

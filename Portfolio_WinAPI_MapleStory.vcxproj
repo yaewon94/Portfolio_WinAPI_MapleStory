@@ -130,6 +130,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
@@ -138,6 +140,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="IJumpable.h" />
     <ClInclude Include="IKeyEvent.h" />
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="InputManager.h" />
@@ -149,16 +153,21 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
@@ -166,6 +175,8 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc" />
