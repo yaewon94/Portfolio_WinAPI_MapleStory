@@ -1,6 +1,6 @@
 #pragma once
+#include "Level.h"
 
-class Level;
 class GameObject;
 
 // 레벨 관리 클래스
@@ -20,4 +20,5 @@ public:
 
 	void ChangeLevel(LEVEL_TYPE level);
 	GameObject* FindObject(LAYER_TYPE layer);
+	Camera* GetMainCamera() { return curLevel->mainCamera; }
 };

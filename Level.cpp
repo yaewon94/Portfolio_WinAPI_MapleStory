@@ -1,15 +1,23 @@
 #include "PCH.h"
 #include "Level.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 // 생성자
-Level::Level(const wstring& name) : name(name)
+Level::Level(const wstring& name) : name(name), mainCamera(new Camera)
 {
+	GameObject::SetMainCamera(mainCamera);
 }
 
 // 소멸자
 Level::~Level()
 {
+	// 카메라 삭제
+	if (mainCamera != nullptr)
+	{
+		delete mainCamera;
+		mainCamera = nullptr;
+	}
 	// 레벨이 전환되도 플레이어같은 오브젝트는 지워지면 안되므로, 
 	// 각 레벨에 맞게 오브젝트를 지우도록 구현
 }
@@ -17,6 +25,10 @@ Level::~Level()
 // 초기화
 void Level::Init()
 {
+	// 카메라
+	mainCamera->Init();
+
+	// 오브젝트
 	for (auto& layer : objects)
 	{
 		for (auto object : layer)
@@ -42,6 +54,10 @@ void Level::Tick()
 // 매 프레임마다 호출
 void Level::FinalTick()
 {
+	// 카메라
+	mainCamera->FinalTick();
+
+	// 오브젝트
 	for (auto& layer : objects)
 	{
 		for (auto object : layer)

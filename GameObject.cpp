@@ -2,6 +2,10 @@
 #include "GameObject.h"
 #include "Engine.h"
 #include "Component.h"
+#include "Camera.h"
+
+// static 멤버 초기화
+Camera* GameObject::mainCamera = nullptr;
 
 // 생성자
 GameObject::GameObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE layer)
@@ -19,6 +23,7 @@ GameObject::GameObject(const GameObject& origin)
 		components.push_back(component->Clone());
 	}
 
+	// 카메라 제거 x (Level 소멸자에서 제거됨)
 }
 
 // 소멸자
@@ -47,5 +52,5 @@ void GameObject::FinalTick()
 // 렌더링 (매 프레임마다 호출)
 void GameObject::Render()
 {
-	Engine::GetInstance().Render(*this);
+	Engine::GetInstance().Render(mainCamera->GetRenderPos(this->pos), this->scale);
 }

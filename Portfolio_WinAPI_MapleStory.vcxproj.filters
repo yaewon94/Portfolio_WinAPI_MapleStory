@@ -51,6 +51,9 @@
     <Filter Include="game\03-Component\Collider">
       <UniqueIdentifier>{06ef432b-8932-4e5c-990e-1e97845623b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Util\Camera">
+      <UniqueIdentifier>{e2488961-6bde-4587-923b-f282063fc708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -124,6 +127,9 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>game\03-Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>game\04-Util\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>game\03-Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>game\04-Util\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

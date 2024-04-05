@@ -18,4 +18,5 @@ public:
 
 public:
 	float GetDeltaTime() { return deltaTime; }
+	UINT GetFPS() { return fps; }
 };

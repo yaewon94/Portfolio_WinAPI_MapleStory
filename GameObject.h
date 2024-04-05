@@ -1,16 +1,25 @@
 #pragma once
 #include "Entity.h"
 
+class Camera;
 class Component;
 
 // 플레이어, 몬스터, UI 등이 상속받는 최상위 클래스
 // abstract class
 class GameObject : public Entity
 {
+// ========== static 멤버 ==========
+private:
+	static Camera* mainCamera;
+
+public:
+	static void SetMainCamera(Camera* mainCamera) { GameObject::mainCamera = mainCamera; }
+
+// ========== 인스턴스 멤버 ==========
 private:
 	vector<Component*> components;
 	LAYER_TYPE layer;
-
+	
 protected:
 	wstring name;
 	Vec2 pos;
@@ -21,7 +30,7 @@ protected:
 	~GameObject();
 
 public:
-	void Destroy();
+	void Destroy(){ if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
 	Vec2 GetPos() const { return pos; }
@@ -43,12 +52,6 @@ public:
 	virtual void OnCollisionStay(GameObject& other) = 0;
 	virtual void OnCollisionExit(GameObject& other) = 0;
 };
-
-// 게임오브젝트 삭제
-inline void GameObject::Destroy()
-{
-	if (this != nullptr) delete this;
-}
 
 // 컴포넌트 추가
 template<typename T> requires std::derived_from<T, Component>

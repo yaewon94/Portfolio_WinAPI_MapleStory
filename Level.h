@@ -3,6 +3,8 @@
 
 class GameObject;
 
+class Camera;
+
 // 게임 맵 구조 등을 설계하기 위한 클래스
 // abstract class
 class Level : public Entity
@@ -11,6 +13,7 @@ class Level : public Entity
 
 private:
 	wstring name;
+	Camera* mainCamera;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> objects; // 렌더링 순서때문에 배열로 설정
 
 protected:

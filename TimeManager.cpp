@@ -23,6 +23,9 @@ void TimeManager::Init()
 // 매 프레임마다 호출
 void TimeManager::Tick()
 {
+	static UINT fpsCal = 0;
+	static float time = 0.f;
+
 	// 현재 카운트 계산
 	QueryPerformanceCounter(&curCount);
 
@@ -36,13 +39,12 @@ void TimeManager::Tick()
 	prevCount = curCount;
 
 	// 초당 실행 횟수(FPS) 계산
-	++fps;
-
-	static float time = 0.f;
+	++fpsCal;
 	time += deltaTime;
 	if (time > 1.f)
 	{
+		fps = fpsCal;
 		time = 0.f;
-		fps = 0;
+		fpsCal = 0;
 	}
 }

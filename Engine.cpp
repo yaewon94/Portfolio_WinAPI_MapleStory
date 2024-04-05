@@ -41,7 +41,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	TimeManager::GetInstance().Init();
 	LevelManager::GetInstance().Init();
 	InputManager::GetInstance().Init();
-	//DebugRender::GetInstance().Init();
+	DebugRender::GetInstance().Init();
 
     return S_OK;
 }
@@ -58,7 +58,7 @@ void Engine::Progress()
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
 	CollisionManager::GetInstance().FinalTick();
-	//DebugRender::GetInstance().FinalTick();
+	DebugRender::GetInstance().FinalTick();
 
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
@@ -67,7 +67,7 @@ void Engine::Progress()
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();
-	//DebugRender::GetInstance().Render();
+	DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
 	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subDC, 0, 0, SRCCOPY);
@@ -89,10 +89,8 @@ void Engine::ChangeWindowSize(Vec2 resolution)
 
 // 렌더링
 // HDC, HWND를 클래스 외부에 노출시키지 않기 위해 구현함
-void Engine::Render(const GameObject& obj)
+void Engine::Render(Vec2 pos, Vec2 scale)
 {
-	Vec2 pos = obj.GetPos();
-	Vec2 scale = obj.GetScale();
 	// [임시 코드]
 	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
 	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
