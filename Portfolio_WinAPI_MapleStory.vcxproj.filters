@@ -54,6 +54,9 @@
     <Filter Include="game\04-Util\Camera">
       <UniqueIdentifier>{e2488961-6bde-4587-923b-f282063fc708}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\02-Object\Monster">
+      <UniqueIdentifier>{33659c8a-de83-45d3-b11f-f438103e3446}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -130,6 +133,9 @@
     <ClInclude Include="Camera.h">
       <Filter>game\04-Util\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>game\02-Object\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>game\04-Util\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>game\02-Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

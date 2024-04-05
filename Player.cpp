@@ -57,14 +57,17 @@ void Player::OnCollisionEnter(GameObject& other)
 // 충돌 중
 void Player::OnCollisionStay(GameObject& other)
 {
-	
+
 }
 
 // 충돌 해제
 void Player::OnCollisionExit(GameObject& other)
 {
-	GetComponent<Rigidbody>()->UseGravity(true);
-	canJump = false;
+	if (other.GetLayer() == LAYER_TYPE::GROUND)
+	{
+		GetComponent<Rigidbody>()->UseGravity(true);
+		canJump = false;
+	}
 }
 
 // 이동

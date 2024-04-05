@@ -17,5 +17,5 @@ public:
 
 	Vec2 GetPos() { return offset + GetOwner()->GetPos(); }
 	Vec2 GetScale() { return scale; }
-	void Set(Vec2 offset, Vec2 scale);
+	void SetScale(Vec2 scale) { this->scale = scale; }
 };

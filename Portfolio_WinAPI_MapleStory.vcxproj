@@ -150,6 +150,7 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Level_Test.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="PCH.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Level_Test.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="TimeManager.cpp" />

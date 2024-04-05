@@ -3,7 +3,7 @@
 #include "CollisionManager.h"
 
 // 积己磊
-Collider::Collider(GameObject& owner) : Component(owner), offset(owner.GetPos()), scale(owner.GetScale())
+Collider::Collider(GameObject& owner) : Component(owner), offset(Vec2(0,0)), scale(owner.GetScale())
 {
 	// 面倒 贸府 殿废
 	CollisionManager::GetInstance().AddCollider(*this);
@@ -21,11 +21,4 @@ Collider::~Collider()
 {
 	// 面倒 贸府 昏力
 	CollisionManager::GetInstance().RemoveCollider(*this);
-}
-
-// 糕滚 蔼 技泼
-void Collider::Set(Vec2 offset, Vec2 scale)
-{
-	this->offset = offset;
-	this->scale = scale;
 }
