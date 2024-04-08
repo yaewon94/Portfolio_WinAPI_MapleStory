@@ -22,7 +22,7 @@ protected:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
-	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(T&& object);
+	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(const T& object);
 
 private:
 	friend class LevelManager;
@@ -38,12 +38,9 @@ private:
 
 // 게임오브젝트 추가
 template<typename T> requires std::derived_from<T, GameObject>
-inline GameObject* Level::AddObject(T&& object)
+inline GameObject* Level::AddObject(const T& object)
 {
-	//size_t layer_idx = (size_t)layer;
-	//assert(layer_idx < objects.max_size());
-
-	T* clone = new T(std::move(object));
+	T* clone = new T(object);
 	objects[(size_t)clone->GetLayer()].push_back(clone);
 
 	return clone;

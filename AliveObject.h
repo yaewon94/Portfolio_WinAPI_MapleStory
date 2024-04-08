@@ -1,9 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
+struct Skill;
+
 // 이동, 점프, 스킬사용이 가능하고 생명주기가 있는 오브젝트의 상위 클래스
 class AliveObject : public GameObject
 {
+private:
+	vector<Skill*> skills;
+
 protected:
 	Vec2 dir;
 	float speed;
@@ -13,6 +18,8 @@ protected:
 	AliveObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE layer, float speed=200.f, float jumpPower=700.f);
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
+
+	void AddSkill(Skill& skill);
 
 	void Move();
 	void Jump();

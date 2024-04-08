@@ -10,6 +10,8 @@ public:
 	~Player();
 	virtual Player* Clone() override { return new Player(*this); }
 
+	virtual void Init() override;
+
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;
 };

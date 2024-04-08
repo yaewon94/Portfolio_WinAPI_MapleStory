@@ -12,7 +12,9 @@ private:
 public:
 	void Init();
 
+	Skill& GetSkill(size_t index) { return *skills.at(index); }
+
 private:
 	// ========== 스킬 콜백함수 모음 ==========
-	void ExecuteAttackSkill(Skill& skill);
+	static void ExecuteAttackSkill(Skill& skill);
 };

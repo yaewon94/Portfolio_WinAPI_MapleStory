@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "Player.h"
 #include "Rigidbody.h"
+#include "SkillManager.h"
 
 // 생성자
 Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
@@ -15,6 +16,13 @@ Player::Player(const Player& origin) : AliveObject(origin)
 // 소멸자
 Player::~Player()
 {
+}
+
+// 초기화
+void Player::Init()
+{
+	// [CHECK] 스킬 추가 (임시 하드코딩)
+	AddSkill(SkillManager::GetInstance().GetSkill(0));
 }
 
 // 이번 프레임에 처음 눌렸을 때 호출

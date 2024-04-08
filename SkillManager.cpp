@@ -14,6 +14,7 @@ SkillManager::~SkillManager()
 	{
 		if (skill != nullptr)
 		{
+			//skill->callback = nullptr;
 			delete skill;
 			skill = nullptr;
 		}
@@ -26,7 +27,7 @@ void SkillManager::Init()
 	skills.push_back(new Skill(L"기본공격", &SkillManager::ExecuteAttackSkill));
 }
 
-// 공격스킬 사용
+// 공격스킬 발동
 void SkillManager::ExecuteAttackSkill(Skill& skill)
 {
 }
