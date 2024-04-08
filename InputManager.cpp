@@ -41,6 +41,7 @@ void InputManager::Init()
 
 	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
 	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
+	keyMap.insert(make_pair(KEY_CODE::X, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
 	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
 }
 

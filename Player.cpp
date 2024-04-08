@@ -23,6 +23,12 @@ void Player::OnKeyPressed(KEY_CODE key)
 	// [check] 키세팅 커스터마이징 할 때는 자기가 셋팅한 키값대로 분기시켜야 함
 	switch (key)
 	{
+	case KEY_CODE::SHIFT:
+		// TODO : 스킬사용 호출
+		break;
+	case KEY_CODE::X:
+		Jump();
+		break;
 	case KEY_CODE::LEFT:
 		dir = Vec2::Left();
 		Move();
@@ -31,8 +37,6 @@ void Player::OnKeyPressed(KEY_CODE key)
 		dir = Vec2::Right();
 		Move();
 		break;
-	case KEY_CODE::SHIFT:
-		Jump();
 	}
 }
 
