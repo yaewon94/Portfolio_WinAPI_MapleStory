@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "Engine.h"
 #include "CollisionManager.h"
+#include "DataManager.h"
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "TimeManager.h"
@@ -38,6 +39,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	CreateDefaultGDIobject();
 
 	// 게임매니저 초기화
+	DataManager::GetInstance().Init();
 	TimeManager::GetInstance().Init();
 	LevelManager::GetInstance().Init();
 	InputManager::GetInstance().Init();

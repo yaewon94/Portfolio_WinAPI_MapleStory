@@ -148,6 +148,12 @@
     <ClInclude Include="Skill.h">
       <Filter>game\04-Module\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>game\05-Util\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -226,6 +232,12 @@
     </ClCompile>
     <ClCompile Include="Skill.cpp">
       <Filter>game\04-Module\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>game\05-Util\Data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

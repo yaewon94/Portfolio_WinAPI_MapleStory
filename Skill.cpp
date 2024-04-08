@@ -5,7 +5,8 @@
 UINT Skill::nextID = 0;
 
 // »ý¼ºÀÚ
-Skill::Skill(const wstring& name) : ID(nextID++), name(new wstring(name))
+Skill::Skill(const wstring& name, SKILL_CALLBACK callback) 
+	: ID(nextID++), name(new wstring(name)), callback(callback)
 {
 }
 
