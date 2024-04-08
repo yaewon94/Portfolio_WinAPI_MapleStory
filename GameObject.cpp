@@ -20,9 +20,12 @@ GameObject::GameObject(const GameObject& origin)
 	, name(origin.name), offset(origin.offset), scale(origin.scale), layer(origin.layer), parent(origin.parent)
 {
 	// 원본이 가지고 있는 자식 오브젝트 복사
-	for (auto child : origin.children)
+	for (auto& layer : origin.children)
 	{
-		children.push_back(child->Clone());
+		for (auto child : layer)
+		{
+			AddChild(*child->Clone());
+		}
 	}
 
 	// 원본이 가지고 있는 컴포넌트 복사
@@ -69,9 +72,9 @@ void GameObject::SetParent(GameObject& parent)
 }
 
 // 자식 오브젝트 추가
-void GameObject::AddChild(GameObject& child)
+GameObject* GameObject::AddChild(GameObject& child)
 {
-	children.push_back(&child);
+	children[(size_t)child.GetLayer()].push_back(&child);
 	child.parent = this;
 
 	// 현재 레벨의 오브젝트 목록에 등록
@@ -79,6 +82,20 @@ void GameObject::AddChild(GameObject& child)
 	{
 		LevelManager::GetInstance().AddObject(child);
 	}
+
+	return &child;
+}
+
+GameObject* GameObject::AddChild(GameObject&& child)
+{
+	auto clone = child.Clone();
+	children[(size_t)clone->GetLayer()].push_back(clone);
+	clone->parent = this;
+
+	// 현재 레벨의 오브젝트 목록에 등록
+	LevelManager::GetInstance().AddObject(*clone);
+
+	return clone;
 }
 
 // 매 프레임마다 호출
@@ -93,15 +110,16 @@ void GameObject::FinalTick()
 // 렌더링 (매 프레임마다 호출)
 void GameObject::Render()
 {
-	Engine::GetInstance().Render(mainCamera->GetRenderPos(this->offset), this->scale);
+	Vec2 realPos = GetPos();
+	Engine::GetInstance().Render(mainCamera->GetRenderPos(realPos), scale);
 }
 
 // 자식 오브젝트 삭제
 void GameObject::DeleteChildren()
 {
-	for (auto child : children)
+	for (auto& layer : children)
 	{
-		if (child != nullptr)
+		for (auto child : layer)
 		{
 			// 현재 레벨에 등록된 오브젝트 목록에서 삭제
 			LevelManager::GetInstance().DeleteObject(*child);

@@ -20,7 +20,7 @@ private:
 	vector<Component*> components;
 	LAYER_TYPE layer;
 	GameObject* parent;
-	vector<GameObject*> children;
+	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> children;
 
 protected:
 	wstring name;
@@ -32,13 +32,15 @@ protected:
 	~GameObject();
 
 	void SetParent(GameObject& parent);
-	void AddChild(GameObject& child);
+	GameObject* AddChild(GameObject& child);
+	GameObject* AddChild(GameObject&& child);
+	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }
 
 public:
 	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
-	Vec2 GetPos() const;
+	Vec2 GetPos();
 	Vec2 GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
 	void SetOffset(Vec2 offset) { this->offset = offset; }
@@ -62,7 +64,7 @@ private:
 };
 
 // ÁÂÇ¥ ¹ÝÈ¯
-inline Vec2 GameObject::GetPos() const
+inline Vec2 GameObject::GetPos()
 {
 	if (parent == nullptr) return offset;
 	return parent->GetPos() + offset;

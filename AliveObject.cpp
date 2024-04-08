@@ -3,16 +3,19 @@
 #include "TimeManager.h"
 #include "Rigidbody.h"
 #include "Skill.h"
+#include "SkillObject.h"
 
 // 생성자
 AliveObject::AliveObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE layer, float speed, float jumpPower)
 	: GameObject(name, pos, scale, layer), speed(speed), jumpPower(jumpPower)
+	, skillObject(nullptr)
 {
 }
 
 // 복사 생성자
 AliveObject::AliveObject(const AliveObject& origin) 
 	: GameObject(origin), speed(origin.speed), jumpPower(origin.jumpPower)
+	, skillObject(nullptr)
 {
 	for (Skill* skill : origin.skills)
 	{
@@ -27,12 +30,6 @@ AliveObject::~AliveObject()
 	{
 		if (skill != nullptr) skill = nullptr;
 	}
-}
-
-// 사용 가능한 스킬 추가
-void AliveObject::AddSkill(Skill& skill)
-{
-	skills.push_back(&skill);
 }
 
 // 이동

@@ -2,10 +2,13 @@
 #include "Player.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
+#include "SkillObject.h"
 
 // 생성자
 Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
 {
+	// 스킬오브젝트를 자식 오브젝트로 추가
+	AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
 }
 
 // 복사 생성자
@@ -21,6 +24,9 @@ Player::~Player()
 // 초기화
 void Player::Init()
 {
+	// 스킬 오브젝트 설정
+	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::PLAYER_SKILL));
+
 	// [CHECK] 스킬 추가 (임시 하드코딩)
 	AddSkill(SkillManager::GetInstance().GetSkill(0));
 }

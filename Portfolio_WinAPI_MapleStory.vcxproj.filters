@@ -154,6 +154,9 @@
     <ClInclude Include="DataManager.h">
       <Filter>game\05-Util\Data</Filter>
     </ClInclude>
+    <ClInclude Include="SkillObject.h">
+      <Filter>game\02-Object\SkillObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -238,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>game\05-Util\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillObject.cpp">
+      <Filter>game\02-Object\SkillObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

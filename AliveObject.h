@@ -2,12 +2,15 @@
 #include "GameObject.h"
 
 struct Skill;
+class SkillObject;
 
 // 이동, 점프, 스킬사용이 가능하고 생명주기가 있는 오브젝트의 상위 클래스
+// [abstract class]
 class AliveObject : public GameObject
 {
 private:
 	vector<Skill*> skills;
+	SkillObject* skillObject;
 
 protected:
 	Vec2 dir;
@@ -19,7 +22,8 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
-	void AddSkill(Skill& skill);
+	void AddSkill(Skill& skill) { skills.push_back(&skill); }
+	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
 
 	void Move();
 	void Jump();

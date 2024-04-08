@@ -42,8 +42,8 @@ using std::wstring;
 using std::shared_ptr;
 using std::make_shared;
 
-// 런타임 타입
-#include <typeinfo>
+// 예외처리
+#include <stdexcept>
 
 // 사용자 정의 헤더파일
 #include "DesignPatterns.h"
