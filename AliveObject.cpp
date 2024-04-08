@@ -11,7 +11,8 @@ AliveObject::AliveObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE l
 }
 
 // 복사 생성자
-AliveObject::AliveObject(const AliveObject& origin) : GameObject(origin), speed(origin.speed), jumpPower(origin.jumpPower)
+AliveObject::AliveObject(const AliveObject& origin) 
+	: GameObject(origin), speed(origin.speed), jumpPower(origin.jumpPower)
 {
 	for (Skill* skill : origin.skills)
 	{
@@ -37,7 +38,7 @@ void AliveObject::AddSkill(Skill& skill)
 // 이동
 void AliveObject::Move()
 {
-	pos += (dir * speed * TimeManager::GetInstance().GetDeltaTime());
+	offset += (dir * speed * TimeManager::GetInstance().GetDeltaTime());
 }
 
 // 점프

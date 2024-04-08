@@ -19,24 +19,29 @@ public:
 private:
 	vector<Component*> components;
 	LAYER_TYPE layer;
+	GameObject* parent;
+	vector<GameObject*> children;
 
 protected:
 	wstring name;
-	Vec2 pos;
+	Vec2 offset;	// 부모 좌표를 기준으로 한 로컬좌표
 	Vec2 scale;
 
 	GameObject(const wstring& name, Vec2 pos, Vec2 Scale, LAYER_TYPE layer);
 	GameObject(const GameObject& origin);
 	~GameObject();
 
+	void SetParent(GameObject& parent);
+	void AddChild(GameObject& child);
+
 public:
 	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
-	Vec2 GetPos() const { return pos; }
+	Vec2 GetPos() const;
 	Vec2 GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
-	void SetPos(Vec2 pos) { this->pos = pos; }
+	void SetOffset(Vec2 offset) { this->offset = offset; }
 
 	// [check] 임시
 	virtual void Init() override {}
@@ -51,7 +56,17 @@ public:
 	virtual void OnCollisionEnter(GameObject& other) = 0;
 	virtual void OnCollisionStay(GameObject& other) = 0;
 	virtual void OnCollisionExit(GameObject& other) = 0;
+
+private:
+	void DeleteChildren();
 };
+
+// 좌표 반환
+inline Vec2 GameObject::GetPos() const
+{
+	if (parent == nullptr) return offset;
+	return parent->GetPos() + offset;
+}
 
 // 컴포넌트 추가
 template<typename T> requires std::derived_from<T, Component>

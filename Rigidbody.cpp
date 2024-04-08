@@ -33,5 +33,5 @@ void Rigidbody::FinalTick()
 
 	// 최종 속도 적용
 	pos += velocity * DT;
-	GetOwner()->SetPos(pos);
+	GetOwner()->SetOffset(pos);
 }

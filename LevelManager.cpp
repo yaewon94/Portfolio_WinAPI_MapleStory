@@ -73,9 +73,45 @@ void LevelManager::ChangeLevel(LEVEL_TYPE level)
 	curLevel->Init();
 }
 
+// 현재 레벨에 오브젝트 추가
+void LevelManager::AddObject(GameObject& obj)
+{
+	assert(curLevel);
+	curLevel->objects[(size_t)obj.GetLayer()].push_back(&obj);
+}
+
 // 현재 레벨의 오브젝트 찾기
 GameObject* LevelManager::FindObject(LAYER_TYPE layer)
 {
 	assert(curLevel);
 	return curLevel->FindObject(layer);
+}
+
+GameObject* LevelManager::FindObject(GameObject& obj)
+{
+	assert(curLevel);
+
+	for (auto item : curLevel->objects[(size_t)obj.GetLayer()])
+	{
+		if (&obj == item) return item;
+	}
+
+	return nullptr;
+}
+
+// 현재 레벨의 오브젝트 목록에서 삭제
+void LevelManager::DeleteObject(GameObject& obj)
+{
+	assert(curLevel);
+	auto& items = curLevel->objects[(size_t)obj.GetLayer()];
+	auto iter = items.begin();
+
+	for (; iter != items.end(); ++iter)
+	{
+		if (&obj == *iter)
+		{
+			items.erase(iter);
+			return;
+		}
+	}
 }
