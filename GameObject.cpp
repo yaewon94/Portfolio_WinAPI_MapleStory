@@ -14,7 +14,7 @@ GameObject::GameObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE lay
 }
 
 // 복사 생성자
-GameObject::GameObject(const GameObject& origin) 
+GameObject::GameObject(const GameObject& origin)
 	: Entity(origin), name(origin.name), pos(origin.pos), scale(origin.scale), layer(origin.layer)
 {
 	// 원본이 가지고 있는 컴포넌트 복사

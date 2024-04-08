@@ -26,14 +26,14 @@ Engine::~Engine()
 
 // 초기화
 int Engine::Init(HINSTANCE hInst, HWND hWnd)
-{	
+{
 	// 멤버 초기화
 	this->hInst = hInst;
 	this->hWnd = hWnd;
 
 	// 윈도우 크기 변경
 	ChangeWindowSize(this->resolution);
-	
+
 	// DC 생성
 	CreateDefaultGDIobject();
 
@@ -43,7 +43,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	InputManager::GetInstance().Init();
 	DebugRender::GetInstance().Init();
 
-    return S_OK;
+	return S_OK;
 }
 
 // 엔진 구동 (매 프레임마다 호출됨)
@@ -123,7 +123,7 @@ void Engine::CreateDefaultGDIobject()
 	// 보조DC가 보조비트맵을 지정하게 함
 	HBITMAP hPrevBitmap = (HBITMAP)SelectObject(subDC, subBitmap);
 	DeleteObject(hPrevBitmap);
-	
+
 	// 자주 사용할 브러쉬, 펜 생성
 	//brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	brush = CreateSolidBrush(RGB(255, 255, 255));

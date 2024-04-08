@@ -1,14 +1,9 @@
 #pragma once
-#include "GameObject.h"
+#include "AliveObject.h"
 #include "IKeyEvent.h"
-#include "IMovable.h"
-#include "IJumpable.h"
 
-class Player final : public GameObject, public IKeyEvent, IMovable, IJumpable
+class Player final : public AliveObject, public IKeyEvent
 {
-private:
-	bool canJump = false;
-
 public:
 	Player(const wstring& name, Vec2 pos, Vec2 scale);
 	Player(const Player& origin);

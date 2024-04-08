@@ -21,29 +21,8 @@
     <Filter Include="game\03-Component">
       <UniqueIdentifier>{26b9ebe4-ca6b-472c-ac8c-d70a2d7ad8be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Component\Interface">
-      <UniqueIdentifier>{8960c93b-4f27-4ee2-9377-497d301f66f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Util">
-      <UniqueIdentifier>{1d665e56-6ad8-42d1-a1dd-051b2a52d93e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Util\Input">
-      <UniqueIdentifier>{31994e6a-af9f-4778-8d93-1b2006784890}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Util\Debug">
-      <UniqueIdentifier>{d5a901a8-72c4-4a4a-bd71-6d9e31996194}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Util\Log">
-      <UniqueIdentifier>{8b288f97-8e44-43c5-ac0e-41ddec1bc7e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\03-Component\Rigidbody">
       <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\02-Object\Player">
-      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Util\Time">
-      <UniqueIdentifier>{1c858c5f-9244-480d-b780-7d94d33e16ca}</UniqueIdentifier>
     </Filter>
     <Filter Include="game\02-Object\Ground">
       <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
@@ -51,11 +30,44 @@
     <Filter Include="game\03-Component\Collider">
       <UniqueIdentifier>{06ef432b-8932-4e5c-990e-1e97845623b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Util\Camera">
+    <Filter Include="game\05-Util">
+      <UniqueIdentifier>{1d665e56-6ad8-42d1-a1dd-051b2a52d93e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Input">
+      <UniqueIdentifier>{31994e6a-af9f-4778-8d93-1b2006784890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Debug">
+      <UniqueIdentifier>{d5a901a8-72c4-4a4a-bd71-6d9e31996194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Log">
+      <UniqueIdentifier>{8b288f97-8e44-43c5-ac0e-41ddec1bc7e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Time">
+      <UniqueIdentifier>{1c858c5f-9244-480d-b780-7d94d33e16ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Camera">
       <UniqueIdentifier>{e2488961-6bde-4587-923b-f282063fc708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\02-Object\Monster">
+    <Filter Include="game\04-Module">
+      <UniqueIdentifier>{c562b261-6d11-462f-b195-58612c13b236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Data">
+      <UniqueIdentifier>{0f8592fb-b466-484e-b886-cdee5b1ae51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill">
+      <UniqueIdentifier>{40f3242b-0621-41fc-a8c9-51c048db6111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\AliveObject">
+      <UniqueIdentifier>{7d28406c-c37a-4652-b60c-45d99db7f315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\AliveObject\Player">
+      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\AliveObject\Monster">
       <UniqueIdentifier>{33659c8a-de83-45d3-b11f-f438103e3446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\SkillObject">
+      <UniqueIdentifier>{86fbd53b-5db7-400c-89e0-ead7e06cca5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,20 +103,17 @@
     <ClInclude Include="Component.h">
       <Filter>game\03-Component</Filter>
     </ClInclude>
-    <ClInclude Include="IMovable.h">
-      <Filter>game\03-Component\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="IKeyEvent.h">
-      <Filter>game\04-Util\Input</Filter>
+      <Filter>game\05-Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>game\04-Util\Input</Filter>
+      <Filter>game\05-Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="DebugRender.h">
-      <Filter>game\04-Util\Debug</Filter>
+      <Filter>game\05-Util\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>game\04-Util\Log</Filter>
+      <Filter>game\05-Util\Log</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>game\00-Header</Filter>
@@ -112,14 +121,11 @@
     <ClInclude Include="Rigidbody.h">
       <Filter>game\03-Component\Rigidbody</Filter>
     </ClInclude>
-    <ClInclude Include="IJumpable.h">
-      <Filter>game\03-Component\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>game\02-Object\Player</Filter>
+      <Filter>game\02-Object\AliveObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
-      <Filter>game\04-Util\Time</Filter>
+      <Filter>game\05-Util\Time</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>game\02-Object\Ground</Filter>
@@ -131,10 +137,13 @@
       <Filter>game\03-Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>game\04-Util\Camera</Filter>
+      <Filter>game\05-Util\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>game\02-Object\Monster</Filter>
+      <Filter>game\02-Object\AliveObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AliveObject.h">
+      <Filter>game\02-Object\AliveObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,20 +176,17 @@
     <ClCompile Include="Level_Test.cpp">
       <Filter>game\01-Level</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>game\02-Object</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>game\03-Component</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>game\04-Util\Input</Filter>
+      <Filter>game\05-Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="DebugRender.cpp">
-      <Filter>game\04-Util\Debug</Filter>
+      <Filter>game\05-Util\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>game\04-Util\Log</Filter>
+      <Filter>game\05-Util\Log</Filter>
     </ClCompile>
     <ClCompile Include="Functions.cpp">
       <Filter>game\00-Header</Filter>
@@ -189,10 +195,10 @@
       <Filter>game\03-Component\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>game\02-Object\Player</Filter>
+      <Filter>game\02-Object\AliveObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>game\04-Util\Time</Filter>
+      <Filter>game\05-Util\Time</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>game\02-Object\Ground</Filter>
@@ -204,10 +210,16 @@
       <Filter>game\03-Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>game\04-Util\Camera</Filter>
+      <Filter>game\05-Util\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>game\02-Object\Monster</Filter>
+      <Filter>game\02-Object\AliveObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>game\02-Object</Filter>
+    </ClCompile>
+    <ClCompile Include="AliveObject.cpp">
+      <Filter>game\02-Object\AliveObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

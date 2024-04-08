@@ -1,16 +1,15 @@
 #include "PCH.h"
 #include "Player.h"
 #include "TimeManager.h"
-#include "GameObject.h"
 #include "Rigidbody.h"
 
 // 持失切
-Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale, LAYER_TYPE::PLAYER)
+Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
 {
 }
 
 // 差紫 持失切
-Player::Player(const Player& origin) : GameObject(origin)
+Player::Player(const Player& origin) : AliveObject(origin)
 {
 }
 

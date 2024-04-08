@@ -39,9 +39,9 @@ void InputManager::Init()
 	player_callback->insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
 	player_callback->insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
 
-	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo {KEY_TYPE::PLAYER, player_callback}));
-	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo {KEY_TYPE::PLAYER, player_callback }));
-	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo {KEY_TYPE::PLAYER, player_callback }));
+	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
+	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
+	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
 }
 
 // 매 프레임마다 호출
@@ -61,7 +61,7 @@ void InputManager::Tick()
 			if (GetAsyncKeyState((int)key.first))
 			{
 				if (curState == KEY_STATE::KEY_PRESSED) curState = KEY_STATE::KEY_DOWN;
-				else if(curState == KEY_STATE::NONE || curState == KEY_STATE::KEY_RELEASED) curState = KEY_STATE::KEY_PRESSED;
+				else if (curState == KEY_STATE::NONE || curState == KEY_STATE::KEY_RELEASED) curState = KEY_STATE::KEY_PRESSED;
 			}
 			else
 			{
@@ -92,7 +92,7 @@ void InputManager::Tick()
 				}
 			}
 			*/
-			
+
 		}
 	}
 }

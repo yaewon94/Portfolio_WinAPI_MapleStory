@@ -5,7 +5,7 @@
 // 오브젝트 레이어 타입
 enum class LAYER_TYPE
 {
-	GROUND, ENEMY, PLAYER, LAYER_TYPE_COUNT
+	GROUND, ENEMY, PLAYER, PLAYER_SKILL, LAYER_TYPE_COUNT
 };
 
 // 오브젝트 레이어 이름

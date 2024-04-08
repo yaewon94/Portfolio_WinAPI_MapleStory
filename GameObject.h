@@ -8,18 +8,18 @@ class Component;
 // abstract class
 class GameObject : public Entity
 {
-// ========== static ¸â¹ö ==========
+	// ========== static ¸â¹ö ==========
 private:
 	static Camera* mainCamera;
 
 public:
 	static void SetMainCamera(Camera* mainCamera) { GameObject::mainCamera = mainCamera; }
 
-// ========== ÀÎ½ºÅÏ½º ¸â¹ö ==========
+	// ========== ÀÎ½ºÅÏ½º ¸â¹ö ==========
 private:
 	vector<Component*> components;
 	LAYER_TYPE layer;
-	
+
 protected:
 	wstring name;
 	Vec2 pos;
@@ -30,7 +30,7 @@ protected:
 	~GameObject();
 
 public:
-	void Destroy(){ if (this != nullptr) delete this; }
+	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
 	Vec2 GetPos() const { return pos; }
@@ -65,8 +65,8 @@ inline T* GameObject::AddComponent()
 	}
 	else
 	{
-		clone = new T(*this); 
-		components.push_back(clone); 
+		clone = new T(*this);
+		components.push_back(clone);
 	}
 	return clone;
 }

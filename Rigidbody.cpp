@@ -9,7 +9,7 @@ Rigidbody::Rigidbody(GameObject& owner, float mass) : Component(owner), mass(mas
 }
 
 // 복사 생성자
-Rigidbody::Rigidbody(const Rigidbody& origin) 
+Rigidbody::Rigidbody(const Rigidbody& origin)
 	: Component(origin), mass(origin.mass), force(origin.force), velocity(origin.velocity), useGravity(origin.useGravity)
 {
 }
