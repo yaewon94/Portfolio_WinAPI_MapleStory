@@ -14,6 +14,10 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
-	virtual void Move() = 0;
-	virtual void Jump() = 0;
+	void Move();
+	void Jump();
+
+	virtual void OnCollisionEnter(GameObject& other) override;
+	virtual void OnCollisionStay(GameObject& other) override;
+	virtual void OnCollisionExit(GameObject& other) override;
 };

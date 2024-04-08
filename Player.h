@@ -12,12 +12,4 @@ public:
 
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;
-
-	virtual void OnCollisionEnter(GameObject& other) override;
-	virtual void OnCollisionStay(GameObject& other) override;
-	virtual void OnCollisionExit(GameObject& other) override;
-
-private:
-	virtual void Move() override;
-	virtual void Jump() override;
 };

@@ -1,6 +1,5 @@
 #include "PCH.h"
 #include "Player.h"
-#include "TimeManager.h"
 #include "Rigidbody.h"
 
 // 생성자
@@ -41,46 +40,4 @@ void Player::OnKeyPressed(KEY_CODE key)
 void Player::OnKeyDown(KEY_CODE key)
 {
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT) Move();
-}
-
-// 충돌 진입
-void Player::OnCollisionEnter(GameObject& other)
-{
-	if (other.GetLayer() == LAYER_TYPE::GROUND)
-	{
-		GetComponent<Rigidbody>()->UseGravity(false);
-		canJump = true;
-	}
-}
-
-// 충돌 중
-void Player::OnCollisionStay(GameObject& other)
-{
-
-}
-
-// 충돌 해제
-void Player::OnCollisionExit(GameObject& other)
-{
-	if (other.GetLayer() == LAYER_TYPE::GROUND)
-	{
-		GetComponent<Rigidbody>()->UseGravity(true);
-		canJump = false;
-	}
-}
-
-// 이동
-void Player::Move()
-{
-	pos += (dir * speed * TimeManager::GetInstance().GetDeltaTime());
-}
-
-// 점프
-void Player::Jump()
-{
-	if (!canJump) return;
-
-	Rigidbody* rb = GetComponent<Rigidbody>();
-	rb->UseGravity(true);
-	rb->AddForce(Vec2::Up() * jumpPower);
 }
