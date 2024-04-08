@@ -32,7 +32,7 @@ void Level::Init()
 	{
 		for (auto object : layer)
 		{
-			if(object->IsActive()) object->Init();
+			object->Init();
 		}
 	}
 }
