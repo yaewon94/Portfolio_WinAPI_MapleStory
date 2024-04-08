@@ -21,13 +21,14 @@ private:
 	LAYER_TYPE layer;
 	GameObject* parent;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> children;
+	bool isActive;
 
 protected:
 	wstring name;
 	Vec2 offset;	// 부모 좌표를 기준으로 한 로컬좌표
 	Vec2 scale;
 
-	GameObject(const wstring& name, Vec2 pos, Vec2 Scale, LAYER_TYPE layer);
+	GameObject(const wstring& name, Vec2 pos, Vec2 Scale, LAYER_TYPE layer, bool isActive=true);
 	GameObject(const GameObject& origin);
 	~GameObject();
 
@@ -43,6 +44,8 @@ public:
 	Vec2 GetPos();
 	Vec2 GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
+	bool IsActive() const { return isActive; }
+
 	void SetOffset(Vec2 offset) { this->offset = offset; }
 
 	// [check] 임시

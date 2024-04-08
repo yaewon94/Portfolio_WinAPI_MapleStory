@@ -84,7 +84,7 @@ void LevelManager::AddObject(GameObject& obj)
 GameObject* LevelManager::FindObject(LAYER_TYPE layer)
 {
 	assert(curLevel);
-	return curLevel->FindObject(layer);
+	return curLevel->objects[(size_t)layer].at(0);
 }
 
 GameObject* LevelManager::FindObject(GameObject& obj)

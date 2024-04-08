@@ -19,9 +19,11 @@ public:
 	void Render();
 
 	void ChangeLevel(LEVEL_TYPE level);
+
 	void AddObject(GameObject& obj);
 	GameObject* FindObject(LAYER_TYPE layer);
 	GameObject* FindObject(GameObject& obj);
 	void DeleteObject(GameObject& obj);
+
 	Camera* GetMainCamera() { return curLevel->mainCamera; }
 };

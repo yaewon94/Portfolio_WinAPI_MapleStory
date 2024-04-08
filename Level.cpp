@@ -32,8 +32,7 @@ void Level::Init()
 	{
 		for (auto object : layer)
 		{
-			assert(object);
-			object->Init();
+			if(object->IsActive()) object->Init();
 		}
 	}
 }
@@ -45,7 +44,7 @@ void Level::Tick()
 	{
 		for (auto object : layer)
 		{
-			object->Tick();
+			if (object->IsActive()) object->Tick();
 		}
 	}
 }
@@ -61,7 +60,7 @@ void Level::FinalTick()
 	{
 		for (auto object : layer)
 		{
-			object->FinalTick();
+			if (object->IsActive()) object->FinalTick();
 		}
 	}
 }
@@ -73,8 +72,7 @@ void Level::Render()
 	{
 		for (auto object : layer)
 		{
-			assert(object);
-			object->Render();
+			if (object->IsActive()) object->Render();
 		}
 	}
 }
@@ -82,12 +80,8 @@ void Level::Render()
 // 게임오브젝트 찾기
 GameObject* Level::FindObject(LAYER_TYPE layer)
 {
-	size_t layerIdx = (size_t)layer;
-
-	assert(layerIdx < objects.size());
-
-	if (objects[layerIdx][0] == nullptr) return nullptr;
-	return objects[layerIdx][0];
+	GameObject* obj = objects[(size_t)layer][0];
+	return obj;
 }
 
 // 현재 레벨의 오브젝트 모두 지우기

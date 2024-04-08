@@ -9,15 +9,17 @@
 Camera* GameObject::mainCamera = nullptr;
 
 // 생성자
-GameObject::GameObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer)
-	: name(name), offset(offset), scale(scale), layer(layer), parent(nullptr)
+GameObject::GameObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer, bool isActive)
+	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
+	, parent(nullptr)
 {
 }
 
 // 복사 생성자
 GameObject::GameObject(const GameObject& origin)
 	: Entity(origin)
-	, name(origin.name), offset(origin.offset), scale(origin.scale), layer(origin.layer), parent(origin.parent)
+	, name(origin.name), offset(origin.offset), scale(origin.scale), layer(origin.layer), isActive(origin.isActive)
+	, parent(origin.parent)
 {
 	// 원본이 가지고 있는 자식 오브젝트 복사
 	for (auto& layer : origin.children)
