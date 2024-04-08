@@ -145,6 +145,9 @@
     <ClInclude Include="AliveObject.h">
       <Filter>game\02-Object\AliveObject</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="AliveObject.cpp">
       <Filter>game\02-Object\AliveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>game\04-Module\Skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
