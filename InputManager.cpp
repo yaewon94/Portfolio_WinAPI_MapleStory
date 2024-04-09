@@ -1,7 +1,9 @@
 #include "PCH.h"
 #include "InputManager.h"
+#include "ActiveSkill.h"
 #include "Engine.h"
 #include "LevelManager.h"
+#include "SkillManager.h"
 #include "GameObject.h"
 #include "Player.h"
 
@@ -34,15 +36,18 @@ void InputManager::Init()
 	assert(player);
 
 	// ===== key 정보 초기화 =====
-	// 플레이어 관련 콜백 : 이동, 점프
-	auto player_callback = make_shared<map<KEY_STATE, KEY_CALLBACK>>();
-	player_callback->insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
-	player_callback->insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
+	// 키 상태별 콜백 메소드 초기화
+	auto state_callback_map = make_shared<map<KEY_STATE, KEY_CALLBACK>>();
+	state_callback_map->insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
+	state_callback_map->insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
 
-	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
-	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
-	keyMap.insert(make_pair(KEY_CODE::X, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
-	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::PLAYER, player_callback }));
+	// 플레이어 관련 콜백 : 이동, 점프
+	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
+	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
+	keyMap.insert(make_pair(KEY_CODE::X, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
+
+	// 스킬 콜백
+	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::SKILL, state_callback_map }));
 }
 
 // 매 프레임마다 호출
@@ -53,13 +58,14 @@ void InputManager::Tick()
 	{
 		for (auto& key : keyMap)
 		{
+			auto keyCode = key.first;
 			auto keyInfo = key.second;
 			auto& curState = keyInfo->curState;
 			auto& stateMap = keyInfo->stateCallback_map;
 
 			// 키 상태 확인
 			// [CHECK] 다른 키들은 손떼면 바로 0되는데 alt 종류는 적용이 안됨
-			if (GetAsyncKeyState((int)key.first))
+			if (GetAsyncKeyState((int)keyCode))
 			{
 				if (curState == KEY_STATE::KEY_PRESSED) curState = KEY_STATE::KEY_DOWN;
 				else if (curState == KEY_STATE::NONE || curState == KEY_STATE::KEY_RELEASED) curState = KEY_STATE::KEY_PRESSED;
@@ -74,7 +80,8 @@ void InputManager::Tick()
 			auto stateMap_iter = stateMap->find(curState);
 			if (stateMap_iter != stateMap->end())
 			{
-				if (keyInfo->type == KEY_TYPE::PLAYER) (*player.*(stateMap_iter->second))(key.first);
+				if (keyInfo->type == KEY_TYPE::PLAYER) (*player.*(stateMap_iter->second))(keyCode);
+				else if (keyInfo->type == KEY_TYPE::SKILL)(*SkillManager::GetInstance().GetSkill(keyCode).*(stateMap_iter->second))(keyCode);
 			}
 
 			/*

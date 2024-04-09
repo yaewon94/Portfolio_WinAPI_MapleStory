@@ -103,9 +103,6 @@
     <ClInclude Include="Component.h">
       <Filter>game\03-Component</Filter>
     </ClInclude>
-    <ClInclude Include="IKeyEvent.h">
-      <Filter>game\05-Util\Input</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>game\05-Util\Input</Filter>
     </ClInclude>
@@ -156,6 +153,15 @@
     </ClInclude>
     <ClInclude Include="SkillObject.h">
       <Filter>game\02-Object\SkillObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackSkill.h">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveSkill.h">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="IKeyEvent.h">
+      <Filter>game\05-Util\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="SkillObject.cpp">
       <Filter>game\02-Object\SkillObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackSkill.cpp">
+      <Filter>game\04-Module\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveSkill.cpp">
+      <Filter>game\04-Module\Skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
