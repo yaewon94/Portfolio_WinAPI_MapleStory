@@ -9,6 +9,8 @@ public:
 	~Monster();
 	virtual Monster* Clone() override { return new Monster(*this); }
 
+	virtual void Init() override;
+
 	virtual void OnCollisionEnter(GameObject& other) override;
 	virtual void OnCollisionStay(GameObject& other) override;
 	virtual void OnCollisionExit(GameObject& other) override;

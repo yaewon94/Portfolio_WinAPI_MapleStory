@@ -1,6 +1,8 @@
 #include "PCH.h"
 #include "Player.h"
 #include "ActiveSkill.h"
+#include "AttackActiveSkill.h"
+#include "Collider.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
@@ -28,8 +30,13 @@ Player::~Player()
 // 초기화
 void Player::Init()
 {
+	// 컴포넌트 추가
+	AddComponent<Rigidbody>();
+	AddComponent<Collider>();
+
 	// 자식 오브젝트 추가
-	AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
+	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
+	AttackActiveSkill::SetSkillObject(*skillObject);
 
 	// 필드 초기화
 	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::PLAYER_SKILL));

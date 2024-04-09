@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "Monster.h"
+#include "Collider.h"
 
 // 생성자
 Monster::Monster(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale, LAYER_TYPE::ENEMY)
@@ -14,6 +15,12 @@ Monster::Monster(const Monster& origin) : GameObject(origin)
 // 소멸자
 Monster::~Monster()
 {
+}
+
+// 초기화
+void Monster::Init()
+{
+	AddComponent<Collider>();
 }
 
 // 충돌 진입

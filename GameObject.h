@@ -47,9 +47,10 @@ public:
 	bool IsActive() const { return isActive; }
 
 	void SetOffset(Vec2 offset) { this->offset = offset; }
+	virtual void SetActive(bool flag) { isActive = flag; }
 
 	// [check] юс╫ц
-	virtual void Init() override {}
+	virtual void Init() override = 0;
 	virtual void Tick() override {}
 	virtual void FinalTick() override;
 	void Render();

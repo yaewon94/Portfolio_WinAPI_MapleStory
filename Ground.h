@@ -10,6 +10,8 @@ public:
 	~Ground();
 	virtual Ground* Clone() override { return new Ground(*this); }
 
+	virtual void Init() override;
+
 	virtual void OnCollisionEnter(GameObject& other) override;
 	virtual void OnCollisionStay(GameObject& other) override;
 	virtual void OnCollisionExit(GameObject& other) override;

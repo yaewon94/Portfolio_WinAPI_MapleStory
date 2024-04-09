@@ -49,4 +49,5 @@ struct Vec2
 		this->y += other.y;
 		return *this;
 	}
+	bool operator>(const Vec2& other) { return x * x + y * y > other.x * other.x + other.y * other.y; }
 };

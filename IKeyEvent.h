@@ -12,6 +12,9 @@ enum class KEY_CODE
 class IKeyEvent
 {
 public:
+	// [CHECK]
+	// 플레이어 이동, 점프도 플레이어 함수가 아니라 스킬로 구현하면 KEY_CODE 파라미터 없이
+	// 스킬 호출하듯이 호출할 수 있고, 입력키도 바꿀 수 있음
 	virtual void OnKeyPressed(KEY_CODE) = 0;
 	virtual void OnKeyDown(KEY_CODE) = 0;
 };

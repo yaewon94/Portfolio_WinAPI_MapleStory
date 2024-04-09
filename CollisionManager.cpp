@@ -21,6 +21,7 @@ CollisionManager::~CollisionManager()
 // 매 프레임마다 호출
 void CollisionManager::FinalTick()
 {
+	static int count = 0;
 	// 등록된 콜라이더 충돌체크
 	for (auto& layer : colliders)
 	{
@@ -67,6 +68,9 @@ void CollisionManager::CollisionCheck(Collider& me)
 	{
 		for (auto other : colliders[layer])
 		{
+			// 활성화된 오브젝트만 체크
+			if (!other->GetOwner()->IsActive()) continue;
+
 			// X축 겹침 여부 체크
 			if (me.GetPos().x > other->GetPos().x)
 			{
