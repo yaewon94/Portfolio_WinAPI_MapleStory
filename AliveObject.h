@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-struct Skill;
+class Skill;
 class SkillObject;
 
 // 이동, 점프, 스킬사용이 가능하고 생명주기가 있는 오브젝트의 상위 클래스
