@@ -15,15 +15,12 @@ InputManager::InputManager() : player(nullptr)
 // 소멸자
 InputManager::~InputManager()
 {
-	for (auto& item : keyMap)
+	for (auto& pair : keyMap)
 	{
-		auto keyInfo = item.second;
-
-		if (keyInfo != nullptr)
+		if (pair.second != nullptr)
 		{
-			keyInfo->stateCallback_map = nullptr;
-			delete keyInfo;
-			keyInfo = nullptr;
+			delete pair.second;
+			pair.second = nullptr;
 		}
 	}
 }
@@ -37,17 +34,17 @@ void InputManager::Init()
 
 	// ===== key 정보 초기화 =====
 	// 키 상태별 콜백 메소드 초기화
-	auto state_callback_map = make_shared<map<KEY_STATE, KEY_CALLBACK>>();
-	state_callback_map->insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
-	state_callback_map->insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
+	stateCallbackMap.insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
+	stateCallbackMap.insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
 
 	// 플레이어 관련 콜백 : 이동, 점프
-	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
-	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
-	keyMap.insert(make_pair(KEY_CODE::X, new KeyInfo{ KEY_TYPE::PLAYER, state_callback_map }));
+	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER }));
+	keyMap.insert(make_pair(KEY_CODE::RIGHT, new KeyInfo{ KEY_TYPE::PLAYER }));
+	keyMap.insert(make_pair(KEY_CODE::X, new KeyInfo{ KEY_TYPE::PLAYER }));
 
 	// 스킬 콜백
-	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::SKILL, state_callback_map }));
+	// TODO : 하드코딩 말고, 플레이어 사용가능 스킬 목록에서 가져와서 for문 돌려서 초기화 하기
+	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::SKILL }));
 }
 
 // 매 프레임마다 호출
@@ -61,7 +58,6 @@ void InputManager::Tick()
 			auto keyCode = key.first;
 			auto keyInfo = key.second;
 			auto& curState = keyInfo->curState;
-			auto& stateMap = keyInfo->stateCallback_map;
 
 			// 키 상태 확인
 			// [CHECK] 다른 키들은 손떼면 바로 0되는데 alt 종류는 적용이 안됨
@@ -77,11 +73,11 @@ void InputManager::Tick()
 			}
 
 			// 콜백 호출
-			auto stateMap_iter = stateMap->find(curState);
-			if (stateMap_iter != stateMap->end())
+			auto stateCallbackPair = stateCallbackMap.find(curState);
+			if (stateCallbackPair != stateCallbackMap.end())
 			{
-				if (keyInfo->type == KEY_TYPE::PLAYER) (*player.*(stateMap_iter->second))(keyCode);
-				else if (keyInfo->type == KEY_TYPE::SKILL)(*SkillManager::GetInstance().GetSkill(keyCode).*(stateMap_iter->second))(keyCode);
+				if (keyInfo->type == KEY_TYPE::PLAYER) (*player.*(stateCallbackPair->second))(keyCode);
+				else if (keyInfo->type == KEY_TYPE::SKILL)(*SkillManager::GetInstance().GetSkill(keyCode).*(stateCallbackPair->second))(keyCode);
 			}
 
 			/*

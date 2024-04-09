@@ -30,13 +30,12 @@ class InputManager final
 	{
 		KEY_TYPE type;
 		KEY_STATE curState = KEY_STATE::NONE;
-		shared_ptr<map<KEY_STATE, KEY_CALLBACK>> stateCallback_map; // 키 상태 - 콜백 메소드 (1:1 대응)
-		KeyInfo(KEY_TYPE type, shared_ptr<map<KEY_STATE, KEY_CALLBACK>> stateCallback_map) 
-			: type(type), stateCallback_map(stateCallback_map) {}
+		KeyInfo(KEY_TYPE type) : type(type) {}
 	};
 
 private:
-	map<KEY_CODE, KeyInfo*> keyMap;	// 키 값 - 키 상태 (1:N 대응)
+	map<KEY_CODE, KeyInfo*> keyMap;
+	map<KEY_STATE, KEY_CALLBACK> stateCallbackMap;
 	Player* player;
 
 public:
