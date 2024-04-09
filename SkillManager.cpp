@@ -1,6 +1,6 @@
 #include "PCH.h"
 #include "SkillManager.h"
-#include "AttackSkill.h"
+#include "AttackActiveSkill.h"
 
 // 생성자
 SkillManager::SkillManager()
@@ -10,14 +10,6 @@ SkillManager::SkillManager()
 // 소멸자
 SkillManager::~SkillManager()
 {
-	for (auto& pair : skillKeyMap)
-	{
-		if (pair.second != nullptr)
-		{
-			pair.second = nullptr;
-		}
-	}
-
 	for (auto& skill : skills)
 	{
 		if (skill != nullptr)
@@ -33,9 +25,7 @@ void SkillManager::Init()
 {
 	ActiveSkill* activeSkill = nullptr;
 
-	skills.push_back(new AttackActiveSkill(L"기본공격", KEY_CODE::SHIFT, Vec2::Right() * 200.f));
-	activeSkill = (ActiveSkill*)skills.back();
-	skillKeyMap.insert(make_pair(activeSkill->keyCode, activeSkill));
+	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2::Right() * 200.f));
 }
 
 /*

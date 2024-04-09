@@ -154,7 +154,7 @@
     <ClInclude Include="SkillObject.h">
       <Filter>game\02-Object\SkillObject</Filter>
     </ClInclude>
-    <ClInclude Include="AttackSkill.h">
+    <ClInclude Include="AttackActiveSkill.h">
       <Filter>game\04-Module\Skill</Filter>
     </ClInclude>
     <ClInclude Include="ActiveSkill.h">
@@ -251,7 +251,7 @@
     <ClCompile Include="SkillObject.cpp">
       <Filter>game\02-Object\SkillObject</Filter>
     </ClCompile>
-    <ClCompile Include="AttackSkill.cpp">
+    <ClCompile Include="AttackActiveSkill.cpp">
       <Filter>game\04-Module\Skill</Filter>
     </ClCompile>
     <ClCompile Include="ActiveSkill.cpp">

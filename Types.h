@@ -21,14 +21,6 @@ enum class LEVEL_TYPE
 	NONE, TEST
 };
 
-// 입력값
-enum class KEY_CODE
-{
-	LEFT = VK_LEFT, RIGHT = VK_RIGHT,
-	SHIFT = VK_SHIFT,
-	X = 'X'
-};
-
 // 2차원 벡터
 struct Vec2
 {

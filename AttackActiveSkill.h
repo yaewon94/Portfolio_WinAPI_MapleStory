@@ -12,7 +12,7 @@ private:
 	Vec2 maxRange;	// 최대 이동범위 (넘어서면 자동으로 비활성화됨)
 
 	NO_CSTR_COPY_ASSIGN(AttackActiveSkill);
-	AttackActiveSkill(const wstring& name, KEY_CODE keyCode, Vec2 maxRange);
+	AttackActiveSkill(const wstring& name, Vec2 maxRange);
 	~AttackActiveSkill();
 
 public:

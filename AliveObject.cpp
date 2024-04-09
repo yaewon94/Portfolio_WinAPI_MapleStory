@@ -30,6 +30,8 @@ AliveObject::~AliveObject()
 	{
 		if (skill != nullptr) skill = nullptr;
 	}
+
+	// SkillObject*는 레벨에서 부모 게임오브젝트 삭제될 때 삭제됨. 지우지 말것
 }
 
 // 이동

@@ -3,7 +3,6 @@
 #include "ActiveSkill.h"
 #include "Engine.h"
 #include "LevelManager.h"
-#include "SkillManager.h"
 #include "GameObject.h"
 #include "Player.h"
 
@@ -77,7 +76,7 @@ void InputManager::Tick()
 			if (stateCallbackPair != stateCallbackMap.end())
 			{
 				if (keyInfo->type == KEY_TYPE::PLAYER) (*player.*(stateCallbackPair->second))(keyCode);
-				else if (keyInfo->type == KEY_TYPE::SKILL)(*SkillManager::GetInstance().GetSkill(keyCode).*(stateCallbackPair->second))(keyCode);
+				else if (keyInfo->type == KEY_TYPE::SKILL)(player->GetSkill(keyCode).*(stateCallbackPair->second))(keyCode);
 			}
 
 			/*

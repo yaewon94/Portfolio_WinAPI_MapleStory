@@ -11,13 +11,11 @@ class ActiveSkill : public Skill, public IKeyEvent
 	friend class SkillManager;
 
 private:
-	KEY_CODE keyCode;
-
 	virtual void Init() override final {}
 	virtual void Tick() override final {}
 	virtual void FinalTick() override final {}
 
 protected:
-	ActiveSkill(const wstring& name, KEY_CODE keyCode);
+	ActiveSkill(const wstring& name);
 	~ActiveSkill();
 };

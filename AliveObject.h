@@ -22,7 +22,7 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
-	void AddSkill(Skill& skill) { skills.push_back(&skill); }
+	Skill& AddSkill(Skill& skill);
 	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
 
 	void Move();
@@ -32,3 +32,10 @@ protected:
 	virtual void OnCollisionStay(GameObject& other) override;
 	virtual void OnCollisionExit(GameObject& other) override;
 };
+
+// 사용 가능한 스킬 추가
+inline Skill& AliveObject::AddSkill(Skill& skill)
+{
+	skills.push_back(&skill);
+	return *skills.back();
+}

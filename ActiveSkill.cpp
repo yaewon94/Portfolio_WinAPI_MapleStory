@@ -2,9 +2,8 @@
 #include "ActiveSkill.h"
 
 // 생성자
-ActiveSkill::ActiveSkill(const wstring& name, KEY_CODE keyCode) : Skill(name), keyCode(keyCode)
+ActiveSkill::ActiveSkill(const wstring& name) : Skill(name)
 {
-	// TODO : 키코드 중복되지 않게 해야함
 }
 
 // 소멸자
