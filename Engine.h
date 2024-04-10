@@ -18,13 +18,15 @@ private:
 
 public:
 	Vec2 GetResolution() const { return resolution; }
-	int Init(HINSTANCE hInst, HWND hWnd);
-	void Progress();
+	bool IsWindowFocused() const { return hWnd == GetFocus(); }
 	void ChangeWindowSize(Vec2 resolution);
 
-	bool IsWindowFocused() const { return hWnd == GetFocus(); }
+	int Init(HINSTANCE hInst, HWND hWnd);
+	void Progress();
+
 	void Render(Vec2 pos, Vec2 scale);
 	void Render(Vec2 pos, const wstring& text);
+	void ConnectDC(HDC hdc, HBITMAP hBitmap);
 
 private:
 	void CreateDefaultGDIobject();

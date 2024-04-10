@@ -12,5 +12,5 @@ private:
 public:
 	void Init();
 
-	Texture* LoadTexture(const wstring& key);
+	Texture* LoadTexture(const wstring& key, const wstring& relativePath);
 };

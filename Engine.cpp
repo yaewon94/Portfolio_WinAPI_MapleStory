@@ -2,11 +2,12 @@
 #include "Engine.h"
 #include "CollisionManager.h"
 #include "DataManager.h"
-#include "InputManager.h"
-#include "LevelManager.h"
-#include "TimeManager.h"
 #include "DebugRender.h"
 #include "GameObject.h"
+#include "InputManager.h"
+#include "LevelManager.h"
+#include "PathManager.h"
+#include "TimeManager.h"
 
 # define FULL_HD Vec2{1920,1080}
 
@@ -39,6 +40,7 @@ int Engine::Init(HINSTANCE hInst, HWND hWnd)
 	CreateDefaultGDIobject();
 
 	// 게임매니저 초기화
+	PathManager::GetInstance().Init();
 	DataManager::GetInstance().Init();
 	TimeManager::GetInstance().Init();
 	LevelManager::GetInstance().Init();
@@ -105,6 +107,13 @@ void Engine::Render(Vec2 pos, const wstring& text)
 {
 	SetBkMode(subDC, TRANSPARENT);
 	TextOutW(subDC, (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
+}
+
+// DC - 비트맵 연결
+void Engine::ConnectDC(HDC hdc, HBITMAP hBitmap)
+{
+	hdc = CreateCompatibleDC(mainDC);
+	DeleteObject(SelectObject(hdc, hBitmap));
 }
 
 // 윈도우 렌더링에 필요한 오브젝트 생성
