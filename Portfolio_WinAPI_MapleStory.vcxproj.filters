@@ -72,6 +72,9 @@
     <Filter Include="game\04-Module\Asset">
       <UniqueIdentifier>{2db5bf79-7461-4794-bbbf-2d34dcaddd8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\05-Util\Path">
+      <UniqueIdentifier>{8e3dfc6d-c639-407b-b8b3-f29d0f091fcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -175,6 +178,9 @@
     <ClInclude Include="AssetManager.h">
       <Filter>game\04-Module\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>game\05-Util\Path</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -277,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>game\04-Module\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>game\05-Util\Path</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
