@@ -1,6 +1,6 @@
 #pragma once
 
-class GameObject;
+class Texture;
 
 // 게임 프로그램의 최고 관리자 클래스
 class Engine final
@@ -12,21 +12,22 @@ private:
 	HINSTANCE hInst;
 	HWND hWnd;
 	HDC mainDC;
-	HDC subDC;
-	HBITMAP subBitmap;
+	//HDC subDC;
+	//HBITMAP subBitmap;
+	Texture* subTex;	// 더블 버퍼링 용도
 	HBRUSH brush;
 
 public:
 	Vec2 GetResolution() const { return resolution; }
 	bool IsWindowFocused() const { return hWnd == GetFocus(); }
-	void ChangeWindowSize(Vec2 resolution);
 
 	int Init(HINSTANCE hInst, HWND hWnd);
 	void Progress();
 
+	void CreateSubDC(HDC& hdc, HBITMAP& hBitmap, UINT width=0, UINT height=0);
+	void ChangeWindowSize(Vec2 resolution);
 	void Render(Vec2 pos, Vec2 scale);
 	void Render(Vec2 pos, const wstring& text);
-	void ConnectDC(HDC hdc, HBITMAP hBitmap);
 
 private:
 	void CreateDefaultGDIobject();

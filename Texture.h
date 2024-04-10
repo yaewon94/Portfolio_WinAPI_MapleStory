@@ -13,8 +13,12 @@ private:
 	HBITMAP hBitmap;
 	BITMAP bitmapInfo;
 
-	Texture(const wstring& key, const wstring& relativePath);
+	Texture(const wstring& key, const wstring& relativePath=L"");
 	~Texture();
 
+	int Create(UINT width, UINT height);
 	virtual int Load(const wstring& absolutePath) override;
+
+public:
+	HDC GetDC() { return hDC; }
 };

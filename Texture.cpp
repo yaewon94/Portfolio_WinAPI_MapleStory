@@ -6,6 +6,7 @@
 Texture::Texture(const wstring& key, const wstring& relativePath) 
 	: Asset(key, relativePath)
 	, hDC(nullptr), hBitmap(nullptr), bitmapInfo{}
+    //, hDC{}, hBitmap{}, bitmapInfo{}
 {
 }
 
@@ -14,6 +15,17 @@ Texture::~Texture()
 {
 	DeleteDC(hDC);
 	DeleteObject(hBitmap);
+}
+
+// 에셋 생성
+int Texture::Create(UINT width, UINT height)
+{
+    Engine::GetInstance().CreateSubDC(hDC, hBitmap, width, height);
+
+    // 로드된 비트맵의 정보를 확인한다.
+    GetObject(hBitmap, sizeof(BITMAP), &bitmapInfo);
+
+    return S_OK;
 }
 
 // 에셋 로드
@@ -50,7 +62,7 @@ int Texture::Load(const wstring& absolutePath)
     GetObject(hBitmap, sizeof(BITMAP), &bitmapInfo);
 
     // DC - 비트맵 연결
-    Engine::GetInstance().ConnectDC(hDC, hBitmap);
+    Engine::GetInstance().CreateSubDC(hDC, hBitmap);
 
     return S_OK;
 }

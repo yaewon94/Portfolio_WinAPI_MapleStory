@@ -28,12 +28,38 @@ void AssetManager::Init()
 	// 아니면 별도 함수에서 레벨마다 필요한 에셋만 등록할지
 }
 
+// 이미지 생성
+Texture* AssetManager::CreateTexture(const wstring& key, UINT width, UINT height)
+{
+	// map에 이미 등록된 에셋인 경우
+	Texture* texture = FindTexture(key);
+	if (texture != nullptr)
+	{
+		Log(LOG_TYPE::LOG_ERROR, L"이미 생성된 에셋입니다");
+		return texture;
+	}
+
+	// 텍스처 생성
+	texture = new Texture(key);
+	if (FAILED(texture->Create(width, height)))
+	{
+		Log(LOG_TYPE::LOG_ERROR, L"텍스처 생성 실패");
+		delete texture;
+		return nullptr;
+	}
+
+	// map에 등록
+	textureMap.insert(make_pair(key, texture));
+
+	return texture;
+}
+
 // 이미지 로드
 Texture* AssetManager::LoadTexture(const wstring& key, const wstring& relativePath)
 {
 	// map에 등록된 에셋이 있는 경우
-	auto iter = textureMap.find(key);
-	if (iter != textureMap.end()) return iter->second;
+	Texture* texture = FindTexture(key);
+	if (texture != nullptr) return texture;
 
 	// 없는 경우
 	// 절대 경로 얻기
@@ -41,7 +67,7 @@ Texture* AssetManager::LoadTexture(const wstring& key, const wstring& relativePa
 	absolutePath += relativePath;
 
 	// 텍스처 객체 로드
-	Texture* texture = new Texture(key, relativePath);
+	texture = new Texture(key, relativePath);
 	if (FAILED(texture->Load(absolutePath)))
 	{
 		Log(LOG_TYPE::LOG_ERROR, L"텍스처 로딩 실패");
@@ -53,4 +79,13 @@ Texture* AssetManager::LoadTexture(const wstring& key, const wstring& relativePa
 	textureMap.insert(make_pair(key, texture));
 
 	return texture;
+}
+
+// 이미지 찾기
+Texture* AssetManager::FindTexture(const wstring& key)
+{
+	auto iter = textureMap.find(key);
+
+	if (iter != textureMap.end()) return iter->second;
+	else return nullptr;
 }

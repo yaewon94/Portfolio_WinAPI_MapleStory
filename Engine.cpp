@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "Engine.h"
+#include "AssetManager.h"
 #include "CollisionManager.h"
 #include "DataManager.h"
 #include "DebugRender.h"
@@ -7,13 +8,14 @@
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "PathManager.h"
+#include "Texture.h"
 #include "TimeManager.h"
 
 # define FULL_HD Vec2{1920,1080}
 
 // 생성자
 Engine::Engine() : resolution(FULL_HD), hInst(nullptr), hWnd(nullptr), mainDC(nullptr)
-, subDC(nullptr), subBitmap(nullptr)
+, subTex(nullptr) //, subDC(nullptr), subBitmap(nullptr)
 , brush(nullptr)
 {}
 
@@ -65,16 +67,15 @@ void Engine::Progress()
 	DebugRender::GetInstance().FinalTick();
 
 	// 이전 화면 Clear
-	HBRUSH prevBrush = (HBRUSH)SelectObject(subDC, brush);
-	Rectangle(subDC, -1, -1, (int)resolution.x + 1, (int)resolution.y + 1);
-	SelectObject(subDC, prevBrush);
+	HBRUSH prevBrush = (HBRUSH)SelectObject(subTex->GetDC(), brush);
+	Rectangle(subTex->GetDC(), -1, -1, (int)resolution.x + 1, (int)resolution.y + 1);
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();
 	DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
-	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subDC, 0, 0, SRCCOPY);
+	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subTex->GetDC(), 0, 0, SRCCOPY);
 }
 
 // 윈도우 크기 변경
@@ -97,23 +98,30 @@ void Engine::Render(Vec2 pos, Vec2 scale)
 {
 	// [임시 코드]
 	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
-	HPEN prevPen = (HPEN)SelectObject(subDC, pen);
-	Rectangle(subDC, (int)pos.x, (int)pos.y, (int)(pos.x + scale.x), (int)(pos.y + scale.y));
-	SelectObject(subDC, prevPen);
+	HPEN prevPen = (HPEN)SelectObject(subTex->GetDC(), pen);
+	Rectangle(subTex->GetDC(), (int)pos.x, (int)pos.y, (int)(pos.x + scale.x), (int)(pos.y + scale.y));
+	SelectObject(subTex->GetDC(), prevPen);
 }
 
 // 텍스트 렌더링
 void Engine::Render(Vec2 pos, const wstring& text)
 {
-	SetBkMode(subDC, TRANSPARENT);
-	TextOutW(subDC, (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
+	//SetBkMode(subTex->GetDC(), TRANSPARENT);
+	TextOutW(subTex->GetDC(), (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
 }
 
-// DC - 비트맵 연결
-void Engine::ConnectDC(HDC hdc, HBITMAP hBitmap)
+// 보조 DC, 보조 비트맵 생성
+void Engine::CreateSubDC(HDC& hdc, HBITMAP& hBitmap, UINT width, UINT height)
 {
+	// DC 생성
 	hdc = CreateCompatibleDC(mainDC);
-	DeleteObject(SelectObject(hdc, hBitmap));
+
+	// Bitmap 생성
+	if (width > 0 && height > 0) hBitmap = CreateCompatibleBitmap(mainDC, width, height);
+
+	// SubDC 가 SubBitmap 을 지정하게 함
+	HBITMAP hPrevBitmap = (HBITMAP)SelectObject(hdc, hBitmap);
+	DeleteObject(hPrevBitmap);
 }
 
 // 윈도우 렌더링에 필요한 오브젝트 생성
@@ -123,6 +131,10 @@ void Engine::CreateDefaultGDIobject()
 	// 메인 윈도우를 타겟으로 지정하는 DC 생성
 	mainDC = GetDC(hWnd);
 
+	// 메인 윈도우에 출력 전에 미리 그려놓는 용도의 서브텍스처 생성
+	subTex = AssetManager::GetInstance().CreateTexture(L"SubTexture", (UINT)resolution.x, (UINT)resolution.y);
+
+	/*
 	// 보조 DC 생성
 	// 메인 윈도우에 출력하기 전에 미리 그림을 그려놓는 용도
 	subDC = CreateCompatibleDC(mainDC);
@@ -131,10 +143,12 @@ void Engine::CreateDefaultGDIobject()
 	// 메모리 상에만 존재하는 비트맵에 미리 그려놓고, 한번에 렌더링 송출
 	subBitmap = CreateCompatibleBitmap(mainDC, (int)resolution.x, (int)resolution.y);
 
+
 	// 보조DC가 보조비트맵을 지정하게 함
 	HBITMAP hPrevBitmap = (HBITMAP)SelectObject(subDC, subBitmap);
 	DeleteObject(hPrevBitmap);
-
+	*/
+	
 	// 자주 사용할 브러쉬, 펜 생성
 	//brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	brush = CreateSolidBrush(RGB(255, 255, 255));

@@ -12,5 +12,9 @@ private:
 public:
 	void Init();
 
+	Texture* CreateTexture(const wstring& key, UINT width, UINT height);
 	Texture* LoadTexture(const wstring& key, const wstring& relativePath);
+
+private:
+	Texture* FindTexture(const wstring& key);
 };
