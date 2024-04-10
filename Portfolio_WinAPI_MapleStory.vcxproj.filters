@@ -169,6 +169,9 @@
     <ClInclude Include="Asset.h">
       <Filter>game\04-Module\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>game\04-Module\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -264,6 +267,9 @@
       <Filter>game\04-Module\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Asset.cpp">
+      <Filter>game\04-Module\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>game\04-Module\Asset</Filter>
     </ClCompile>
   </ItemGroup>

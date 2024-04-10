@@ -163,6 +163,7 @@
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="SkillObject.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
@@ -194,6 +195,7 @@
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="SkillObject.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>

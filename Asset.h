@@ -14,6 +14,9 @@ protected:
 	Asset(const wstring& key, const wstring& relativePath);
 	~Asset();
 
-public:
 	virtual int Load(const wstring& key) = 0;
+
+	virtual void Init() override {}
+	virtual void Tick() override {}
+	virtual void FinalTick() override {}
 };
