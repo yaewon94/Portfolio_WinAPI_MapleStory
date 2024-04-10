@@ -21,7 +21,6 @@ CollisionManager::~CollisionManager()
 // 매 프레임마다 호출
 void CollisionManager::FinalTick()
 {
-	static int count = 0;
 	// 등록된 콜라이더 충돌체크
 	for (auto& layer : colliders)
 	{

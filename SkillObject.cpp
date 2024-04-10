@@ -35,8 +35,6 @@ void SkillObject::Init()
 // 매 프레임마다 호출
 void SkillObject::Tick()
 {
-	static int count = 0;
-
 	// 최대 이동거리를 넘어서면 자동으로 비활성화
 	if (offset - StartPos > skill->GetMaxRange())
 	{

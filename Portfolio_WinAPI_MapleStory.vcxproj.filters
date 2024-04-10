@@ -69,6 +69,9 @@
     <Filter Include="game\02-Object\SkillObject">
       <UniqueIdentifier>{86fbd53b-5db7-400c-89e0-ead7e06cca5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module\Asset">
+      <UniqueIdentifier>{2db5bf79-7461-4794-bbbf-2d34dcaddd8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -163,6 +166,9 @@
     <ClInclude Include="IKeyEvent.h">
       <Filter>game\05-Util\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>game\04-Module\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -256,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="ActiveSkill.cpp">
       <Filter>game\04-Module\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>game\04-Module\Asset</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

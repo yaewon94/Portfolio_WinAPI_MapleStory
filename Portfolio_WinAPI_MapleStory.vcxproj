@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="ActiveSkill.h" />
     <ClInclude Include="AliveObject.h" />
+    <ClInclude Include="Asset.h" />
     <ClInclude Include="AttackActiveSkill.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="ActiveSkill.cpp" />
     <ClCompile Include="AliveObject.cpp" />
+    <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AttackActiveSkill.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
