@@ -21,9 +21,6 @@
     <Filter Include="game\03-Component">
       <UniqueIdentifier>{26b9ebe4-ca6b-472c-ac8c-d70a2d7ad8be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Component\Rigidbody">
-      <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\02-Object\Ground">
       <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
     </Filter>
@@ -74,6 +71,15 @@
     </Filter>
     <Filter Include="game\05-Util\Path">
       <UniqueIdentifier>{8e3dfc6d-c639-407b-b8b3-f29d0f091fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\FSM">
+      <UniqueIdentifier>{a954f464-cc99-4998-99f8-12c4961746c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\Rigidbody">
+      <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\State">
+      <UniqueIdentifier>{9b58f1b4-8bf3-48e9-b084-cd287d4362c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +187,12 @@
     <ClInclude Include="PathManager.h">
       <Filter>game\05-Util\Path</Filter>
     </ClInclude>
+    <ClInclude Include="FSM.h">
+      <Filter>game\03-Component\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>game\04-Module\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -286,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
       <Filter>game\05-Util\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>game\03-Component\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>game\04-Module\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
