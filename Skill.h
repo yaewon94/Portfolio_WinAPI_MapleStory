@@ -22,4 +22,5 @@ protected:
 	//Skill(const wstring& name, SKILL_CALLBACK callback);
 	Skill(const wstring& name);
 	~Skill();
+	virtual Skill* Clone() override final { return nullptr; }
 };

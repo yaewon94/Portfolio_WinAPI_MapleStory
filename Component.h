@@ -15,16 +15,15 @@ protected:
 	Component(const Component& origin);
 	~Component();
 
+
 public:
 	void Destroy();
 	virtual Component* Clone() = 0;
 
 	GameObject* GetOwner() const { return owner; }
 
-	// [check] 임시
-	virtual void Init() override {}
-	virtual void Tick() override {}
-	virtual void FinalTick() override {}
+	virtual void Init() {}
+	virtual void FinalTick() {}
 };
 
 // 컴포넌트 삭제

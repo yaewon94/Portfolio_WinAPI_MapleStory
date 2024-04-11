@@ -50,9 +50,9 @@ public:
 	virtual void SetActive(bool flag) { isActive = flag; }
 
 	// [check] юс╫ц
-	virtual void Init() override = 0;
-	virtual void Tick() override {}
-	virtual void FinalTick() override;
+	virtual void Init();
+	virtual void Tick() {}
+	virtual void FinalTick();
 	void Render();
 
 	template<typename T> requires std::derived_from<T, Component> T* AddComponent();

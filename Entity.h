@@ -11,13 +11,10 @@ protected:
 	Entity();
 	Entity(const Entity& origin);
 	virtual ~Entity();
+	virtual Entity* Clone() = 0;
 
 	const UINT ID;
 
 public:
 	const UINT GetID() const { return ID; }
-
-	virtual void Init() = 0;
-	virtual void Tick() = 0;
-	virtual void FinalTick() = 0;
 };

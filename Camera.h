@@ -7,18 +7,18 @@ class Camera final : public Entity
 {
 	friend class Level; // [check]
 
+	NO_CSTR_COPY_ASSIGN(Camera);
 private:
 	Vec2 diff; // ½ÇÁ¦ ÁÂÇ¥¿Í ·»´õ¸µ ÁÂÇ¥¿ÍÀÇ Â÷ÀÌ
 	Vec2 resolution;
 	GameObject* player;
 
 	Camera();
-	Camera(const Camera& origin) = delete;
 	~Camera();
+	virtual Camera* Clone() { return nullptr; }
 
-	virtual void Init() override;
-	virtual void Tick() override {}
-	virtual void FinalTick() override;
+	void Init();
+	void FinalTick();
 
 public:
 	Vec2 GetRenderPos(Vec2& realPos) const { return realPos - diff; }

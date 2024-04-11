@@ -15,8 +15,4 @@ protected:
 	~Asset();
 
 	virtual int Load(const wstring& absolutePath) = 0;
-
-	virtual void Init() override {}
-	virtual void Tick() override {}
-	virtual void FinalTick() override {}
 };

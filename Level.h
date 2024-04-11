@@ -17,7 +17,8 @@ private:
 
 protected:
 	Level(const wstring& name);
-	virtual ~Level();
+	~Level();
+	virtual Level* Clone() override { return nullptr; }
 
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
@@ -27,9 +28,9 @@ protected:
 private:
 	friend class LevelManager;
 
-	virtual void Init() override final;
-	virtual void Tick() override final;
-	virtual void FinalTick() override final;
+	void Init();
+	void Tick();
+	void FinalTick();
 	void Render();
 
 	GameObject* FindObject(LAYER_TYPE layer);

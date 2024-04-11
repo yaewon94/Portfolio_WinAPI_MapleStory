@@ -100,6 +100,15 @@ GameObject* GameObject::AddChild(GameObject&& child)
 	return clone;
 }
 
+// 초기화
+void GameObject::Init()
+{
+	for (auto component : components)
+	{
+		component->Init();
+	}
+}
+
 // 매 프레임마다 호출
 void GameObject::FinalTick()
 {

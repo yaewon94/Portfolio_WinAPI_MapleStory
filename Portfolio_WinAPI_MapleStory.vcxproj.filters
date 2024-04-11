@@ -27,6 +27,33 @@
     <Filter Include="game\03-Component\Collider">
       <UniqueIdentifier>{06ef432b-8932-4e5c-990e-1e97845623b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module">
+      <UniqueIdentifier>{c562b261-6d11-462f-b195-58612c13b236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill">
+      <UniqueIdentifier>{40f3242b-0621-41fc-a8c9-51c048db6111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\AliveObject">
+      <UniqueIdentifier>{7d28406c-c37a-4652-b60c-45d99db7f315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\SkillObject">
+      <UniqueIdentifier>{86fbd53b-5db7-400c-89e0-ead7e06cca5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Asset">
+      <UniqueIdentifier>{2db5bf79-7461-4794-bbbf-2d34dcaddd8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\FSM">
+      <UniqueIdentifier>{a954f464-cc99-4998-99f8-12c4961746c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\Rigidbody">
+      <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\State">
+      <UniqueIdentifier>{9b58f1b4-8bf3-48e9-b084-cd287d4362c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\State\PlayerState">
+      <UniqueIdentifier>{2ed0f195-c884-4434-ba04-35ffa33d54eb}</UniqueIdentifier>
+    </Filter>
     <Filter Include="game\05-Util">
       <UniqueIdentifier>{1d665e56-6ad8-42d1-a1dd-051b2a52d93e}</UniqueIdentifier>
     </Filter>
@@ -45,41 +72,23 @@
     <Filter Include="game\05-Util\Camera">
       <UniqueIdentifier>{e2488961-6bde-4587-923b-f282063fc708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Module">
-      <UniqueIdentifier>{c562b261-6d11-462f-b195-58612c13b236}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\05-Util\Data">
       <UniqueIdentifier>{0f8592fb-b466-484e-b886-cdee5b1ae51e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Module\Skill">
-      <UniqueIdentifier>{40f3242b-0621-41fc-a8c9-51c048db6111}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\02-Object\AliveObject">
-      <UniqueIdentifier>{7d28406c-c37a-4652-b60c-45d99db7f315}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\02-Object\AliveObject\Player">
-      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\02-Object\AliveObject\Monster">
-      <UniqueIdentifier>{33659c8a-de83-45d3-b11f-f438103e3446}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\02-Object\SkillObject">
-      <UniqueIdentifier>{86fbd53b-5db7-400c-89e0-ead7e06cca5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game\04-Module\Asset">
-      <UniqueIdentifier>{2db5bf79-7461-4794-bbbf-2d34dcaddd8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="game\05-Util\Path">
       <UniqueIdentifier>{8e3dfc6d-c639-407b-b8b3-f29d0f091fcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Component\FSM">
-      <UniqueIdentifier>{a954f464-cc99-4998-99f8-12c4961746c7}</UniqueIdentifier>
+    <Filter Include="game\02-Object\AliveObject\Monster">
+      <UniqueIdentifier>{33659c8a-de83-45d3-b11f-f438103e3446}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\03-Component\Rigidbody">
-      <UniqueIdentifier>{2108cdf5-e1b9-45db-94a4-7ce9d639ce99}</UniqueIdentifier>
+    <Filter Include="game\02-Object\AliveObject\Player">
+      <UniqueIdentifier>{ce6aa2bf-76b3-402b-89ac-5e1fbacc61c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Module\State">
-      <UniqueIdentifier>{9b58f1b4-8bf3-48e9-b084-cd287d4362c8}</UniqueIdentifier>
+    <Filter Include="game\04-Module\Animation">
+      <UniqueIdentifier>{3e4a53d1-0fe2-419e-9bd6-32988c25fea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\03-Component\Animator">
+      <UniqueIdentifier>{d9f23eae-2344-4990-8e74-061dbfdd7637}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +202,15 @@
     <ClInclude Include="State.h">
       <Filter>game\04-Module\State</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>game\04-Module\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>game\04-Module\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>game\03-Component\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -209,9 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Engine.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>game\01-Level</Filter>
     </ClCompile>
@@ -266,9 +281,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>game\02-Object</Filter>
     </ClCompile>
-    <ClCompile Include="AliveObject.cpp">
-      <Filter>game\02-Object\AliveObject</Filter>
-    </ClCompile>
     <ClCompile Include="Skill.cpp">
       <Filter>game\04-Module\Skill</Filter>
     </ClCompile>
@@ -304,6 +316,21 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>game\04-Module\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>game\04-Module\State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="AliveObject.cpp">
+      <Filter>game\02-Object\AliveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>game\04-Module\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>game\03-Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

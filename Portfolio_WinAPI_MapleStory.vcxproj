@@ -135,6 +135,8 @@
   <ItemGroup>
     <ClInclude Include="ActiveSkill.h" />
     <ClInclude Include="AliveObject.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AttackActiveSkill.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="PCH.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigidbody.h" />
@@ -177,6 +180,8 @@
   <ItemGroup>
     <ClCompile Include="ActiveSkill.cpp" />
     <ClCompile Include="AliveObject.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AttackActiveSkill.cpp" />
@@ -201,6 +206,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillManager.cpp" />
