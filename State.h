@@ -3,12 +3,6 @@
 
 class FSM;
 
-// 오브젝트 상태
-enum class OBJECT_STATE
-{
-	IDLE
-};
-
 // 오브젝트의 상태를 나타내는 클래스
 // [abstract class]
 class State : public Entity
@@ -22,8 +16,11 @@ private:
 	OBJECT_STATE type;
 
 protected:
-	State(FSM& fsm, OBJECT_STATE type);
+	State(OBJECT_STATE type);
 	~State();
+	virtual State* Clone() override { return nullptr; }
+
+	FSM& GetFsm() { return *fsm; }
 
 	virtual void Enter() = 0;
 	virtual void Stay() = 0;

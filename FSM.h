@@ -27,7 +27,11 @@ private:
 // 상태 추가
 inline void FSM::AddState(State& state)
 {
-	if (FindState(state.type) == nullptr) stateMap.insert(make_pair(state.type, &state));
+	if (FindState(state.type) == nullptr)
+	{
+		state.fsm = this;
+		stateMap.insert(make_pair(state.type, &state));
+	}
 	else Log(LOG_TYPE::LOG_ERROR, L"이미 추가된 상태입니다");
 }
 

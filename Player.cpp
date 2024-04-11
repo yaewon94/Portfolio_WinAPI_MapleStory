@@ -1,8 +1,11 @@
 #include "PCH.h"
 #include "Player.h"
 #include "ActiveSkill.h"
+#include "Animator.h"
 #include "AttackActiveSkill.h"
 #include "Collider.h"
+#include "FSM.h"
+#include "PlayerIdleState.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
@@ -33,6 +36,9 @@ void Player::Init()
 	// 컴포넌트 추가
 	AddComponent<Rigidbody>();
 	AddComponent<Collider>();
+	FSM* fsm = AddComponent<FSM>();
+	fsm->AddState(*new PlayerIdleState);
+	AddComponent<Animator>();
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
@@ -46,6 +52,9 @@ void Player::Init()
 	// 입력 키 - 스킬 설정 (임시 하드코딩. 시간되면 DB에서 불러오도록 구현 예정)
 	ActiveSkill* activeSkill = (ActiveSkill*)&AddSkill(SkillManager::GetInstance().GetSkill(0));
 	AddSkillKeyMap(KEY_CODE::SHIFT, *activeSkill);
+
+	// 최상위 부모 Init() 호출
+	GameObject::Init();
 }
 
 // 이번 프레임에 처음 눌렸을 때 호출
