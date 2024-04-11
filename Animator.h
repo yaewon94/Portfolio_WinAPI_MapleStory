@@ -16,6 +16,7 @@ public:
 	~Animator();
 	virtual Animator* Clone() override { return new Animator(*this); }
 
+	virtual void FinalTick() override;
 	void Render();
 
 	void AddAnimation(OBJECT_STATE key, Animation& anim);

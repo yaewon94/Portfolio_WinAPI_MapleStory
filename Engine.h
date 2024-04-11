@@ -1,4 +1,5 @@
 #pragma once
+#include "Texture.h"
 
 class Texture;
 
@@ -18,13 +19,14 @@ private:
 	HBRUSH brush;
 
 public:
+	HDC GetMainDC() { return mainDC; }
+	HDC GetSubDC() { return subTex->GetDC(); }
 	Vec2 GetResolution() const { return resolution; }
 	bool IsWindowFocused() const { return hWnd == GetFocus(); }
 
 	int Init(HINSTANCE hInst, HWND hWnd);
 	void Progress();
 
-	void CreateSubDC(HDC& hdc, HBITMAP& hBitmap, UINT width=0, UINT height=0);
 	void ChangeWindowSize(Vec2 resolution);
 	void Render(Vec2 pos, Vec2 scale);
 	void Render(Vec2 pos, const wstring& text);

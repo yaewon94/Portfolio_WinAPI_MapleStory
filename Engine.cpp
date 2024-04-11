@@ -110,20 +110,6 @@ void Engine::Render(Vec2 pos, const wstring& text)
 	TextOutW(subTex->GetDC(), (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
 }
 
-// 보조 DC, 보조 비트맵 생성
-void Engine::CreateSubDC(HDC& hdc, HBITMAP& hBitmap, UINT width, UINT height)
-{
-	// DC 생성
-	hdc = CreateCompatibleDC(mainDC);
-
-	// Bitmap 생성
-	if (width > 0 && height > 0) hBitmap = CreateCompatibleBitmap(mainDC, width, height);
-
-	// SubDC 가 SubBitmap 을 지정하게 함
-	HBITMAP hPrevBitmap = (HBITMAP)SelectObject(hdc, hBitmap);
-	DeleteObject(hPrevBitmap);
-}
-
 // 윈도우 렌더링에 필요한 오브젝트 생성
 void Engine::CreateDefaultGDIobject()
 {

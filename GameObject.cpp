@@ -58,6 +58,13 @@ GameObject::~GameObject()
 	}
 }
 
+// 렌더링 좌표 가져오기
+inline Vec2 GameObject::GetRenderPos()
+{
+	Vec2 realPos = GetPos();
+	return mainCamera->GetRenderPos(realPos);
+}
+
 // 부모 오브젝트 설정
 void GameObject::SetParent(GameObject& parent)
 {
@@ -121,8 +128,7 @@ void GameObject::FinalTick()
 // 렌더링 (매 프레임마다 호출)
 void GameObject::Render()
 {
-	Vec2 realPos = GetPos();
-	Engine::GetInstance().Render(mainCamera->GetRenderPos(realPos), scale);
+	Engine::GetInstance().Render(GetRenderPos(), scale);
 }
 
 // 자식 오브젝트 삭제

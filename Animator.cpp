@@ -32,9 +32,17 @@ Animator::~Animator()
 	}
 }
 
+// 매 프레임마다 호출
+void Animator::FinalTick()
+{
+	assert(curAnim);
+	curAnim->FinalTick();
+}
+
 // 렌더링 (매 프레임마다 호출)
 void Animator::Render()
 {
+	assert(curAnim);
 	curAnim->Render();
 }
 
@@ -47,6 +55,7 @@ void Animator::AddAnimation(OBJECT_STATE key, Animation& anim)
 		return;
 	}
 
+	anim.animator = this;
 	animMap.insert(make_pair(key, &anim));
 }
 

@@ -5,22 +5,30 @@
 // 생성자
 Texture::Texture(const wstring& key, const wstring& relativePath) 
 	: Asset(key, relativePath)
-	, hDC(nullptr), hBitmap(nullptr), bitmapInfo{}
-    //, hDC{}, hBitmap{}, bitmapInfo{}
+	, subDC(nullptr), hBitmap(nullptr), bitmapInfo{}
 {
 }
 
 // 소멸자
 Texture::~Texture()
 {
-	DeleteDC(hDC);
+	DeleteDC(subDC);
 	DeleteObject(hBitmap);
 }
 
 // 에셋 생성
 int Texture::Create(UINT width, UINT height)
 {
-    Engine::GetInstance().CreateSubDC(hDC, hBitmap, width, height);
+    HDC mainDC = Engine::GetInstance().GetMainDC();
+
+    // DC 생성
+    subDC = CreateCompatibleDC(mainDC);
+
+    // Bitmap 생성
+    hBitmap = CreateCompatibleBitmap(mainDC, width, height);
+
+    // SubDC 가 SubBitmap 을 지정하게 함
+    DeleteObject(SelectObject(subDC, hBitmap));
 
     // 로드된 비트맵의 정보를 확인한다.
     GetObject(hBitmap, sizeof(BITMAP), &bitmapInfo);
@@ -61,8 +69,11 @@ int Texture::Load(const wstring& absolutePath)
     // 로드된 비트맵 정보 확인
     GetObject(hBitmap, sizeof(BITMAP), &bitmapInfo);
 
-    // DC - 비트맵 연결
-    Engine::GetInstance().CreateSubDC(hDC, hBitmap);
+    // DC 생성
+    subDC = CreateCompatibleDC(Engine::GetInstance().GetMainDC());
+
+    // SubDC 가 SubBitmap 을 지정하게 함
+    DeleteObject(SelectObject(subDC, hBitmap));
 
     return S_OK;
 }

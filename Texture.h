@@ -9,7 +9,7 @@ class Texture final : public Asset
 	NO_CSTR_COPY_ASSIGN(Texture);
 
 private:
-	HDC hDC;
+	HDC subDC;
 	HBITMAP hBitmap;
 	BITMAP bitmapInfo;
 
@@ -21,5 +21,7 @@ private:
 	virtual int Load(const wstring& absolutePath) override;
 
 public:
-	HDC GetDC() { return hDC; }
+	HDC GetDC() { return subDC; }
+	int GetWidth() const { return bitmapInfo.bmWidth; }
+	int GetHeight() const { return bitmapInfo.bmHeight; }
 };

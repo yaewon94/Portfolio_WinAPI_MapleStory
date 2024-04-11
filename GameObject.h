@@ -41,7 +41,8 @@ public:
 	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
-	Vec2 GetPos();
+	Vec2 GetPos();			// 부모 offset + 자신 offset인 실제 좌표
+	Vec2 GetRenderPos();	// 렌더링 좌표
 	Vec2 GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
 	bool IsActive() const { return isActive; }
