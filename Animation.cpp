@@ -7,19 +7,22 @@
 #include "TimeManager.h"
 
 // 생성자
-Animation::Animation(Texture* atlasTex, int frameCount, float duration) 
-	: atlasTex(atlasTex), frameCount(frameCount),  duration(duration)
+Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, float duration) 
+	: animator(animator), atlasTex(atlasTex), frameCount(frameCount), duration(duration)
 	, curFrame(0)
-	, animator(nullptr)
 {
-	// 크기
-	// 각 프레임 이미지가 가로 방향으로만(row=n, col=1) 배열되었다고 가정
-	scale = Vec2((float)atlasTex->GetWidth() / frameCount, (float)atlasTex->GetHeight());
+	// 각 프레임별 가로 길이 (모두 동일)
+	float widthPerFrame = (float)(atlasTex->GetWidth() / frameCount);
 
+	// 각 프레임별 이미지 크기 (모두 동일)
+	// 각 프레임 이미지가 가로 방향으로만(row=n, col=1) 배열되었다고 가정
+	scale = Vec2(widthPerFrame, (float)atlasTex->GetHeight());
+	
 	// 좌표 설정
 	for (int i = 0; i < frameCount; ++i)
 	{
-		offsets.push_back(scale * i);
+		Vec2 offset = Vec2(widthPerFrame*i, 0.f);
+		offsets.push_back(offset);
 	}
 }
 
@@ -66,8 +69,8 @@ void Animation::Render()
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 0;
-	bf.AlphaFormat = 0;
+	bf.SourceConstantAlpha = 255;
+	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	AlphaBlend(Engine::GetInstance().GetSubDC()
 		, (int)objPos.x, (int)objPos.y

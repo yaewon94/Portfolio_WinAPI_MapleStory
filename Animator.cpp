@@ -47,7 +47,7 @@ void Animator::Render()
 }
 
 // 애니메이션 추가
-void Animator::AddAnimation(OBJECT_STATE key, Animation& anim)
+void Animator::AddAnimation(OBJECT_STATE key, Texture* atlasTex, int frameCount)
 {
 	if (FindAnimation(key) != nullptr)
 	{
@@ -55,8 +55,8 @@ void Animator::AddAnimation(OBJECT_STATE key, Animation& anim)
 		return;
 	}
 
-	anim.animator = this;
-	animMap.insert(make_pair(key, &anim));
+	Animation* anim = new Animation(this, atlasTex, frameCount);
+	animMap.insert(make_pair(key, anim));
 }
 
 // 애니메이션 변경

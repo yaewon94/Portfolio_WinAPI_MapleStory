@@ -2,6 +2,7 @@
 #include "Component.h"
 
 class Animation;
+class Texture;
 
 // 애니메이션을 재생시키는 컴포넌트
 class Animator final : public Component
@@ -19,7 +20,7 @@ public:
 	virtual void FinalTick() override;
 	void Render();
 
-	void AddAnimation(OBJECT_STATE key, Animation& anim);
+	void AddAnimation(OBJECT_STATE key, Texture* atlasTex, int frameCount);
 	void ChangeAnimation(OBJECT_STATE key);
 
 private:

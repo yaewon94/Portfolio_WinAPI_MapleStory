@@ -21,7 +21,7 @@ private:
 
 	Animator* animator;
 
-	Animation(Texture* atlasTex, int frameCount, float duration);
+	Animation(Animator* animator, Texture* atlasTex, int frameCount, float duration=1.f);
 	Animation(const Animation& origin);
 	~Animation();
 	virtual Animation* Clone() override { return new Animation(*this); }

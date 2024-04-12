@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "GameObject.h"
+#include "Animator.h"
 #include "Engine.h"
 #include "LevelManager.h"
 #include "Camera.h"
@@ -128,7 +129,9 @@ void GameObject::FinalTick()
 // 렌더링 (매 프레임마다 호출)
 void GameObject::Render()
 {
-	Engine::GetInstance().Render(GetRenderPos(), scale);
+	Animator* animator = GetComponent<Animator>();
+	if (animator != nullptr) animator->Render();
+	else Engine::GetInstance().Render(GetRenderPos(), scale);
 }
 
 // 자식 오브젝트 삭제

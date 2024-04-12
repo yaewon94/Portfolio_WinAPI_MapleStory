@@ -1,7 +1,9 @@
 #include "PCH.h"
 #include "Player.h"
 #include "ActiveSkill.h"
+#include "Animation.h"
 #include "Animator.h"
+#include "AssetManager.h"
 #include "AttackActiveSkill.h"
 #include "Collider.h"
 #include "FSM.h"
@@ -38,7 +40,8 @@ void Player::Init()
 	AddComponent<Collider>();
 	FSM* fsm = AddComponent<FSM>();
 	fsm->AddState(*new PlayerIdleState);
-	AddComponent<Animator>();
+	Animator* animator = AddComponent<Animator>();
+	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));

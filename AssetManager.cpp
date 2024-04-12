@@ -64,6 +64,7 @@ Texture* AssetManager::LoadTexture(const wstring& key, const wstring& relativePa
 	// 없는 경우
 	// 절대 경로 얻기
 	wstring absolutePath = PathManager::GetInstance().GetContentPath();
+	absolutePath += L"\\Assets\\Textures\\";
 	absolutePath += relativePath;
 
 	// 텍스처 객체 로드
