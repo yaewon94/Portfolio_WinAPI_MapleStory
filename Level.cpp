@@ -2,10 +2,13 @@
 #include "Level.h"
 #include "Camera.h"
 
+// static 멤버 초기화
+Camera* Level::mainCamera = new Camera;
+
 // 생성자
-Level::Level(const wstring& name) : name(name), mainCamera(new Camera)
+Level::Level(const wstring& name) : name(name)
 {
-	GameObject::SetMainCamera(mainCamera);
+	//GameObject::SetMainCamera(mainCamera);
 }
 
 // 소멸자

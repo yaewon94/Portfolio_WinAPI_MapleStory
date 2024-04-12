@@ -37,7 +37,7 @@ void Player::Init()
 {
 	// 컴포넌트 추가
 	AddComponent<Rigidbody>();
-	AddComponent<Collider>();
+	AddComponent<Collider>()->SetOffset(Vec2(75,0));
 	FSM* fsm = AddComponent<FSM>();
 	fsm->AddState(*new PlayerIdleState);
 	Animator* animator = AddComponent<Animator>();

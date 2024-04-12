@@ -10,9 +10,16 @@ class Level : public Entity
 {
 	NO_CSTR_COPY_ASSIGN(Level);
 
+	// ===== static 멤버 =====
+private:
+	static Camera* mainCamera;
+
+public:
+	static Camera& GetMainCamera() { return *mainCamera; }
+
+	// ===== 인스턴스 멤버 =====
 private:
 	wstring name;
-	Camera* mainCamera;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> objects; // 렌더링 순서때문에 배열로 설정
 
 protected:

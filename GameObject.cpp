@@ -6,9 +6,6 @@
 #include "Camera.h"
 #include "Component.h"
 
-// static 멤버 초기화
-Camera* GameObject::mainCamera = nullptr;
-
 // 생성자
 GameObject::GameObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
@@ -63,7 +60,7 @@ GameObject::~GameObject()
 inline Vec2 GameObject::GetRenderPos()
 {
 	Vec2 realPos = GetPos();
-	return mainCamera->GetRenderPos(realPos);
+	return Level::GetMainCamera().GetRenderPos(realPos);
 }
 
 // 부모 오브젝트 설정

@@ -21,7 +21,7 @@ Level_Test::~Level_Test()
 void Level_Test::Enter()
 {
 	// 오브젝트 추가
-	AddObject(Player(L"Player", Vec2(100, 700), Vec2(100, 100)));
+	AddObject(Player(L"Player", Vec2(100, 725), Vec2(50, 75)));
 	AddObject(Ground(Vec2(0, 800), Vec2(1000, 100)));
 	AddObject(Monster(L"Boss_Will", Vec2(400, 700), Vec2(100, 100)));
 }

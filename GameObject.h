@@ -8,14 +8,6 @@ class Component;
 // abstract class
 class GameObject : public Entity
 {
-	// ========== static ¸â¹ö ==========
-private:
-	static Camera* mainCamera;
-
-public:
-	static void SetMainCamera(Camera* mainCamera) { GameObject::mainCamera = mainCamera; }
-
-	// ========== ÀÎ½ºÅÏ½º ¸â¹ö ==========
 private:
 	vector<Component*> components;
 	LAYER_TYPE layer;

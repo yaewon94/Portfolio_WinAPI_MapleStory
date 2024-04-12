@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "DebugRender.h"
+#include "Collider.h"
 #include "Engine.h"
 #include "LevelManager.h"
 #include "GameObject.h"
@@ -20,6 +21,11 @@ DebugRender::~DebugRender()
 			delete log;
 			log = nullptr;
 		}
+	}
+
+	for (auto collider : colliders)
+	{
+		collider = nullptr;
 	}
 }
 
@@ -48,9 +54,26 @@ void DebugRender::FinalTick()
 // 매 프레임마다 렌더링
 void DebugRender::Render()
 {
-	//assert(nullptr);
+	HDC subDC = Engine::GetInstance().GetSubDC();
+	Vec2 pos, scale;
+
 	for (auto log : renderLogs)
 	{
 		Engine::GetInstance().Render(log->GetPos(), log->GetText());
+	}
+
+	for (auto collider : colliders)
+	{
+		HGDIOBJ prevBrush = SelectObject(subDC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
+		HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
+
+		pos = collider->GetRenderPos();
+		scale = collider->GetScale();
+		Rectangle(subDC
+			, pos.x, pos.y
+			, pos.x+scale.x, pos.y+scale.y);
+
+		SelectObject(subDC, prevBrush);
+		SelectObject(subDC, prevPen);
 	}
 }
