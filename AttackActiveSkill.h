@@ -27,7 +27,6 @@ public:
 	float GetSpeed() const { return speed; }
 
 	virtual void OnKeyPressed(KEY_CODE keyCode) override;
-	virtual void OnKeyDown(KEY_CODE keyCode) override {}
 };
 
 // 스킬 오브젝트 설정

@@ -17,4 +17,5 @@ public:
 	// 스킬 호출하듯이 호출할 수 있고, 입력키도 바꿀 수 있음
 	virtual void OnKeyPressed(KEY_CODE) = 0;
 	virtual void OnKeyDown(KEY_CODE) = 0;
+	virtual void OnKeyReleased(KEY_CODE) = 0;
 };

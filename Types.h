@@ -24,7 +24,7 @@ enum class LEVEL_TYPE
 // 오브젝트 상태
 enum class OBJECT_STATE
 {
-	IDLE
+	IDLE, WALK
 };
 
 // 2차원 벡터

@@ -115,7 +115,7 @@ void Engine::CreateDefaultGDIobject()
 {
 	// DC(Device Context) : 입력 윈도우 비트맵에 렌더링을 하기 위해 필요한 실수값 정보 집합체
 	// 메인 윈도우를 타겟으로 지정하는 DC 생성
-	mainDC = GetDC(hWnd);
+	mainDC = ::GetDC(hWnd);
 
 	// 메인 윈도우에 출력 전에 미리 그려놓는 용도의 서브텍스처 생성
 	subTex = AssetManager::GetInstance().CreateTexture(L"SubTexture", (UINT)resolution.x, (UINT)resolution.y);

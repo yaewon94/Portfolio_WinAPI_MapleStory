@@ -11,6 +11,7 @@
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
+#include "WalkState.h"
 
 // 생성자
 Player::Player(const wstring& name, Vec2 pos, Vec2 scale) : AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
@@ -37,11 +38,15 @@ void Player::Init()
 {
 	// 컴포넌트 추가
 	AddComponent<Rigidbody>();
-	AddComponent<Collider>()->SetOffset(Vec2(75,0));
+	Collider* collider = AddComponent<Collider>();
+	collider->SetOffset(Vec2(90, 80));
+	collider->SetScale(Vec2(50, 70));
 	FSM* fsm = AddComponent<FSM>();
 	fsm->AddState(*new PlayerIdleState);
+	fsm->AddState(*new WalkState);
 	Animator* animator = AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
+	animator->AddAnimation(OBJECT_STATE::WALK, AssetManager::GetInstance().LoadTexture(L"PlayerWalk", L"Player_Walk.png"), 4);
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
@@ -60,7 +65,18 @@ void Player::Init()
 	GameObject::Init();
 }
 
-// 이번 프레임에 처음 눌렸을 때 호출
+// 매 프레임마다 호출
+void Player::FinalTick()
+{
+	// 상태 체크
+	FSM* fsm = GetComponent<FSM>();
+	if (curState != fsm->GetCurrentState()) fsm->ChangeState(curState);
+
+	// 최상위 부모 FinalTick() 호출
+	GameObject::FinalTick();
+}
+
+// [event] OnKeyPressed
 void Player::OnKeyPressed(KEY_CODE key)
 {
 	// [check] 키세팅 커스터마이징 할 때는 자기가 셋팅한 키값대로 분기시켜야 함
@@ -68,22 +84,39 @@ void Player::OnKeyPressed(KEY_CODE key)
 	{
 	case KEY_CODE::X:
 		Jump();
-		break;
+		return;
 	case KEY_CODE::LEFT:
 		dir = Vec2::Left();
-		Move();
+		//curState = OBJECT_STATE::WALK;
+		//Move();
 		break;
 	case KEY_CODE::RIGHT:
 		dir = Vec2::Right();
-		Move();
+		//curState = OBJECT_STATE::WALK;
+		//Move();
 		break;
+	default:
+		return;
+	}
+
+	curState = OBJECT_STATE::WALK;
+	Move();
+}
+
+// [event] OnKeyDown
+void Player::OnKeyDown(KEY_CODE key)
+{
+	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
+	{
+		curState = OBJECT_STATE::WALK;
+		Move();
 	}
 }
 
-// 저번 프레임에도 눌리고, 이번 프레임에도 눌렸을 때 호출
-void Player::OnKeyDown(KEY_CODE key)
+// [event] OnKeyReleased 
+void Player::OnKeyReleased(KEY_CODE key)
 {
-	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT) Move();
+	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT) curState = OBJECT_STATE::IDLE;
 }
 
 // 입력 키 - 스킬 발동 pair 추가

@@ -1,8 +1,8 @@
 #include "PCH.h"
 #include "Animation.h"
 #include "Animator.h"
+#include "AliveObject.h"
 #include "Engine.h"
-#include "GameObject.h"
 #include "Texture.h"
 #include "TimeManager.h"
 
@@ -63,7 +63,13 @@ void Animation::Render()
 {
 	assert(atlasTex);
 
-	Vec2 objPos = animator->GetOwner()->GetRenderPos();
+	// 이미지 사이즈에 맞게 크기 변경
+	GameObject* obj = animator->GetOwner();
+
+	//HDC& mainDC = Engine::GetInstance().GetMainDC();
+	//Vec2 resolution = Engine::GetInstance().GetResolution();
+	Vec2 objPos = obj->GetRenderPos();
+	//float dir = ((AliveObject*)animator->GetOwner())->GetDirection().x;
 
 	// png 이미지
 	BLENDFUNCTION bf = {};
@@ -72,6 +78,20 @@ void Animation::Render()
 	bf.SourceConstantAlpha = 255;
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
+	/*
+	HDC strectchDC = CreateCompatibleDC(mainDC);
+	HBITMAP stretchBit = CreateCompatibleBitmap(mainDC, resolution.x, resolution.y);
+	SelectObject(strectchDC, stretchBit);
+
+	StretchBlt(Engine::GetInstance().GetSubDC()
+		, (int)objPos.x, (int)objPos.y
+		, (int)(scale.x * dir), (int)scale.y
+		, atlasTex->GetDC()
+		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
+		, (int)scale.x, (int)scale.y
+		, SRCCOPY);
+	*/
+
 	AlphaBlend(Engine::GetInstance().GetSubDC()
 		, (int)objPos.x, (int)objPos.y
 		, (int)scale.x, (int)scale.y
@@ -79,6 +99,9 @@ void Animation::Render()
 		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
 		, (int)scale.x, (int)scale.y
 		, bf);
+	
+	//DeleteObject(stretchBit);
+	//DeleteDC(strectchDC);
 
 	/*
 	// 비트맵 이미지

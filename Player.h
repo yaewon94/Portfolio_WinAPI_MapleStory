@@ -18,9 +18,11 @@ public:
 	ActiveSkill& GetSkill(KEY_CODE keyCode) { return *skillKeyMap.find(keyCode)->second; }
 
 	virtual void Init() override;
+	virtual void FinalTick() override;
 
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;
+	virtual void OnKeyReleased(KEY_CODE key) override;
 
 private:
 	void AddSkillKeyMap(KEY_CODE keyCode, ActiveSkill& skill);

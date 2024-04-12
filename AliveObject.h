@@ -13,10 +13,11 @@ private:
 	SkillObject* skillObject;
 
 protected:
-	Vec2 dir;
+	Vec2 dir = Vec2::Left();
 	float speed;
 	float jumpPower;
 	bool canJump = false;
+	OBJECT_STATE curState = OBJECT_STATE::IDLE;
 
 	AliveObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE layer, float speed=200.f, float jumpPower=700.f);
 	AliveObject(const AliveObject& origin);
@@ -31,6 +32,9 @@ protected:
 	virtual void OnCollisionEnter(GameObject& other) override;
 	virtual void OnCollisionStay(GameObject& other) override;
 	virtual void OnCollisionExit(GameObject& other) override;
+
+public:
+	Vec2 GetDirection() const { return dir; }
 };
 
 // 사용 가능한 스킬 추가

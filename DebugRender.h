@@ -1,7 +1,7 @@
 #pragma once
 
 class Collider;
-class GameObject;
+class Player;
 
 // 디버깅 모드 렌더링 클래스
 class DebugRender final
@@ -11,7 +11,7 @@ class DebugRender final
 private:
 	vector<Log*> renderLogs;
 	vector<Collider*> colliders;
-	GameObject* player;
+	Player* player;
 
 public:
 	void Init();

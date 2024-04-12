@@ -7,6 +7,7 @@ class FSM final : public Component
 {
 private:
 	map<OBJECT_STATE, State*> stateMap;
+	OBJECT_STATE curStateType;
 	State* curState;
 
 public:
@@ -19,33 +20,8 @@ public:
 
 	void AddState(State& state);
 	void ChangeState(OBJECT_STATE type);
+	OBJECT_STATE GetCurrentState() const { return curStateType; }
 
 private:
 	State* FindState(OBJECT_STATE type);
 };
-
-// 상태 추가
-inline void FSM::AddState(State& state)
-{
-	if (FindState(state.type) == nullptr)
-	{
-		state.fsm = this;
-		stateMap.insert(make_pair(state.type, &state));
-	}
-	else Log(LOG_TYPE::LOG_ERROR, L"이미 추가된 상태입니다");
-}
-
-// 상태 변경
-inline void FSM::ChangeState(OBJECT_STATE type)
-{
-	auto state = FindState(type);
-	if (state != nullptr) curState = state;
-	else Log(LOG_TYPE::LOG_ERROR, L"변경하려는 상태가 없습니다");
-}
-// 상태 찾기
-inline State* FSM::FindState(OBJECT_STATE type)
-{
-	auto iter = stateMap.find(type);
-	if (iter != stateMap.end()) return iter->second;
-	else return nullptr;
-}

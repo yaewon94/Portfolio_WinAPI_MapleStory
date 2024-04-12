@@ -21,7 +21,7 @@ private:
 	virtual int Load(const wstring& absolutePath) override;
 
 public:
-	HDC GetDC() { return subDC; }
+	HDC& GetDC() { return subDC; }
 	int GetWidth() const { return bitmapInfo.bmWidth; }
 	int GetHeight() const { return bitmapInfo.bmHeight; }
 };

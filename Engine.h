@@ -19,8 +19,8 @@ private:
 	HBRUSH brush;
 
 public:
-	HDC GetMainDC() { return mainDC; }
-	HDC GetSubDC() { return subTex->GetDC(); }
+	HDC& GetMainDC() { return mainDC; }
+	HDC& GetSubDC() { return subTex->GetDC(); }
 	Vec2 GetResolution() const { return resolution; }
 	bool IsWindowFocused() const { return hWnd == GetFocus(); }
 

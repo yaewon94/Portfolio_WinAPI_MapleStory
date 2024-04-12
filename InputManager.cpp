@@ -35,6 +35,7 @@ void InputManager::Init()
 	// 키 상태별 콜백 메소드 초기화
 	stateCallbackMap.insert(make_pair(KEY_STATE::KEY_PRESSED, &IKeyEvent::OnKeyPressed));
 	stateCallbackMap.insert(make_pair(KEY_STATE::KEY_DOWN, &IKeyEvent::OnKeyDown));
+	stateCallbackMap.insert(make_pair(KEY_STATE::KEY_RELEASED, &IKeyEvent::OnKeyReleased));
 
 	// 플레이어 관련 콜백 : 이동, 점프
 	keyMap.insert(make_pair(KEY_CODE::LEFT, new KeyInfo{ KEY_TYPE::PLAYER }));
