@@ -156,6 +156,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IKeyEvent.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="JumpState.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Level_Test.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Level_Test.cpp" />

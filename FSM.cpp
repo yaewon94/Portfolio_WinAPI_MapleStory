@@ -52,7 +52,6 @@ void FSM::ChangeState(OBJECT_STATE type)
 
 	if (state != nullptr)
 	{
-		curStateType = type;
 		if (curState != nullptr) curState->Exit();
 		curState = state;
 		curState->Enter();

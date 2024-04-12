@@ -45,6 +45,7 @@ void AliveObject::Jump()
 {
 	if (!canJump) return;
 
+	curState = OBJECT_STATE::JUMP;
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	rb->UseGravity(true);
 	rb->AddForce(Vec2::Up() * jumpPower);
@@ -55,8 +56,12 @@ void AliveObject::OnCollisionEnter(GameObject& other)
 {
 	if (other.GetLayer() == LAYER_TYPE::GROUND)
 	{
-		GetComponent<Rigidbody>()->UseGravity(false);
-		canJump = true;
+		if (!canJump)
+		{
+			curState = OBJECT_STATE::IDLE;
+			GetComponent<Rigidbody>()->UseGravity(false);
+			canJump = true;
+		}
 	}
 }
 

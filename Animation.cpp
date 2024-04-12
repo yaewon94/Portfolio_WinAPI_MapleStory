@@ -45,6 +45,8 @@ Animation::~Animation()
 // 매 프레임마다 호출
 void Animation::FinalTick()
 {
+	if (frameCount == 1) return;
+
 	static float time = 0;
 	time += TimeManager::GetInstance().GetDeltaTime();
 

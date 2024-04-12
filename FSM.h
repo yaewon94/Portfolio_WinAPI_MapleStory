@@ -7,7 +7,6 @@ class FSM final : public Component
 {
 private:
 	map<OBJECT_STATE, State*> stateMap;
-	OBJECT_STATE curStateType;
 	State* curState;
 
 public:
@@ -20,7 +19,7 @@ public:
 
 	void AddState(State& state);
 	void ChangeState(OBJECT_STATE type);
-	OBJECT_STATE GetCurrentState() const { return curStateType; }
+	OBJECT_STATE GetCurrentState() const { return curState->type; }
 
 private:
 	State* FindState(OBJECT_STATE type);

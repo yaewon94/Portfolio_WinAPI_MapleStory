@@ -7,6 +7,7 @@
 #include "AttackActiveSkill.h"
 #include "Collider.h"
 #include "FSM.h"
+#include "JumpState.h"
 #include "PlayerIdleState.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
@@ -44,9 +45,12 @@ void Player::Init()
 	FSM* fsm = AddComponent<FSM>();
 	fsm->AddState(*new PlayerIdleState);
 	fsm->AddState(*new WalkState);
+	fsm->AddState(*new JumpState);
 	Animator* animator = AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
 	animator->AddAnimation(OBJECT_STATE::WALK, AssetManager::GetInstance().LoadTexture(L"PlayerWalk", L"Player_Walk.png"), 4);
+	animator->AddAnimation(OBJECT_STATE::JUMP, AssetManager::GetInstance().LoadTexture(L"PlayerJump", L"Player_Jump.png"), 1);
+
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
@@ -87,19 +91,15 @@ void Player::OnKeyPressed(KEY_CODE key)
 		return;
 	case KEY_CODE::LEFT:
 		dir = Vec2::Left();
-		//curState = OBJECT_STATE::WALK;
-		//Move();
 		break;
 	case KEY_CODE::RIGHT:
 		dir = Vec2::Right();
-		//curState = OBJECT_STATE::WALK;
-		//Move();
 		break;
 	default:
 		return;
 	}
 
-	curState = OBJECT_STATE::WALK;
+	if (canJump) curState = OBJECT_STATE::WALK;
 	Move();
 }
 
@@ -108,7 +108,7 @@ void Player::OnKeyDown(KEY_CODE key)
 {
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
 	{
-		curState = OBJECT_STATE::WALK;
+		if (canJump) curState = OBJECT_STATE::WALK;
 		Move();
 	}
 }
