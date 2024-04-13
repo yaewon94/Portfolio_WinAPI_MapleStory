@@ -21,9 +21,9 @@ Level_Test::~Level_Test()
 void Level_Test::Enter()
 {
 	// 오브젝트 추가
-	AddObject(Player(L"Player", Vec2(100, 600), Vec2(220, 220)));
-	AddObject(Ground(Vec2(0, 800), Vec2(1000, 100)));
-	AddObject(Monster(L"Boss_Will", Vec2(400, 700), Vec2(100, 100)));
+	AddObject(Player(L"Player", Vec2(100.f, 600.f), Vec2(220, 220)));
+	AddObject(Ground(Vec2(0.f, 800.f), Vec2(1000, 100)));
+	AddObject(Monster(L"Boss_Will", Vec2(400.f, 700.f), Vec2(100, 100)));
 }
 
 // 레벨 종료시 호출

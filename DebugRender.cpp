@@ -37,7 +37,7 @@ void DebugRender::Init()
 
 	// 렌더링 정보 초기화
 	//renderLogs.push_back(new Log(LOG_TYPE::LOG, L"", Vec2(100, 50)));
-	renderLogs.push_back(new Log(LOG_TYPE::LOG, L"FPS : ", Vec2(100, 100)));
+	renderLogs.push_back(new Log(LOG_TYPE::LOG, L"FPS : ", Vec2(100.f, 100.f)));
 }
 
 // 매 프레임마다 호출
@@ -55,7 +55,8 @@ void DebugRender::FinalTick()
 void DebugRender::Render()
 {
 	HDC subDC = Engine::GetInstance().GetSubDC();
-	Vec2 pos, scale;
+	Vec2<float> pos;
+	Vec2<int> scale;
 
 	for (auto log : renderLogs)
 	{
@@ -70,8 +71,8 @@ void DebugRender::Render()
 		pos = collider->GetRenderPos();
 		scale = collider->GetScale();
 		Rectangle(subDC
-			, pos.x, pos.y
-			, pos.x+scale.x, pos.y+scale.y);
+			, (int)pos.x, (int)pos.y
+			, (int)pos.x+scale.x, (int)pos.y+scale.y);
 
 		SelectObject(subDC, prevBrush);
 		SelectObject(subDC, prevPen);

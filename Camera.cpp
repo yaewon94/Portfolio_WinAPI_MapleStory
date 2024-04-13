@@ -23,7 +23,7 @@ void Camera::Init()
 // 매 프레임마다 호출
 void Camera::FinalTick()
 {
-	// 플레이어가 화면의 중앙에 오도록 카메라 좌표 설정
-	diff.x = player->GetPos().x + (player->GetScale().x * 0.5f) - (resolution.x * 0.5f);
-	diff.y = player->GetPos().y + (player->GetScale().y * 0.5f) - (resolution.y * 0.5f);
+	// 플레이어가 화면의 중앙에 오도록 실제 좌표와 렌더링 좌표 차이값 설정
+	diff.x = player->GetPos().x + (player->GetScale().x - resolution.x) * 0.5f;
+	diff.y = player->GetPos().y + (player->GetScale().y - resolution.y) * 0.5f;
 }

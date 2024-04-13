@@ -4,7 +4,7 @@
 class Monster : public GameObject
 {
 public:
-	Monster(const wstring& name, Vec2 pos, Vec2 scale);
+	Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale);
 	Monster(const Monster& origin);
 	~Monster();
 	virtual Monster* Clone() override { return new Monster(*this); }

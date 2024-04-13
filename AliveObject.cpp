@@ -1,13 +1,14 @@
 #include "PCH.h"
 #include "AliveObject.h"
+#include "FSM.h"
 #include "TimeManager.h"
 #include "Rigidbody.h"
 #include "Skill.h"
 #include "SkillObject.h"
 
 // 생성자
-AliveObject::AliveObject(const wstring& name, Vec2 pos, Vec2 scale, LAYER_TYPE layer, float speed, float jumpPower)
-	: GameObject(name, pos, scale, layer), speed(speed), jumpPower(jumpPower)
+AliveObject::AliveObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, float speed, float jumpPower)
+	: GameObject(name, offset, scale, layer), speed(speed), jumpPower(jumpPower)
 	, skillObject(nullptr)
 {
 }
@@ -37,7 +38,7 @@ AliveObject::~AliveObject()
 // 이동
 void AliveObject::Move()
 {
-	offset += (dir * speed * TimeManager::GetInstance().GetDeltaTime());
+	offset += dir * speed * TimeManager::GetInstance().GetDeltaTime();
 }
 
 // 점프
@@ -45,10 +46,10 @@ void AliveObject::Jump()
 {
 	if (!canJump) return;
 
-	curState = OBJECT_STATE::JUMP;
+	GetComponent<FSM>()->ChangeState(OBJECT_STATE::JUMP);
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	rb->UseGravity(true);
-	rb->AddForce(Vec2::Up() * jumpPower);
+	rb->AddForce(Vec2<float>::Up() * jumpPower);
 }
 
 // 충돌 시작
@@ -58,7 +59,7 @@ void AliveObject::OnCollisionEnter(GameObject& other)
 	{
 		if (!canJump)
 		{
-			curState = OBJECT_STATE::IDLE;
+			GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
 			GetComponent<Rigidbody>()->UseGravity(false);
 			canJump = true;
 		}

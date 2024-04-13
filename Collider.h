@@ -6,8 +6,8 @@
 class Collider final : public Component
 {
 private:
-	Vec2 offset;	// 게임 오브젝트의 좌표를 기준으로 한 로컬좌표
-	Vec2 scale;
+	Vec2<float> offset;	// 게임 오브젝트의 좌표를 기준으로 한 로컬좌표
+	Vec2<int> scale;
 
 public:
 	Collider(GameObject& owner);
@@ -15,12 +15,12 @@ public:
 	~Collider();
 	virtual Collider* Clone() override { return new Collider(*this); }
 
-	Vec2 GetPos() { return offset + GetOwner()->GetPos(); }
-	Vec2 GetRenderPos();
-	Vec2 GetScale() { return scale; }
+	Vec2<float> GetPos() { return offset + GetOwner()->GetPos(); }
+	Vec2<float> GetRenderPos();
+	Vec2<int> GetScale() const { return scale; }
 
-	void SetOffset(Vec2 offset) { this->offset = offset; }
-	void SetScale(Vec2 scale) { this->scale = scale; }
+	void SetOffset(Vec2<float> offset) { this->offset = offset; }
+	void SetScale(Vec2<int> scale) { this->scale = scale; }
 
 	virtual void Init() override;
 };

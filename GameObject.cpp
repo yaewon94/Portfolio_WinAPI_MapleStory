@@ -7,7 +7,7 @@
 #include "Component.h"
 
 // 생성자
-GameObject::GameObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer, bool isActive)
+GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
 	, parent(nullptr)
 {
@@ -57,7 +57,7 @@ GameObject::~GameObject()
 }
 
 // 렌더링 좌표 가져오기
-inline Vec2 GameObject::GetRenderPos()
+inline Vec2<float> GameObject::GetRenderPos()
 {
 	Vec2 realPos = GetPos();
 	return Level::GetMainCamera().GetRenderPos(realPos);

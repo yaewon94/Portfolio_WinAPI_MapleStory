@@ -17,10 +17,10 @@ private:
 
 protected:
 	wstring name;
-	Vec2 offset;	// ºÎ¸ð ÁÂÇ¥¸¦ ±âÁØÀ¸·Î ÇÑ ·ÎÄÃÁÂÇ¥
-	Vec2 scale;
+	Vec2<float> offset;	// ºÎ¸ð ÁÂÇ¥¸¦ ±âÁØÀ¸·Î ÇÑ ·ÎÄÃÁÂÇ¥
+	Vec2<int> scale;
 
-	GameObject(const wstring& name, Vec2 pos, Vec2 Scale, LAYER_TYPE layer, bool isActive=true);
+	GameObject(const wstring& name, Vec2<float> offset, Vec2<int> Scale, LAYER_TYPE layer, bool isActive=true);
 	GameObject(const GameObject& origin);
 	~GameObject();
 
@@ -33,13 +33,15 @@ public:
 	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
 
-	Vec2 GetPos();			// ºÎ¸ð offset + ÀÚ½Å offsetÀÎ ½ÇÁ¦ ÁÂÇ¥
-	Vec2 GetRenderPos();	// ·»´õ¸µ ÁÂÇ¥
-	Vec2 GetScale() const { return scale; }
+	Vec2<float> GetPos();			// ºÎ¸ð offset + ÀÚ½Å offsetÀÎ ½ÇÁ¦ ÁÂÇ¥
+	Vec2<float> GetRenderPos();		// ·»´õ¸µ ÁÂÇ¥
+	Vec2<int> GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
 	bool IsActive() const { return isActive; }
 
-	void SetOffset(Vec2 offset) { this->offset = offset; }
+	GameObject* GetParent() { return parent; }
+
+	void SetOffset(Vec2<float> offset) { this->offset = offset; }
 	virtual void SetActive(bool flag) { isActive = flag; }
 
 	// [check] ÀÓ½Ã
@@ -61,7 +63,7 @@ private:
 };
 
 // ÁÂÇ¥ ¹ÝÈ¯
-inline Vec2 GameObject::GetPos()
+inline Vec2<float> GameObject::GetPos()
 {
 	if (parent == nullptr) return offset;
 	return parent->GetPos() + offset;

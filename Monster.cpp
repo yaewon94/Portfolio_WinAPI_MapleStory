@@ -3,7 +3,8 @@
 #include "Collider.h"
 
 // »ý¼ºÀÚ
-Monster::Monster(const wstring& name, Vec2 pos, Vec2 scale) : GameObject(name, pos, scale, LAYER_TYPE::ENEMY)
+Monster::Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale) 
+	: GameObject(name, pos, scale, LAYER_TYPE::ENEMY)
 {
 }
 

@@ -4,26 +4,24 @@
 #include "Collider.h"
 #include "TimeManager.h"
 
-// static 필드 초기화
-AttackActiveSkill* SkillObject::skill = nullptr;
-
 // 생성자
 // [CHECK] 여기서 상수 초기화하는데 왜 제대로 적용 안됨? Entity에서는 잘 되던데
-SkillObject::SkillObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer)
-	: GameObject(name, offset, scale, layer, false)
+SkillObject::SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer)
+	: GameObject(name, offset, scale, layer, false), skill(nullptr)
 {
 	if (layer == LAYER_TYPE::PLAYER_SKILL) {}
 	else throw std::invalid_argument("invalid layer type");	// 객체 생성 취소
 }
 
 // 복사 생성자
-SkillObject::SkillObject(const SkillObject& origin) : GameObject(origin)
+SkillObject::SkillObject(const SkillObject& origin) : GameObject(origin), skill(origin.skill)
 {
 }
 
 // 소멸자
 SkillObject::~SkillObject()
 {
+	skill = nullptr;
 }
 
 // 초기화
@@ -42,7 +40,7 @@ void SkillObject::Tick()
 		return;
 	}
 
-	offset += (skill->GetMaxRange() * skill->GetSpeed() * TimeManager::GetInstance().GetDeltaTime());
+	offset += skill->GetMaxRange() * skill->GetSpeed() * TimeManager::GetInstance().GetDeltaTime();
 }
 
 // 충돌 시작

@@ -10,7 +10,7 @@ private:
 	map<KEY_CODE, ActiveSkill*> skillKeyMap;
 
 public:
-	Player(const wstring& name, Vec2 pos, Vec2 scale);
+	Player(const wstring& name, Vec2<float> pos, Vec2<int> scale);
 	Player(const Player& origin);
 	~Player();
 	virtual Player* Clone() override { return new Player(*this); }
@@ -18,7 +18,6 @@ public:
 	ActiveSkill& GetSkill(KEY_CODE keyCode) { return *skillKeyMap.find(keyCode)->second; }
 
 	virtual void Init() override;
-	virtual void FinalTick() override;
 
 	virtual void OnKeyPressed(KEY_CODE key) override;
 	virtual void OnKeyDown(KEY_CODE key) override;

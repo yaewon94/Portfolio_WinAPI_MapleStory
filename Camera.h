@@ -9,8 +9,8 @@ class Camera final : public Entity
 
 	NO_CSTR_COPY_ASSIGN(Camera);
 private:
-	Vec2 diff; // 실제 좌표와 렌더링 좌표와의 차이
-	Vec2 resolution;
+	Vec2<float> diff; // 실제 좌표와 렌더링 좌표와의 차이
+	Vec2<int> resolution;
 	GameObject* player;
 
 	Camera();
@@ -21,5 +21,5 @@ private:
 	void FinalTick();
 
 public:
-	Vec2 GetRenderPos(Vec2& realPos) const { return realPos - diff; }
+	Vec2<float> GetRenderPos(Vec2<float> realPos) { return realPos - diff; }
 };
