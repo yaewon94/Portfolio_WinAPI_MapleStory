@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "LevelManager.h"
 #include "PathManager.h"
+#include "SkillManager.h"
 #include "Texture.h"
 #include "TimeManager.h"
 
@@ -63,23 +64,24 @@ void Engine::Progress()
 
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
+	SkillManager::GetInstance().FinalTick();
 	CollisionManager::GetInstance().FinalTick();
 	DebugRender::GetInstance().FinalTick();
 
 	// 이전 화면 Clear
 	HBRUSH prevBrush = (HBRUSH)SelectObject(subTex->GetDC(), brush);
-	Rectangle(subTex->GetDC(), -1, -1, (int)resolution.x + 1, (int)resolution.y + 1);
+	Rectangle(subTex->GetDC(), -1, -1, resolution.x + 1, resolution.y + 1);
 
 	// 게임매니저 렌더링
 	LevelManager::GetInstance().Render();
 	DebugRender::GetInstance().Render();
 
 	// sub -> main 윈도우
-	BitBlt(mainDC, 0, 0, (int)resolution.x, (int)resolution.y, subTex->GetDC(), 0, 0, SRCCOPY);
+	BitBlt(mainDC, 0, 0, resolution.x, resolution.y, subTex->GetDC(), 0, 0, SRCCOPY);
 }
 
 // 윈도우 크기 변경
-void Engine::ChangeWindowSize(Vec2 resolution)
+void Engine::ChangeWindowSize(Vec2<int> resolution)
 {
 	// 입력된 해상도에 맞게 실제 윈도우 크기 계산
 	RECT rt{ 0, 0, (LONG)resolution.x, (LONG)resolution.y };
@@ -94,17 +96,17 @@ void Engine::ChangeWindowSize(Vec2 resolution)
 
 // 렌더링
 // HDC, HWND를 클래스 외부에 노출시키지 않기 위해 구현함
-void Engine::Render(Vec2 pos, Vec2 scale)
+void Engine::Render(Vec2<float> pos, Vec2<int> scale)
 {
 	// [임시 코드]
 	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
 	HPEN prevPen = (HPEN)SelectObject(subTex->GetDC(), pen);
-	Rectangle(subTex->GetDC(), (int)pos.x, (int)pos.y, (int)(pos.x + scale.x), (int)(pos.y + scale.y));
+	Rectangle(subTex->GetDC(), (int)pos.x, (int)pos.y, (int)pos.x + scale.x, (int)pos.y + scale.y);
 	SelectObject(subTex->GetDC(), prevPen);
 }
 
 // 텍스트 렌더링
-void Engine::Render(Vec2 pos, const wstring& text)
+void Engine::Render(Vec2<float> pos, const wstring& text)
 {
 	//SetBkMode(subTex->GetDC(), TRANSPARENT);
 	TextOutW(subTex->GetDC(), (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());

@@ -9,22 +9,21 @@ class AttackActiveSkill final : public ActiveSkill
 	friend class SkillManager;
 
 private:
-	static SkillObject* skillObject;	// [CHECK] 다른 스킬도 추가되면 static이 아니라 인스턴스 필드로 바꿔야 할수도
+	SkillObject* skillObject;
+	Vec2<float> maxRange;	// 최대 이동범위 (넘어서면 자동으로 비활성화됨)
+	float speed;		// 스킬 오브젝트 이동 속도
 
-public:
-	static void SetSkillObject(SkillObject& skillObject);
-
-private:
-	const Vec2 maxRange;	// 최대 이동범위 (넘어서면 자동으로 비활성화됨)
-	const float speed;
+	const float Delay = DEFAULT_ANIM_DURATION * 2;	// 키 입력 후, 스킬 오브젝트가 활성화 되기까지 걸리는 시간
+	float time = 0.f;		// 스킬 시전 후 경과시간
 
 	NO_CSTR_COPY_ASSIGN(AttackActiveSkill);
-	AttackActiveSkill(const wstring& name, Vec2 maxRange, float speed=2.f);
+	AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed=2.f);
 	~AttackActiveSkill();
 
 public:
-	Vec2 GetMaxRange() const { return maxRange; }
+	Vec2<float> GetMaxRange() const { return maxRange; }
 	float GetSpeed() const { return speed; }
+	void SetSkillObject(SkillObject& skillObject);
 
 	virtual void OnKeyPressed(KEY_CODE keyCode) override;
 };

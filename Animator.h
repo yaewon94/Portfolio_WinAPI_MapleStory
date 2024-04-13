@@ -20,7 +20,7 @@ public:
 	virtual void FinalTick() override;
 	void Render();
 
-	void AddAnimation(OBJECT_STATE key, Texture* atlasTex, int frameCount);
+	void AddAnimation(OBJECT_STATE key, Texture* atlasTex, int frameCount, bool isRepeat=true);
 	void ChangeAnimation(OBJECT_STATE key);
 
 private:

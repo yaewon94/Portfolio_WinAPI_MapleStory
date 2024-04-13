@@ -3,32 +3,33 @@
 #include "Animator.h"
 #include "AliveObject.h"
 #include "Engine.h"
+#include "FSM.h"
 #include "Texture.h"
 #include "TimeManager.h"
 
 // 생성자
-Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, float duration) 
-	: animator(animator), atlasTex(atlasTex), frameCount(frameCount), duration(duration)
+Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat, float duration) 
+	: animator(animator), atlasTex(atlasTex), frameCount(frameCount), isRepeat(isRepeat), duration(duration)
 	, curFrame(0)
 {
 	// 각 프레임별 가로 길이 (모두 동일)
-	float widthPerFrame = (float)(atlasTex->GetWidth() / frameCount);
+	int widthPerFrame = atlasTex->GetWidth() / frameCount;
 
 	// 각 프레임별 이미지 크기 (모두 동일)
 	// 각 프레임 이미지가 가로 방향으로만(row=n, col=1) 배열되었다고 가정
-	scale = Vec2(widthPerFrame, (float)atlasTex->GetHeight());
+	scale = Vec2(widthPerFrame, atlasTex->GetHeight());
 	
 	// 좌표 설정
 	for (int i = 0; i < frameCount; ++i)
 	{
-		Vec2 offset = Vec2(widthPerFrame*i, 0.f);
+		Vec2<int> offset = Vec2<int>(widthPerFrame*i, 0);
 		offsets.push_back(offset);
 	}
 }
 
 // 복사 생성자
 Animation::Animation(const Animation& origin) 
-	: Entity(origin), atlasTex(origin.atlasTex), frameCount(origin.frameCount)
+	: Entity(origin), atlasTex(origin.atlasTex), frameCount(origin.frameCount), isRepeat(origin.isRepeat)
 	, offsets(origin.offsets), scale(origin.scale), duration(origin.duration)
 	, curFrame(0)
 	, animator(nullptr)
@@ -55,8 +56,12 @@ void Animation::FinalTick()
 	{
 		time = 0;
 
-		// 마지막 프레임일 경우, 처음 프레임부터 반복
-		if (++curFrame == offsets.size()) curFrame = 0;
+		// 마지막 프레임일 경우
+		if (++curFrame == offsets.size())
+		{
+			curFrame = 0;
+			if(!isRepeat) animator->GetOwner()->GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+		}
 	}
 }
 

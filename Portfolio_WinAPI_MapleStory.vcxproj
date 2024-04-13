@@ -140,10 +140,12 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AttackActiveSkill.h" />
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
@@ -187,6 +189,7 @@
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AttackActiveSkill.cpp" />
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />

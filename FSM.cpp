@@ -52,7 +52,19 @@ void FSM::ChangeState(OBJECT_STATE type)
 
 	if (state != nullptr)
 	{
-		if (curState != nullptr) curState->Exit();
+		if(curState != nullptr)
+		{
+			if (curState->type == type)
+			{
+				Log(LOG_TYPE::LOG_ERROR, L"현재 상태와 변경하려는 상태가 같습니다");
+				return;
+			}
+			else
+			{
+				curState->Exit();
+			}
+		}
+
 		curState = state;
 		curState->Enter();
 	}

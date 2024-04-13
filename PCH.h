@@ -48,5 +48,6 @@ using std::make_shared;
 // 사용자 정의 헤더파일
 #include "DesignPatterns.h"
 #include "Types.h"
+#include "Constants.h"
 #include "Log.h"
 #include "Functions.h"

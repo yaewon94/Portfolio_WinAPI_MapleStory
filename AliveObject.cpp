@@ -59,7 +59,8 @@ void AliveObject::OnCollisionEnter(GameObject& other)
 	{
 		if (!canJump)
 		{
-			GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+			FSM* fsm = GetComponent<FSM>();
+			if(fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(OBJECT_STATE::IDLE);
 			GetComponent<Rigidbody>()->UseGravity(false);
 			canJump = true;
 		}
