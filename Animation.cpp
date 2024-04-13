@@ -76,6 +76,7 @@ void Animation::Render()
 	//HDC& mainDC = Engine::GetInstance().GetMainDC();
 	//Vec2 resolution = Engine::GetInstance().GetResolution();
 	Vec2 objPos = obj->GetRenderPos();
+	//Vec2 objScale = obj->GetScale();
 	//float dir = ((AliveObject*)animator->GetOwner())->GetDirection().x;
 
 	// png ÀÌ¹ÌÁö
@@ -100,11 +101,11 @@ void Animation::Render()
 	*/
 
 	AlphaBlend(Engine::GetInstance().GetSubDC()
-		, (int)objPos.x, (int)objPos.y
-		, (int)scale.x, (int)scale.y
+		, (int)(objPos.x - scale.x * 0.5f), (int)(objPos.y - scale.y * 0.5f)
+		, scale.x, scale.y
 		, atlasTex->GetDC()
-		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
-		, (int)scale.x, (int)scale.y
+		, offsets[curFrame].x, offsets[curFrame].y
+		, scale.x, scale.y
 		, bf);
 	
 	//DeleteObject(stretchBit);

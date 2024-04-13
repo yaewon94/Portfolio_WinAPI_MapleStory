@@ -6,7 +6,7 @@
 #include "Level.h"
 
 // 积己磊
-Collider::Collider(GameObject& owner) : Component(owner), offset(Vec2(0.f,0.f)), scale(owner.GetScale())
+Collider::Collider(GameObject& owner) : Component(owner), offset(Vec2(0.f, 0.f)), scale(owner.GetScale())
 {
 	// 面倒 贸府 殿废
 	CollisionManager::GetInstance().AddCollider(*this);

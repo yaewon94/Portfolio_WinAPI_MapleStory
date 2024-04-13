@@ -21,7 +21,11 @@ Ground::~Ground()
 void Ground::Init()
 {
 	// 컴포넌트 추가
-	AddComponent<Collider>()->SetScale(Vec2(scale.x, 10));
+	Collider* collider = AddComponent<Collider>();
+	collider->SetScale(Vec2(scale.x, 10));
+	collider->SetOffset(Vec2(offset.x, (collider->GetScale().y - scale.y) * 0.5f));
+
+	GameObject::Init();
 }
 
 void Ground::OnCollisionEnter(GameObject& other)

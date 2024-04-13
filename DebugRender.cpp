@@ -56,7 +56,7 @@ void DebugRender::Render()
 {
 	HDC subDC = Engine::GetInstance().GetSubDC();
 	Vec2<float> pos;
-	Vec2<int> scale;
+	Vec2<int> halfScale;
 
 	for (auto log : renderLogs)
 	{
@@ -69,10 +69,11 @@ void DebugRender::Render()
 		HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
 
 		pos = collider->GetRenderPos();
-		scale = collider->GetScale();
+		halfScale = collider->GetScale() * 0.5f;
+
 		Rectangle(subDC
-			, (int)pos.x, (int)pos.y
-			, (int)pos.x+scale.x, (int)pos.y+scale.y);
+			, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
+			, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
 
 		SelectObject(subDC, prevBrush);
 		SelectObject(subDC, prevPen);

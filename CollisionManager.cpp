@@ -58,7 +58,7 @@ void CollisionManager::CollisionCheck(Collider& me)
 {
 	const size_t ArrSize = colliders.size();
 	size_t myLayer = (size_t)me.GetOwner()->GetLayer();
-	Collider *A, *B;
+	float diffX, diffY;
 	bool isOverlapped;
 
 	// 자기와 다른 레이어의 콜라이더를 대상으로 체크
@@ -71,32 +71,16 @@ void CollisionManager::CollisionCheck(Collider& me)
 			if (!other->GetOwner()->IsActive()) continue;
 
 			// X축 겹침 여부 체크
-			if (me.GetPos().x > other->GetPos().x)
-			{
-				A = &me;
-				B = other;
-			}
-			else
-			{
-				A = other;
-				B = &me;
-			}
-			
-			if (A->GetPos().x + A->GetScale().x - B->GetPos().x <= A->GetScale().x + B->GetScale().x)
+			diffX = me.GetPos().x - other->GetPos().x;
+			if (diffX < 0) diffX = -diffX;
+
+			if(diffX <= (me.GetScale().x + other->GetScale().x) * 0.5f)
 			{
 				// Y축 겹침 여부 체크
-				if (me.GetPos().y > other->GetPos().y)
-				{
-					A = &me;
-					B = other;
-				}
-				else
-				{
-					A = other;
-					B = &me;
-				}
+				diffY = me.GetPos().y - other->GetPos().y;
+				if (diffY < 0) diffY = -diffY;
 
-				if (A->GetPos().y + A->GetScale().y - B->GetPos().y <= A->GetScale().y + B->GetScale().y) isOverlapped = true;
+				if (diffY <= (me.GetScale().y + other->GetScale().y) * 0.5f) isOverlapped = true;
 				else isOverlapped = false;
 			}
 			else

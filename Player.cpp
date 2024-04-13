@@ -42,8 +42,6 @@ void Player::Init()
 	// 컴포넌트 추가
 	AddComponent<Rigidbody>();
 	Collider* collider = AddComponent<Collider>();
-	collider->SetOffset(Vec2(90.f, 80.f));
-	collider->SetScale(Vec2(50, 70));
 	FSM* fsm = AddComponent<FSM>();
 	fsm->AddState(*new PlayerIdleState);
 	fsm->AddState(*new WalkState);
@@ -62,7 +60,7 @@ void Player::Init()
 	AddSkillKeyMap(KEY_CODE::SHIFT, *activeSkill);
 
 	// 자식 오브젝트 추가
-	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2<float>(scale.x, scale.y * 0.5f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
+	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2<float>(scale.x, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
 	((AttackActiveSkill*)activeSkill)->SetSkillObject(*skillObject);
 
 	// 필드 초기화

@@ -98,10 +98,14 @@ void Engine::ChangeWindowSize(Vec2<int> resolution)
 // HDC, HWND를 클래스 외부에 노출시키지 않기 위해 구현함
 void Engine::Render(Vec2<float> pos, Vec2<int> scale)
 {
+	Vec2<int> halfScale = scale * 0.5f;
+
 	// [임시 코드]
 	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
 	HPEN prevPen = (HPEN)SelectObject(subTex->GetDC(), pen);
-	Rectangle(subTex->GetDC(), (int)pos.x, (int)pos.y, (int)pos.x + scale.x, (int)pos.y + scale.y);
+	Rectangle(subTex->GetDC()
+		, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
+		, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
 	SelectObject(subTex->GetDC(), prevPen);
 }
 
