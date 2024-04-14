@@ -1,27 +1,40 @@
 #include "PCH.h"
 #include "Level.h"
 #include "Camera.h"
+#include "Map.h"
 
 // static 멤버 초기화
 Camera* Level::mainCamera = new Camera;
 
 // 생성자
-Level::Level(const wstring& name) : name(name)
+Level::Level(const wstring& name) : name(name), currentMap(nullptr)
 {
-	//GameObject::SetMainCamera(mainCamera);
 }
 
 // 소멸자
 Level::~Level()
 {
-	// 카메라 삭제
-	if (mainCamera != nullptr)
-	{
-		delete mainCamera;
-		mainCamera = nullptr;
-	}
 	// 레벨이 전환되도 플레이어같은 오브젝트는 지워지면 안되므로, 
 	// 각 레벨에 맞게 오브젝트를 지우도록 구현
+
+	// 맵 관련 정리
+	currentMap = nullptr;
+
+	for (auto map : maps)
+	{
+		if (map != nullptr)
+		{
+			delete map;
+			map = nullptr;
+		}
+	}
+}
+
+// 맵 추가
+Map& Level::AddMap(Map& map)
+{
+	maps.push_back(&map);
+	return *maps.back();
 }
 
 // 초기화

@@ -3,11 +3,10 @@
 
 #define DEFAULT_OBJECT_SCALE  Vec2(100, 100)	// 오브젝트 크기 기본값
 
-class Camera;
 class Component;
 
 // 플레이어, 몬스터, UI 등이 상속받는 최상위 클래스
-// abstract class
+// [abstract class]
 class GameObject : public Entity
 {
 private:
@@ -19,21 +18,22 @@ private:
 
 protected:
 	wstring name;
-	Vec2<float> offset;	// 부모 좌표를 기준으로 한 로컬좌표
+	Vec2<float> offset;	// 부모 좌표를 기준으로 한 로컬좌표 (오브젝트의 중심좌표 사용)
 	Vec2<int> scale;
 
+	GameObject(LAYER_TYPE layer);
 	GameObject(const wstring& name, Vec2<float> offset, Vec2<int> Scale, LAYER_TYPE layer, bool isActive=true);
 	GameObject(const GameObject& origin);
 	~GameObject();
 
+public:
 	void SetParent(GameObject& parent);
 	GameObject* AddChild(GameObject& child);
 	GameObject* AddChild(GameObject&& child);
 	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }
 
-public:
-	void Destroy() { if (this != nullptr) delete this; }
 	virtual GameObject* Clone() = 0;
+	void Destroy() { if (this != nullptr) delete this; }
 
 	Vec2<float> GetPos();			// 부모 offset + 자신 offset인 실제 좌표
 	Vec2<float> GetRenderPos();		// 렌더링 좌표
@@ -49,15 +49,15 @@ public:
 	virtual void Init();
 	virtual void Tick() {}
 	virtual void FinalTick();
-	void Render();
+	virtual void Render();
 
 	template<typename T> requires std::derived_from<T, Component> T* AddComponent();
 	template<typename T> requires std::derived_from<T, Component> T* GetComponent();
 
 	// [check] CollisionManager에서만 호출할 수 있는 방법 없나 friend class 빼고
-	virtual void OnCollisionEnter(GameObject& other) = 0;
-	virtual void OnCollisionStay(GameObject& other) = 0;
-	virtual void OnCollisionExit(GameObject& other) = 0;
+	virtual void OnCollisionEnter(GameObject& other) {}
+	virtual void OnCollisionStay(GameObject& other) {}
+	virtual void OnCollisionExit(GameObject& other) {}
 
 private:
 	void DeleteChildren();

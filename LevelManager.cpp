@@ -1,6 +1,6 @@
 #include "PCH.h"
 #include "LevelManager.h"
-#include "Level_Test.h"
+#include "Level_Boss_Will_Phase1.h"
 #include "GameObject.h"
 
 // 생성자
@@ -61,7 +61,7 @@ void LevelManager::ChangeLevel(LEVEL_TYPE level)
 	switch (level)
 	{
 	case LEVEL_TYPE::TEST:
-		curLevel = new Level_Test;
+		curLevel = new Level_Boss_Will_Phase1;
 		break;
 	default:
 		Log(LOG_TYPE::LOG_ERROR, L"바꾸려는 레벨이 없습니다");

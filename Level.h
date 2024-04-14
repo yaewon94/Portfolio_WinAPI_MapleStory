@@ -3,6 +3,7 @@
 #include "GameObject.h"
 
 class Camera;
+class Map;
 
 // 게임 맵 구조 등을 설계하기 위한 클래스
 // abstract class
@@ -21,16 +22,19 @@ public:
 private:
 	wstring name;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> objects; // 렌더링 순서때문에 배열로 설정
+	vector<Map*> maps;
 
 protected:
+	Map* currentMap;
+
 	Level(const wstring& name);
 	~Level();
-	virtual Level* Clone() override { return nullptr; }
 
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
 	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(const T& object);
+	Map& AddMap(Map& map);
 
 private:
 	friend class LevelManager;

@@ -7,6 +7,10 @@
 #include "Component.h"
 
 // »ý¼ºÀÚ
+GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), parent(nullptr)
+{
+}
+
 GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
 	, parent(nullptr)

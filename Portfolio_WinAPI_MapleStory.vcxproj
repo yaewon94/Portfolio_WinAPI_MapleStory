@@ -149,6 +149,7 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
@@ -162,8 +163,9 @@
     <ClInclude Include="JumpState.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="Level_Test.h" />
+    <ClInclude Include="Level_Boss_Will_Phase1.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="MonsterTraceState.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DebugRender.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FSM.cpp" />
@@ -210,9 +213,10 @@
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="Level_Test.cpp" />
+    <ClCompile Include="Level_Boss_Will_Phase1.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="MonsterTraceState.cpp" />

@@ -21,9 +21,6 @@
     <Filter Include="game\03-Component">
       <UniqueIdentifier>{26b9ebe4-ca6b-472c-ac8c-d70a2d7ad8be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\02-Object\Ground">
-      <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\03-Component\Collider">
       <UniqueIdentifier>{06ef432b-8932-4e5c-990e-1e97845623b7}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,18 @@
     <Filter Include="game\04-Module\State\MonsterState">
       <UniqueIdentifier>{6e97940f-b05e-4f41-b09f-7288a749425c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\01-Level\Boss">
+      <UniqueIdentifier>{19676d7b-f763-421a-868c-028f409d86a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\01-Level\Boss\Will">
+      <UniqueIdentifier>{7e5bdd9a-8778-4181-8eac-24e0486d2093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Map">
+      <UniqueIdentifier>{4373269a-d4b2-4dac-b009-54cd587958d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\Ground">
+      <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -113,9 +122,6 @@
       <Filter>game\01-Level</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>game\01-Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Level_Test.h">
       <Filter>game\01-Level</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -235,6 +241,15 @@
     <ClInclude Include="MonsterTraceState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="Level_Boss_Will_Phase1.h">
+      <Filter>game\01-Level\Boss\Will</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>game\04-Module\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>game\02-Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -259,9 +274,6 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="Level_Test.cpp">
-      <Filter>game\01-Level</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>game\03-Component</Filter>
@@ -373,6 +385,15 @@
     </ClCompile>
     <ClCompile Include="MonsterTraceState.cpp">
       <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_Boss_Will_Phase1.cpp">
+      <Filter>game\01-Level\Boss\Will</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>game\04-Module\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>game\02-Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
