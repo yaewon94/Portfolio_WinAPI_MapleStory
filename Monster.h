@@ -1,10 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "AliveObject.h"
 
 constexpr auto DEFAULT_DETECT_RANGE = 500.f;
+constexpr auto MAX_TRACE_DISTANCE = 150.f;
 
 // 몬스터 클래스 
-class Monster : public GameObject
+class Monster : public AliveObject
 {
 private:
 	static GameObject* player;
@@ -27,4 +28,5 @@ public:
 	virtual void OnCollisionExit(GameObject& other) override;
 
 	bool DetectPlayer();
+	bool Trace();
 };

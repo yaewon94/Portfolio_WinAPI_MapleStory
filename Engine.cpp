@@ -60,11 +60,11 @@ void Engine::Progress()
 	// 게임매니저 Tick()
 	TimeManager::GetInstance().Tick();
 	InputManager::GetInstance().Tick();
+	SkillManager::GetInstance().Tick();
 	LevelManager::GetInstance().Tick();
 
 	// 게임매니저 FinalTick()
 	LevelManager::GetInstance().FinalTick();
-	SkillManager::GetInstance().FinalTick();
 	CollisionManager::GetInstance().FinalTick();
 	DebugRender::GetInstance().FinalTick();
 

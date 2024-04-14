@@ -34,7 +34,7 @@ void SkillManager::Init()
 }
 
 // 매 프레임마다 호출
-void SkillManager::FinalTick()
+void SkillManager::Tick()
 {
 	float deltaTime = TimeManager::GetInstance().GetDeltaTime();
 	auto iter = reservedSkills.begin();

@@ -13,7 +13,7 @@ private:
 
 public:
 	void Init();
-	void FinalTick();
+	void Tick();
 
 	Skill& GetSkill(size_t index) { return *skills.at(index); }
 	void LaunchSkill(AttackActiveSkill& skill) { reservedSkills.push_back(&skill); }

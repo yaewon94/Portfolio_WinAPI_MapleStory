@@ -217,9 +217,6 @@
     <ClInclude Include="JumpState.h">
       <Filter>game\04-Module\State</Filter>
     </ClInclude>
-    <ClInclude Include="AttackState.h">
-      <Filter>game\04-Module\State</Filter>
-    </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>game\00-Header</Filter>
     </ClInclude>
@@ -230,6 +227,12 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="MonsterIdleState.h">
+      <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
+      <Filter>game\04-Module\State</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTraceState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
     </ClInclude>
   </ItemGroup>
@@ -367,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterTraceState.cpp">
+      <Filter>game\04-Module\State\MonsterState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

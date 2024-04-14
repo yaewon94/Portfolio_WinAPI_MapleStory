@@ -14,9 +14,13 @@ class State : public Entity
 private:
 	FSM* fsm;
 	OBJECT_STATE type;
+	const float CoolDown;		// 해당 상태 종료 후, 다시 해당 상태가 되기 위해 필요한 쿨타임
 
 protected:
-	State(OBJECT_STATE type);
+	float exitTime = 0.f;		// 상태 종료 시간
+
+protected:
+	State(OBJECT_STATE type, float coolDown=0.f);
 	~State();
 	virtual State* Clone() override { return nullptr; }
 

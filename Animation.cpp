@@ -8,7 +8,7 @@
 #include "TimeManager.h"
 
 // 생성자
-Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat, float duration) 
+Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat, float duration)
 	: animator(animator), atlasTex(atlasTex), frameCount(frameCount), isRepeat(isRepeat), duration(duration)
 	, curFrame(0)
 {
@@ -18,17 +18,17 @@ Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool
 	// 각 프레임별 이미지 크기 (모두 동일)
 	// 각 프레임 이미지가 가로 방향으로만(row=n, col=1) 배열되었다고 가정
 	scale = Vec2(widthPerFrame, atlasTex->GetHeight());
-	
+
 	// 좌표 설정
 	for (int i = 0; i < frameCount; ++i)
 	{
-		Vec2<int> offset = Vec2<int>(widthPerFrame*i, 0);
+		Vec2<int> offset = Vec2<int>(widthPerFrame * i, 0);
 		offsets.push_back(offset);
 	}
 }
 
 // 복사 생성자
-Animation::Animation(const Animation& origin) 
+Animation::Animation(const Animation& origin)
 	: Entity(origin), atlasTex(origin.atlasTex), frameCount(origin.frameCount), isRepeat(origin.isRepeat)
 	, offsets(origin.offsets), scale(origin.scale), duration(origin.duration)
 	, curFrame(0)
@@ -60,7 +60,7 @@ void Animation::FinalTick()
 		if (++curFrame == offsets.size())
 		{
 			curFrame = 0;
-			if(!isRepeat) animator->GetOwner()->GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+			if (!isRepeat) animator->GetOwner()->GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
 		}
 	}
 }
@@ -107,7 +107,7 @@ void Animation::Render()
 		, offsets[curFrame].x, offsets[curFrame].y
 		, scale.x, scale.y
 		, bf);
-	
+
 	//DeleteObject(stretchBit);
 	//DeleteDC(strectchDC);
 

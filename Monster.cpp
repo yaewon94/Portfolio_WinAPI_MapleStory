@@ -8,12 +8,12 @@ GameObject* Monster::player = nullptr;
 
 // 생성자
 Monster::Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale, float detectRange)
-	: GameObject(name, pos, scale, LAYER_TYPE::ENEMY), detectRange(detectRange)
+	: AliveObject(name, pos, scale, LAYER_TYPE::ENEMY, 100.f), detectRange(detectRange)
 {
 }
 
 // 복사 생성자
-Monster::Monster(const Monster& origin) : GameObject(origin), detectRange(origin.detectRange)
+Monster::Monster(const Monster& origin) : AliveObject(origin), detectRange(origin.detectRange)
 {
 }
 
@@ -58,4 +58,25 @@ bool Monster::DetectPlayer()
 
 	if (GetPos().GetDistance(player->GetPos()) <= detectRange + playerRad) return true;
 	else return false;
+}
+
+// 플레이어 추격
+bool Monster::Trace()
+{
+	// 일정 거리 이내까지만 추격
+	if (GetPos().GetDistance(player->GetPos()) <= MAX_TRACE_DISTANCE)
+	{
+		return false;
+	}
+	else
+	{
+		// 방향 설정
+		if (GetPos().x - player->GetPos().x > 0) dir = Vec2<float>::Left();
+		else dir = Vec2<float>::Right();
+
+		// 이동
+		Move();
+
+		return true;
+	}
 }

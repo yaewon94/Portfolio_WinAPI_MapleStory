@@ -56,6 +56,7 @@ void Player::Init()
 	// [CHECK]
 	// 스킬 추가 (임시 하드코딩. 시간되면 DB에서 불러오도록 구현 예정)
 	// 입력 키 - 스킬 설정 (임시 하드코딩. 시간되면 DB에서 불러오도록 구현 예정)
+	ActiveSkill::SetPlayer(this);
 	ActiveSkill* activeSkill = (ActiveSkill*)&AddSkill(SkillManager::GetInstance().GetSkill(0));
 	AddSkillKeyMap(KEY_CODE::SHIFT, *activeSkill);
 

@@ -8,6 +8,7 @@
 #include "Ground.h"
 #include "Monster.h"
 #include "MonsterIdleState.h"
+#include "MonsterTraceState.h"
 #include "Player.h"
 #include "Rigidbody.h"
 
@@ -33,8 +34,10 @@ void Level_Test::Enter()
 	GameObject* boss_will = AddObject(Monster(L"Boss_Will", Vec2(400.f, 700.f)));
 	FSM* fsm = boss_will->AddComponent<FSM>();
 	fsm->AddState(*new MonsterIdleState);
+	fsm->AddState(*new MonsterTraceState);
 	Animator* animator = boss_will->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
+	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 }
 
 // 레벨 종료시 호출

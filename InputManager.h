@@ -14,9 +14,9 @@ class InputManager final
 	enum class KEY_STATE
 	{
 		NONE// = 0,				// 이전 프레임에도 안눌리고, 이번에도 안눌림
-		,KEY_PRESSED// = 0x8000,	// 이전 프레임에 안눌리고, 이번에 눌림
-		,KEY_DOWN// = 0x8001,		// 이전 프레임에도 눌리고, 이번에도 눌림
-		,KEY_RELEASED// = 1,		// 이전 프레임에 눌리고, 이번에 안눌림
+		, KEY_PRESSED// = 0x8000,	// 이전 프레임에 안눌리고, 이번에 눌림
+		, KEY_DOWN// = 0x8001,		// 이전 프레임에도 눌리고, 이번에도 눌림
+		, KEY_RELEASED// = 1,		// 이전 프레임에 눌리고, 이번에 안눌림
 	};
 
 	// 키 입력 타입
@@ -41,6 +41,4 @@ private:
 public:
 	void Init();
 	void Tick();
-
-	static int KeyState; // TEST
 };

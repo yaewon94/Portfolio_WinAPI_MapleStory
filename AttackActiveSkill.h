@@ -16,8 +16,10 @@ private:
 	const float Delay = DEFAULT_ANIM_DURATION * 2;	// 키 입력 후, 스킬 오브젝트가 활성화 되기까지 걸리는 시간
 	float time = 0.f;		// 스킬 시전 후 경과시간
 
+	bool canWithJump;		// 점프 공격 가능 여부
+
 	NO_CSTR_COPY_ASSIGN(AttackActiveSkill);
-	AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed=2.f);
+	AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed=2.f, bool canWithJump=false);
 	~AttackActiveSkill();
 
 public:

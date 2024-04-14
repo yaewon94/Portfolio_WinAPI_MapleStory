@@ -3,11 +3,13 @@
 #include "SkillManager.h"
 #include "FSM.h"
 #include "LevelManager.h"
+#include "Player.h"
 #include "SkillObject.h"
 
 // 생성자
-AttackActiveSkill::AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed) 
-	: ActiveSkill(name), maxRange(maxRange), speed(speed), skillObject(nullptr)
+AttackActiveSkill::AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed, bool canWithJump) 
+	: ActiveSkill(name), maxRange(maxRange), speed(speed), canWithJump(canWithJump)
+	, skillObject(nullptr)
 {
 }
 
@@ -19,9 +21,12 @@ AttackActiveSkill::~AttackActiveSkill()
 // 키 눌렸을 때 호출
 void AttackActiveSkill::OnKeyPressed(KEY_CODE keyCode)
 {
+	// 발동 조건 체크
 	if (skillObject->IsActive()) return;
+	if (!canWithJump && !GetPlayer().CanJump()) return;
 
-	skillObject->GetParent()->GetComponent<FSM>()->ChangeState(OBJECT_STATE::ATTACK);
+	// 상태 변경, 스킬 오브젝트에 현재 스킬 세팅
+	GetPlayer().GetComponent<FSM>()->ChangeState(OBJECT_STATE::ATTACK);
 	skillObject->SetSkill(*this);
 
 	// 딜레이 시간 이후, 스킬 오브젝트 활성화

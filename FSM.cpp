@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "FSM.h"
 #include "State.h"
+#include "TimeManager.h"
 
 // 생성자
 FSM::FSM(GameObject& owner) : Component(owner), curState(nullptr)
@@ -65,6 +66,11 @@ void FSM::ChangeState(OBJECT_STATE type)
 
 	if (state != nullptr)
 	{
+		// 쿨타임 체크
+		if ((int)(TimeManager::GetInstance().GetSecond() - state->exitTime)
+			< state->CoolDown) return;
+
+		// 변경
 		if(curState != nullptr)
 		{
 			if (curState->type == type)

@@ -34,6 +34,7 @@ protected:
 
 public:
 	Vec2<float> GetDirection() const { return dir; }
+	bool CanJump() { return canJump; }
 };
 
 // 사용 가능한 스킬 추가

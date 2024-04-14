@@ -18,6 +18,7 @@ void TimeManager::Init()
 	QueryPerformanceFrequency(&frequency);
 	QueryPerformanceCounter(&curCount);
 	prevCount = curCount;
+	second = (float)GetTickCount() / 1000;
 }
 
 // 매 프레임마다 호출
@@ -28,6 +29,7 @@ void TimeManager::Tick()
 
 	// 현재 카운트 계산
 	QueryPerformanceCounter(&curCount);
+	second = (float)GetTickCount() / 1000;
 
 	// 이전 카운트와 현재 카운트의 차이값을 통해서 1프레임 간의 시간값을 계산
 	deltaTime = (float)(curCount.QuadPart - prevCount.QuadPart) / (float)frequency.QuadPart;
