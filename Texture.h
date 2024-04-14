@@ -15,7 +15,6 @@ private:
 
 	Texture(const wstring& key, const wstring& relativePath=L"");
 	~Texture();
-	virtual Texture* Clone() override { return nullptr; }
 
 	int Create(UINT width, UINT height);
 	virtual int Load(const wstring& absolutePath) override;

@@ -22,7 +22,6 @@ protected:
 protected:
 	State(OBJECT_STATE type, float coolDown=0.f);
 	~State();
-	virtual State* Clone() override { return nullptr; }
 
 	FSM& GetFsm() { return *fsm; }
 

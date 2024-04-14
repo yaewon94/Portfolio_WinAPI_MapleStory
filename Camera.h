@@ -15,7 +15,6 @@ private:
 
 	Camera();
 	~Camera();
-	virtual Camera* Clone() { return nullptr; }
 
 	void Init();
 	void FinalTick();

@@ -6,6 +6,7 @@
 								type(type&&) = delete;\
 								type& operator=(const type&) = delete;\
 								type& operator=(type&&) = delete;\
+								virtual type* Clone() {return nullptr;}\
 
 // [check] 소멸자 private으로 하면 프로그램 종료될때 리소스 해제 안되나??
 // 싱글톤 클래스
