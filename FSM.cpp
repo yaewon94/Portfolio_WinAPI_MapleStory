@@ -30,8 +30,21 @@ FSM::~FSM()
 // 초기화
 void FSM::Init()
 {
+	// 상태 Init()
+	for (auto& state : stateMap)
+	{
+		state.second->Init();
+	}
+
 	// IDLE 상태를 디폴트로 함
 	ChangeState(OBJECT_STATE::IDLE);
+}
+
+// 매 프레임마다 호출
+void FSM::FinalTick()
+{
+	assert(curState);
+	curState->Stay();
 }
 
 // 상태 추가

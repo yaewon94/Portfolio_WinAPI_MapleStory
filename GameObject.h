@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+#define DEFAULT_OBJECT_SCALE  Vec2(100, 100)	// 오브젝트 크기 기본값
+
 class Camera;
 class Component;
 
@@ -44,7 +46,6 @@ public:
 	void SetOffset(Vec2<float> offset) { this->offset = offset; }
 	virtual void SetActive(bool flag) { isActive = flag; }
 
-	// [check] 임시
 	virtual void Init();
 	virtual void Tick() {}
 	virtual void FinalTick();

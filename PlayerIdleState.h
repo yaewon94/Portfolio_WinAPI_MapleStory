@@ -1,7 +1,7 @@
 #pragma once
-#include "State.h"
+#include "IdleState.h"
 
-class PlayerIdleState : public State
+class PlayerIdleState : public IdleState
 {
 	NO_CSTR_COPY_ASSIGN(PlayerIdleState);
 

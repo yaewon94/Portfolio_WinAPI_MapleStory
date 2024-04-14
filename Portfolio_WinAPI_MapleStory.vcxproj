@@ -156,6 +156,7 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="IKeyEvent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="JumpState.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Level_Test.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="PCH.h" />
     <ClInclude Include="Player.h" />
@@ -202,6 +204,7 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />

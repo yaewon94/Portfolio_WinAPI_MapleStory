@@ -90,6 +90,9 @@
     <Filter Include="game\03-Component\Animator">
       <UniqueIdentifier>{d9f23eae-2344-4990-8e74-061dbfdd7637}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module\State\MonsterState">
+      <UniqueIdentifier>{6e97940f-b05e-4f41-b09f-7288a749425c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -111,9 +114,6 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>game\01-Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="Level_Test.h">
       <Filter>game\01-Level</Filter>
@@ -222,6 +222,15 @@
     </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>game\00-Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>game\04-Module\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterIdleState.h">
+      <Filter>game\04-Module\State\MonsterState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,9 +344,6 @@
     <ClCompile Include="AliveObject.cpp">
       <Filter>game\02-Object\AliveObject</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>game\04-Module\Animation</Filter>
     </ClCompile>
@@ -352,6 +358,15 @@
     </ClCompile>
     <ClCompile Include="AttackState.cpp">
       <Filter>game\04-Module\State</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>game\04-Module\State</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterIdleState.cpp">
+      <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

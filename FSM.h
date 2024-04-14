@@ -16,6 +16,7 @@ public:
 	virtual FSM* Clone() override { return new FSM(*this); }
 
 	virtual void Init() override;
+	virtual void FinalTick() override;
 
 	void AddState(State& state);
 	void ChangeState(OBJECT_STATE type);

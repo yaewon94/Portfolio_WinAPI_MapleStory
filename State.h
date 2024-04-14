@@ -22,6 +22,8 @@ protected:
 
 	FSM& GetFsm() { return *fsm; }
 
+	virtual void Init() {}
+
 	virtual void Enter() = 0;
 	virtual void Stay() = 0;
 	virtual void Exit() = 0;

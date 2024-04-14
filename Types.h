@@ -22,7 +22,7 @@ enum class LEVEL_TYPE
 // 오브젝트 상태
 enum class OBJECT_STATE
 {
-	IDLE, WALK, JUMP, ATTACK
+	IDLE, WALK, TRACE, JUMP, ATTACK
 };
 
 // 2차원 벡터
@@ -58,6 +58,14 @@ struct Vec2
 		return Vec2(x / value, y / value);
 	}
 	bool operator>(const Vec2& other) { return x * x + y * y > other.x * other.x + other.y * other.y; }
+
+	// 두 벡터의 거리
+	float GetDistance(const Vec2& other)
+	{
+		T diffX = x - other.x;
+		T diffY = y - other.y;
+		return sqrtf(diffX*diffX + diffY*diffY);
+	}
 
 	// 문자열 변환
 	wstring to_wstring(const Vec2& vec)
