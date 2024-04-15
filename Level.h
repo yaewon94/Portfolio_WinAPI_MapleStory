@@ -22,6 +22,7 @@ public:
 private:
 	wstring name;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> objects; // 렌더링 순서때문에 배열로 설정
+	
 	vector<Map*> maps;
 
 protected:

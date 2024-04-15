@@ -29,7 +29,8 @@ Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 void Level_Boss_Will_Phase1::Enter()
 {
 	// 맵 추가
-	currentMap = &AddMap(*new Map(L"회절의 회랑", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_background", L"BossWill_Phase1_blue_background.png")));
+	currentMap = &AddMap(*new Map(L"회절의 회랑(파랑)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png")));
+	AddMap(*new Map(L"회절의 회랑(보라)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png")));
 
 	// 배경
 	GameObject& background = *AddObject(Background());
@@ -39,19 +40,19 @@ void Level_Boss_Will_Phase1::Enter()
 	obj->SetParent(background);
 
 	// 지면
-	obj = AddObject(Ground(Vec2(0.f, 360.f), Vec2(1920, 10)));
+	obj = AddObject(Ground());
 	obj->SetParent(background);
 
 	// 벽
-	obj = AddObject(Wall(Vec2(-950.f, 200.f), Vec2(10, 300)));
+	obj = AddObject(Wall());
 	obj->SetParent(background);
-	obj = AddObject(Wall(Vec2(950.f, 200.f), Vec2(10, 300)));
+	obj = AddObject(Wall());
 	obj->SetParent(background);
 
-
-	// [임시] 몬스터
+	// [임시 하드코딩] 몬스터
 	// 몬스터는 객체마다 특성이 다르므로, 클래스 외부에서 특성에 맞게 컴포넌트 추가
 	// 원래는 DB같은데서 받아와서 몬스터 클래스 내부에서 초기화 해야 함
+	// 파란공간 윌
 	GameObject* boss_will = AddObject(Monster(L"Boss_Will", Vec2(500.f, 300.f)));
 	boss_will->SetParent(background);
 	FSM* fsm = boss_will->AddComponent<FSM>();

@@ -3,7 +3,7 @@
 #include "Collider.h"
 
 // »ý¼ºÀÚ
-Wall::Wall(Vec2<float> pos, Vec2<int> scale) : GameObject(L"", pos, scale, LAYER_TYPE::WALL)
+Wall::Wall() : GameObject(LAYER_TYPE::WALL)
 {
 }
 

@@ -28,6 +28,7 @@ protected:
 
 public:
 	void SetParent(GameObject& parent);
+	void Set(Vec2<float> offset, Vec2<int> scale);
 	GameObject* AddChild(GameObject& child);
 	GameObject* AddChild(GameObject&& child);
 	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }

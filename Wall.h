@@ -6,7 +6,7 @@
 class Wall final : public GameObject
 {
 public:
-	Wall(Vec2<float> pos, Vec2<int> scale);
+	Wall();
 	Wall(const Wall& origin);
 	~Wall();
 	virtual Wall* Clone() override { return new Wall(*this); }

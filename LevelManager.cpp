@@ -99,6 +99,13 @@ GameObject* LevelManager::FindObject(GameObject& obj)
 	return nullptr;
 }
 
+vector<GameObject*>& LevelManager::FindObjects(LAYER_TYPE layer)
+{
+	assert(curLevel);
+
+	return curLevel->objects[(size_t)layer];
+}
+
 // 현재 레벨의 오브젝트 목록에서 삭제
 void LevelManager::DeleteObject(GameObject& obj)
 {

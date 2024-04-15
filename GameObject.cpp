@@ -82,6 +82,13 @@ void GameObject::SetParent(GameObject& parent)
 	parent.AddChild(*this);
 }
 
+// 필드 값 설정
+void GameObject::Set(Vec2<float> offset, Vec2<int> scale)
+{
+	this->offset = offset;
+	this->scale = scale;
+}
+
 // 자식 오브젝트 추가
 GameObject* GameObject::AddChild(GameObject& child)
 {
