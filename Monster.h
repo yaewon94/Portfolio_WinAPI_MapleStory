@@ -11,15 +11,15 @@ private:
 	static GameObject* player;
 
 private:
-	const float detectRange;	// 플레이어 감지 범위 (반지름 기준)
+	const int detectRange;	// 플레이어 감지 범위 (반지름 기준)
 
 public:
-	Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale=DEFAULT_OBJECT_SCALE, float detectRange=DEFAULT_DETECT_RANGE);
+	Monster(const wstring& name, Vec2 pos, Vec2 scale=DEFAULT_OBJECT_SCALE, int detectRange=DEFAULT_DETECT_RANGE);
 	Monster(const Monster& origin);
 	~Monster();
 	virtual Monster* Clone() override { return new Monster(*this); }
 
-	float GetDetectRange() { return detectRange; }
+	int GetDetectRange() { return detectRange; }
 
 	virtual void Init() override;
 

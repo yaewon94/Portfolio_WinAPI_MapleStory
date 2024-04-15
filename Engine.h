@@ -9,7 +9,7 @@ class Engine final
 	SINGLETON(Engine);
 
 private:
-	Vec2<int> resolution;
+	Vec2 resolution;
 	HINSTANCE hInst;
 	HWND hWnd;
 	HDC mainDC;
@@ -21,15 +21,14 @@ private:
 public:
 	HDC& GetMainDC() { return mainDC; }
 	HDC& GetSubDC() { return subTex->GetDC(); }
-	Vec2<int> GetResolution() const { return resolution; }
+	Vec2 GetResolution() const { return resolution; }
 	bool IsWindowFocused() const { return hWnd == GetFocus(); }
 
 	int Init(HINSTANCE hInst, HWND hWnd);
 	void Progress();
 
-	void ChangeWindowSize(Vec2<int> resolution);
-	void Render(Vec2<float> pos, Vec2<int> scale);
-	void Render(Vec2<float> pos, const wstring& text);
+	void ChangeWindowSize(Vec2 resolution);
+	void Render(Vec2 pos, const wstring& text);
 
 private:
 	void CreateDefaultGDIobject();

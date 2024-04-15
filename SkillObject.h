@@ -7,11 +7,11 @@ class AttackActiveSkill;
 class SkillObject : public GameObject
 {
 private:
-	const Vec2<float> StartPos = offset;
+	const Vec2 StartPos = offset;
 	AttackActiveSkill* skill;
 
 public:
-	SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
+	SkillObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer);
 	SkillObject(const SkillObject& origin);
 	~SkillObject();
 	virtual SkillObject* Clone() override { return new SkillObject(*this); }

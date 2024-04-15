@@ -6,7 +6,7 @@
 #include "Level.h"
 
 // 생성자
-Collider::Collider(GameObject& owner) : Component(owner), offset(Vec2(0.f, 0.f)), scale(owner.GetScale())
+Collider::Collider(GameObject& owner) : Component(owner), offset(Vec2(0, 0)), scale(owner.GetScale())
 {
 	// 충돌 처리 등록
 	CollisionManager::GetInstance().AddCollider(*this);
@@ -27,7 +27,7 @@ Collider::~Collider()
 }
 
 // 렌더링 좌표 반환
-Vec2<float> Collider::GetRenderPos()
+Vec2 Collider::GetRenderPos()
 {
 	Vec2 realPos = GetPos();
 	return Level::GetMainCamera().GetRenderPos(realPos);

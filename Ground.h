@@ -5,7 +5,7 @@
 class Ground final : public GameObject
 {
 public:
-	Ground(Vec2<float> pos, Vec2<int> scale);
+	Ground(Vec2 pos, Vec2 scale);
 	Ground(const Ground& origin);
 	~Ground();
 	virtual Ground* Clone() override { return new Ground(*this); }

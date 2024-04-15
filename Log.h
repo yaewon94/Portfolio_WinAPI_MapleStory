@@ -12,13 +12,13 @@ class Log final
 private:
 	LOG_TYPE type;
 	wstring message;
-	Vec2<float> renderPos;
+	Vec2 renderPos;
 
 public:
-	Log(LOG_TYPE type, wstring message, Vec2<float> renderPos=Vec2(0.f,0.f));
+	Log(LOG_TYPE type, wstring message, Vec2 renderPos=Vec2(0,0));
 	~Log();
 
-	Vec2<float> GetPos() const { return renderPos; }
+	Vec2 GetPos() const { return renderPos; }
 	const wstring& GetText() { return message; }
 	void SetMessage(const wstring& message) { this->message = message; }
 };

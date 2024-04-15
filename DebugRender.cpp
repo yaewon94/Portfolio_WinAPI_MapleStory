@@ -32,7 +32,7 @@ DebugRender::~DebugRender()
 void DebugRender::Init()
 {
 	// 렌더링 정보 초기화
-	renderLogs.push_back(new Log(LOG_TYPE::LOG, L"FPS : ", Vec2(100.f, 100.f)));
+	renderLogs.push_back(new Log(LOG_TYPE::LOG, L"FPS : ", Vec2(100, 100)));
 }
 
 // 매 프레임마다 호출
@@ -49,8 +49,8 @@ void DebugRender::FinalTick()
 void DebugRender::Render()
 {
 	HDC subDC = Engine::GetInstance().GetSubDC();
-	Vec2<float> pos;
-	Vec2<int> halfScale;
+	Vec2 pos;
+	Vec2 halfScale;
 
 	for (auto log : renderLogs)
 	{

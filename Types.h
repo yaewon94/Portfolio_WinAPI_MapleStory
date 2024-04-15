@@ -26,21 +26,25 @@ enum class OBJECT_STATE
 };
 
 // 2차원 벡터
-template <typename T> requires std::is_arithmetic_v<T>
+//template <typename T> requires std::is_arithmetic_v<T>
 struct Vec2
 {
-	T x, y;
+	//T x, y;
+	float x, y;
 
 	// 생성자
 	Vec2() : x(0), y(0) {}
-	Vec2(T x, T y) : x(x), y(y) {}
-	Vec2(POINT point) : x((T)point.x), y((T)point.y) {}
+	//Vec2(T x, T y) : x(x), y(y) {}
+	Vec2(float x, float y) : x(x), y(y) {}
+	//Vec2(POINT point) : x((T)point.x), y((T)point.y) {}
+	Vec2(POINT point) : x((float)point.x), y((float)point.y) {}
+
 
 	// 상수
-	static Vec2 Left() { return Vec2(-1, 0); }
-	static Vec2 Right() { return Vec2(1, 0); }
-	static Vec2 Up() { return Vec2(0, -1); }
-	static Vec2 Down() { return Vec2(0, 1); }
+	static Vec2 Left() { return Vec2(-1.f, 0); }
+	static Vec2 Right() { return Vec2(1.f, 0); }
+	static Vec2 Up() { return Vec2(0, -1.f); }
+	static Vec2 Down() { return Vec2(0, 1.f); }
 
 	// 연산자 오버로딩
 	Vec2 operator+(const Vec2& other) { return Vec2(x + other.x, y + other.y); }
@@ -62,8 +66,10 @@ struct Vec2
 	// 두 벡터의 거리
 	float GetDistance(const Vec2& other)
 	{
-		T diffX = x - other.x;
-		T diffY = y - other.y;
+		//T diffX = x - other.x;
+		//T diffY = y - other.y;
+		float diffX = x - other.x;
+		float diffY = y - other.y;
 		return sqrtf(diffX*diffX + diffY*diffY);
 	}
 

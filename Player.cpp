@@ -16,7 +16,7 @@
 #include "WalkState.h"
 
 // 생성자
-Player::Player(const wstring& name, Vec2<float> pos, Vec2<int> scale) 
+Player::Player(const wstring& name, Vec2 pos, Vec2 scale) 
 	: AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
 {
 }
@@ -61,7 +61,7 @@ void Player::Init()
 	AddSkillKeyMap(KEY_CODE::SHIFT, *activeSkill);
 
 	// 자식 오브젝트 추가
-	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2<float>((float)scale.x, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
+	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(scale.x, 0), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
 	((AttackActiveSkill*)activeSkill)->SetSkillObject(*skillObject);
 
 	// 필드 초기화
@@ -81,10 +81,10 @@ void Player::OnKeyPressed(KEY_CODE key)
 		Jump();
 		return;
 	case KEY_CODE::LEFT:
-		dir = Vec2<float>::Left();
+		dir = Vec2::Left();
 		break;
 	case KEY_CODE::RIGHT:
-		dir = Vec2<float>::Right();
+		dir = Vec2::Right();
 		break;
 	default:
 		return;
