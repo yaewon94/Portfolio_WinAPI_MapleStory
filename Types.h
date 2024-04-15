@@ -3,7 +3,10 @@
 // 오브젝트 레이어 타입
 enum class LAYER_TYPE
 {
-	BACKGROUND, GROUND, ENEMY, PLAYER, PLAYER_SKILL, LAYER_TYPE_COUNT
+	BACKGROUND, GROUND, WALL
+	, ENEMY, PLAYER
+	, PLAYER_SKILL
+	, LAYER_TYPE_COUNT
 };
 
 // 오브젝트 레이어 이름
@@ -58,6 +61,7 @@ struct Vec2
 		return Vec2(x / value, y / value);
 	}
 	bool operator>(const Vec2& other) { return x * x + y * y > other.x * other.x + other.y * other.y; }
+	bool operator!=(const Vec2& other) { return x != other.x || y != other.y; }
 
 	// 두 벡터의 거리
 	float GetDistance(const Vec2& other)

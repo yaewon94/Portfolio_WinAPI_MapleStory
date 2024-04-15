@@ -23,6 +23,8 @@ public:
 	virtual void OnKeyDown(KEY_CODE key) override;
 	virtual void OnKeyReleased(KEY_CODE key) override;
 
+	virtual void OnCollisionEnter(GameObject& other) override;
+
 private:
 	void AddSkillKeyMap(KEY_CODE keyCode, ActiveSkill& skill);
 };

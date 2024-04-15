@@ -90,18 +90,13 @@ void Player::OnKeyPressed(KEY_CODE key)
 		return;
 	}
 
-	if (canJump) GetComponent<FSM>()->ChangeState(OBJECT_STATE::WALK);
 	Move();
 }
 
 // [event] OnKeyDown
 void Player::OnKeyDown(KEY_CODE key)
 {
-	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
-	{
-		if (canJump) GetComponent<FSM>()->ChangeState(OBJECT_STATE::WALK);
-		Move();
-	}
+	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT) Move();
 }
 
 // [event] OnKeyReleased 
@@ -110,6 +105,23 @@ void Player::OnKeyReleased(KEY_CODE key)
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
 	{
 		GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+	}
+}
+
+// [event] 충돌 시작
+void Player::OnCollisionEnter(GameObject& other)
+{
+	AliveObject::OnCollisionEnter(other);
+
+	if (other.GetLayer() == LAYER_TYPE::GROUND)
+	{
+		if (!canJump)
+		{
+			FSM* fsm = GetComponent<FSM>();
+			if (fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(OBJECT_STATE::IDLE);
+			GetComponent<Rigidbody>()->UseGravity(false);
+			canJump = true;
+		}
 	}
 }
 

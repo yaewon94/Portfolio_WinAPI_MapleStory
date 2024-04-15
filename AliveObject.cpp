@@ -38,7 +38,12 @@ AliveObject::~AliveObject()
 // 이동
 void AliveObject::Move()
 {
-	offset += dir * speed * TimeManager::GetInstance().GetDeltaTime();
+	if (canMove)
+	{
+		if (canJump) GetComponent<FSM>()->ChangeState(OBJECT_STATE::WALK);
+		offset += dir * speed * TimeManager::GetInstance().GetDeltaTime();
+		prevDir = dir;
+	}
 }
 
 // 점프
@@ -55,21 +60,22 @@ void AliveObject::Jump()
 // 충돌 시작
 void AliveObject::OnCollisionEnter(GameObject& other)
 {
-	if (other.GetLayer() == LAYER_TYPE::GROUND)
+	if (other.GetLayer() == LAYER_TYPE::WALL)
 	{
-		if (!canJump)
-		{
-			FSM* fsm = GetComponent<FSM>();
-			if(fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(OBJECT_STATE::IDLE);
-			GetComponent<Rigidbody>()->UseGravity(false);
-			canJump = true;
-		}
+		canMove = false;
 	}
 }
 
 // 충돌 중
 void AliveObject::OnCollisionStay(GameObject& other)
 {
+	if (other.GetLayer() == LAYER_TYPE::WALL)
+	{
+		if (prevDir != dir)
+		{
+			canMove = true;
+		}
+	}
 }
 
 // 충돌 종료

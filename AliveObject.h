@@ -14,7 +14,10 @@ private:
 
 protected:
 	Vec2<float> dir = Vec2<float>::Left();
+	Vec2<float> prevDir;
 	float speed;
+	bool canMove = true;
+
 	float jumpPower;
 	bool canJump = false;
 

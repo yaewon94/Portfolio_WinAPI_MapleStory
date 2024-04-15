@@ -102,6 +102,9 @@
     <Filter Include="game\02-Object\Ground">
       <UniqueIdentifier>{c2eedeb0-79ea-4fa3-8182-49abdedbdb9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\02-Object\Wall">
+      <UniqueIdentifier>{a3aa9fe1-98fe-4abd-aa85-6e75954ed6f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -250,6 +253,9 @@
     <ClInclude Include="Background.h">
       <Filter>game\02-Object</Filter>
     </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>game\02-Object\Wall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -394,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>game\02-Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>game\02-Object\Wall</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -22,9 +22,10 @@ void Ground::Init()
 {
 	// 컴포넌트 추가
 	Collider* collider = AddComponent<Collider>();
-	collider->SetScale(Vec2(scale.x, 10));
-	collider->SetOffset(Vec2(offset.x, (collider->GetScale().y - scale.y) * 0.5f));
+	//collider->SetScale(Vec2(scale.x, 10));
+	//collider->SetOffset(Vec2(offset.x, (collider->GetScale().y - scale.y) * 0.5f));
 
+	// 부모 Init() 호출
 	GameObject::Init();
 }
 
