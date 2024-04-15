@@ -20,5 +20,8 @@ public:
 	Map(const wstring& name, Vec2<float> pos, Vec2<int> scale, Texture& background);
 	~Map();
 
+	Vec2<float> GetPos() { return pos; }
+	Vec2<int> GetScale() { return scale; }
+
 	void Enter();
 };

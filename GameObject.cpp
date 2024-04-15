@@ -61,7 +61,7 @@ GameObject::~GameObject()
 }
 
 // 렌더링 좌표 가져오기
-inline Vec2<float> GameObject::GetRenderPos()
+Vec2<float> GameObject::GetRenderPos()
 {
 	Vec2 realPos = GetPos();
 	return Level::GetMainCamera().GetRenderPos(realPos);
@@ -132,7 +132,6 @@ void GameObject::Render()
 {
 	Animator* animator = GetComponent<Animator>();
 	if (animator != nullptr) animator->Render();
-	else Engine::GetInstance().Render(GetRenderPos(), scale);
 }
 
 // 자식 오브젝트 삭제

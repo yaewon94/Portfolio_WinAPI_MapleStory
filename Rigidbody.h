@@ -11,7 +11,7 @@ private:
 	bool useGravity = true;
 
 public:
-	Rigidbody(GameObject& owner, float mass=1.f);
+	Rigidbody(GameObject& owner, float mass=1.5f);
 	Rigidbody(const Rigidbody& origin);
 	~Rigidbody();
 	virtual Rigidbody* Clone() override { return new Rigidbody(*this); }

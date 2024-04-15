@@ -51,7 +51,7 @@ struct Vec2
 		return *this;
 	}
 	Vec2 operator-(const Vec2 other) { return Vec2(x - other.x, y - other.y); }
-	Vec2 operator*(float value) { return Vec2(x*value, y*value); }
+	Vec2 operator*(float value) { return Vec2((T)(x*value), (T)(y*value)); }
 	Vec2 operator/(int value)
 	{
 		assert(value != 0);

@@ -28,7 +28,6 @@ public:
 	void Progress();
 
 	void ChangeWindowSize(Vec2<int> resolution);
-	void Render(Vec2<float> pos, Vec2<int> scale);
 	void Render(Vec2<float> pos, const wstring& text);
 
 private:

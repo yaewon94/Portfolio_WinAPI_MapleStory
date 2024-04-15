@@ -94,25 +94,10 @@ void Engine::ChangeWindowSize(Vec2<int> resolution)
 	SetWindowPos(hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 }
 
-// 렌더링
-// HDC, HWND를 클래스 외부에 노출시키지 않기 위해 구현함
-void Engine::Render(Vec2<float> pos, Vec2<int> scale)
-{
-	Vec2<int> halfScale = scale * 0.5f;
-
-	// [임시 코드]
-	HPEN pen = CreatePen(PS_SOLID, 10, RGB(0, 0, 0));
-	HPEN prevPen = (HPEN)SelectObject(subTex->GetDC(), pen);
-	Rectangle(subTex->GetDC()
-		, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
-		, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
-	SelectObject(subTex->GetDC(), prevPen);
-}
-
 // 텍스트 렌더링
 void Engine::Render(Vec2<float> pos, const wstring& text)
 {
-	//SetBkMode(subTex->GetDC(), TRANSPARENT);
+	SetBkMode(subTex->GetDC(), TRANSPARENT);
 	TextOutW(subTex->GetDC(), (int)pos.x, (int)pos.y, text.c_str(), (int)text.length());
 }
 
@@ -143,5 +128,5 @@ void Engine::CreateDefaultGDIobject()
 	
 	// 자주 사용할 브러쉬, 펜 생성
 	//brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	brush = CreateSolidBrush(RGB(255, 255, 255));
+	brush = CreateSolidBrush(RGB(0, 0, 0));
 }
