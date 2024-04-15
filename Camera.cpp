@@ -6,8 +6,7 @@
 #include "Map.h"
 
 // 소스파일 전역변수
-static float mapHalfScaleX = 0.f;
-static float mapHalfScaleY = 0.f;
+static float mapLeftLimit, mapRightLimit, mapTopLimit, mapBottomLimit;
 
 // 생성자
 Camera::Camera()
@@ -27,6 +26,13 @@ Camera::~Camera()
 void Camera::Init()
 {
 	player = LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
+
+	// 플레이어가 화면의 중앙에 오도록 실제 좌표와 렌더링 좌표 차이값 설정
+	diff.x = player->GetPos().x + (player->GetScale().x - resolution.x) * 0.5f;
+	diff.y = player->GetPos().y + (player->GetScale().y - resolution.y) * 0.5f;
+
+	// diff를 현재 맵의 범위에 맞춤 (Init이 SetCurrentMap 첫번째 호출보다 나중에 호출됨)
+	AdjustDiffToMap();
 }
 
 // 매 프레임마다 호출
@@ -40,23 +46,28 @@ void Camera::FinalTick()
 	diff.y = player->GetPos().y + (player->GetScale().y - resolution.y) * 0.5f;
 
 	// 차이값이 맵 렌더링 범위를 벗어나는지 확인
-	if (diff.x < currentMap->GetPos().x - mapHalfScaleX
-		|| diff.x > currentMap->GetPos().x + mapHalfScaleX - resolution.x) diff.x = prevDiffX;
-	if (diff.y < currentMap->GetPos().y - mapHalfScaleY
-		|| diff.y > currentMap->GetPos().y + mapHalfScaleY - resolution.y) diff.y = prevDiffY;
+	if (diff.y < mapTopLimit || diff.y > mapBottomLimit) diff.y = prevDiffY;
+	if (diff.x < mapLeftLimit || diff.x > mapRightLimit) diff.x = prevDiffX;
 }
 
 // 현재 맵 변경
 void Camera::SetCurrentMap(Map* map)
 {
 	currentMap = map;
-	mapHalfScaleX = currentMap->GetScale().x * 0.5f;
-	mapHalfScaleY = currentMap->GetScale().y * 0.5f;
+	AdjustDiffToMap();
+}
 
-	// diff를 맵의 범위에 맞춰준다
-	float left, right, top, bottom;
-	if (diff.x < (left = currentMap->GetPos().x - mapHalfScaleX)) diff.x = left;
-	else if (diff.x > (right = currentMap->GetPos().x + mapHalfScaleX - resolution.x)) diff.x = right;
-	if (diff.y < (top = currentMap->GetPos().y - mapHalfScaleY)) diff.y = top;
-	else if (diff.y > (bottom = currentMap->GetPos().y + mapHalfScaleY - resolution.y)) diff.y = bottom;
+// diff를 맵의 범위에 맞춘다 (맵 밖이 렌더링되지 않도록)
+void Camera::AdjustDiffToMap()
+{
+	float mapHalfScaleX = currentMap->GetScale().x * 0.5f;
+	float mapHalfScaleY = currentMap->GetScale().y * 0.5f;
+
+	// x축
+	if (diff.x < (mapLeftLimit = currentMap->GetPos().x - mapHalfScaleX)) diff.x = mapLeftLimit;
+	else if (diff.x > (mapRightLimit = currentMap->GetPos().x + mapHalfScaleX - resolution.x)) diff.x = mapRightLimit;
+
+	// y축
+	if (diff.y < (mapTopLimit = currentMap->GetPos().y - mapHalfScaleY)) diff.y = mapTopLimit;
+	else if (diff.y > (mapBottomLimit = currentMap->GetPos().y + mapHalfScaleY - resolution.y)) diff.y = mapBottomLimit;
 }

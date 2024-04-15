@@ -28,9 +28,7 @@ Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 void Level_Boss_Will_Phase1::Enter()
 {
 	// 플레이어 추가
-	//GameObject* player = AddObject(Player(L"Player", Vec2(0.f, 900.f), Vec2(50, 70)));
-	GameObject* player = AddObject(Player(L"Player", Vec2(0.f, -900.f), Vec2(50, 70)));
-
+	GameObject* player = AddObject(Player(L"Player", Vec2(0.f, 950.f), Vec2(50, 70)));
 
 	// 맵 추가
 	currentMap = &AddMap(*new Map(L"회절의 회랑", Vec2(0.f, 0.f), Vec2(1920, 2530), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_background", L"BossWill_Phase1_background.png")));
