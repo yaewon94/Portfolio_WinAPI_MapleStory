@@ -20,7 +20,7 @@ Background::~Background()
 }
 
 // 필드값 설정
-void Background::Set(Vec2 pos, Vec2 scale, Texture* texture)
+void Background::Set(Vec2<float> pos, Vec2<int> scale, Texture* texture)
 {
 	this->offset = pos;
 	this->scale = scale;

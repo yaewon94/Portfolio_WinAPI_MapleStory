@@ -3,7 +3,7 @@
 #include "Collider.h"
 
 // »ý¼ºÀÚ
-Ground::Ground(Vec2 pos, Vec2 scale) : GameObject(L"", pos, scale, LAYER_TYPE::GROUND)
+Ground::Ground(Vec2<float> pos, Vec2<int> scale) : GameObject(L"", pos, scale, LAYER_TYPE::GROUND)
 {
 }
 

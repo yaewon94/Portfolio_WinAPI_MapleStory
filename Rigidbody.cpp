@@ -30,7 +30,7 @@ void Rigidbody::FinalTick()
 	Vec2 pos = GetOwner()->GetPos();
 
 	// 중력 방향으로 가속도 적용
-	velocity += Vec2::Down() * mass * 9.8f;
+	velocity += Vec2<float>::Down() * mass * 9.8f;
 
 	// 최종 속도 적용
 	pos += velocity * DT;

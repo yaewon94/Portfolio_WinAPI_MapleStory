@@ -6,7 +6,7 @@
 
 // 생성자
 // [CHECK] 여기서 상수 초기화하는데 왜 제대로 적용 안됨? Entity에서는 잘 되던데
-SkillObject::SkillObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer)
+SkillObject::SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer)
 	: GameObject(name, offset, scale, layer, false), skill(nullptr)
 {
 	if (layer == LAYER_TYPE::PLAYER_SKILL) {}

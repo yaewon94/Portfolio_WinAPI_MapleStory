@@ -13,16 +13,16 @@ Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool
 	, curFrame(0)
 {
 	// 각 프레임별 가로 길이 (모두 동일)
-	float widthPerFrame = (float)atlasTex->GetWidth() / frameCount;
+	int widthPerFrame = atlasTex->GetWidth() / frameCount;
 
 	// 각 프레임별 이미지 크기 (모두 동일)
 	// 각 프레임 이미지가 가로 방향으로만(row=n, col=1) 배열되었다고 가정
-	scale = Vec2(widthPerFrame, (float)atlasTex->GetHeight());
+	scale = Vec2(widthPerFrame, atlasTex->GetHeight());
 
 	// 좌표 설정
 	for (int i = 0; i < frameCount; ++i)
 	{
-		Vec2 offset = Vec2(widthPerFrame * i, 0);
+		Vec2<int> offset = Vec2<int>(widthPerFrame * i, 0);
 		offsets.push_back(offset);
 	}
 }
@@ -102,10 +102,10 @@ void Animation::Render()
 
 	AlphaBlend(Engine::GetInstance().GetSubDC()
 		, (int)(objPos.x - scale.x * 0.5f), (int)(objPos.y - scale.y * 0.5f)
-		, (int)scale.x, (int)scale.y
+		, scale.x, scale.y
 		, atlasTex->GetDC()
-		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
-		, (int)scale.x, (int)scale.y
+		, offsets[curFrame].x, offsets[curFrame].y
+		, scale.x, scale.y
 		, bf);
 
 	//DeleteObject(stretchBit);

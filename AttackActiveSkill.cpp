@@ -7,7 +7,7 @@
 #include "SkillObject.h"
 
 // »ý¼ºÀÚ
-AttackActiveSkill::AttackActiveSkill(const wstring& name, Vec2 maxRange, float speed, bool canWithJump) 
+AttackActiveSkill::AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed, bool canWithJump) 
 	: ActiveSkill(name), maxRange(maxRange), speed(speed), canWithJump(canWithJump)
 	, skillObject(nullptr)
 {

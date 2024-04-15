@@ -7,7 +7,7 @@
 #include "SkillObject.h"
 
 // 생성자
-AliveObject::AliveObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer, float speed, float jumpPower)
+AliveObject::AliveObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, float speed, float jumpPower)
 	: GameObject(name, offset, scale, layer), speed(speed), jumpPower(jumpPower)
 	, skillObject(nullptr)
 {
@@ -49,7 +49,7 @@ void AliveObject::Jump()
 	GetComponent<FSM>()->ChangeState(OBJECT_STATE::JUMP);
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	rb->UseGravity(true);
-	rb->AddForce(Vec2::Up() * jumpPower);
+	rb->AddForce(Vec2<float>::Up() * jumpPower);
 }
 
 // 충돌 시작

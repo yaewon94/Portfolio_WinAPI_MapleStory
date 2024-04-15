@@ -7,8 +7,8 @@
 GameObject* Monster::player = nullptr;
 
 // 생성자
-Monster::Monster(const wstring& name, Vec2 pos, Vec2 scale, int detectRange)
-	: AliveObject(name, pos, scale, LAYER_TYPE::ENEMY, 100), detectRange(detectRange)
+Monster::Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale, float detectRange)
+	: AliveObject(name, pos, scale, LAYER_TYPE::ENEMY, 100.f), detectRange(detectRange)
 {
 }
 
@@ -54,7 +54,7 @@ void Monster::OnCollisionExit(GameObject& other)
 // 플레이어 감지
 bool Monster::DetectPlayer()
 {
-	static int playerRad = (int)sqrtf(0.25f * (player->GetScale().x * player->GetScale().x + player->GetScale().y * player->GetScale().y));
+	static float playerRad = sqrtf(0.25f * (player->GetScale().x * player->GetScale().x + player->GetScale().y * player->GetScale().y));
 
 	if (GetPos().GetDistance(player->GetPos()) <= detectRange + playerRad) return true;
 	else return false;
@@ -71,8 +71,8 @@ bool Monster::Trace()
 	else
 	{
 		// 방향 설정
-		if (GetPos().x - player->GetPos().x > 0) dir = Vec2::Left();
-		else dir = Vec2::Right();
+		if (GetPos().x - player->GetPos().x > 0) dir = Vec2<float>::Left();
+		else dir = Vec2<float>::Right();
 
 		// 이동
 		Move();

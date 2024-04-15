@@ -2,7 +2,7 @@
 #include "Log.h"
 
 // »ý¼ºÀÚ
-Log::Log(LOG_TYPE type, wstring message, Vec2 renderPos) 
+Log::Log(LOG_TYPE type, wstring message, Vec2<float> renderPos) 
 	: type(type), message(message), renderPos(renderPos)
 {
 }

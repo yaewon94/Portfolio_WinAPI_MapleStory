@@ -28,20 +28,20 @@ Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 void Level_Boss_Will_Phase1::Enter()
 {
 	// 플레이어 추가
-	GameObject* player = AddObject(Player(L"Player", Vec2(0, 900), Vec2(50, 70)));
+	GameObject* player = AddObject(Player(L"Player", Vec2(0.f, 1000.f), Vec2(50, 70)));
 
 	// 맵 추가
-	currentMap = &AddMap(*new Map(L"회절의 회랑", Vec2(0, 0), Vec2(1920, 2530), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_background", L"BossWill_Phase1_background.png")));
+	currentMap = &AddMap(*new Map(L"회절의 회랑", Vec2(0.f, 0.f), Vec2(1366, 1088), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_background", L"BossWill_Phase1_background.png")));
 
 	// 그 외 오브젝트 추가
 	GameObject* background = AddObject(Background());
-	GameObject* ground = AddObject(Ground(Vec2(0, 1000), Vec2(1920, 20)));
+	GameObject* ground = AddObject(Ground(Vec2(0.f, 1050.f), Vec2(1366, 20)));
 	player->SetParent(*background);
 	ground->SetParent(*background);
 	// [임시]
 	// 몬스터는 객체마다 특성이 다르므로, 클래스 외부에서 특성에 맞게 컴포넌트 추가
 	// 원래는 DB같은데서 받아와서 몬스터 클래스 내부에서 초기화 해야 함
-	GameObject* boss_will = AddObject(Monster(L"Boss_Will", Vec2(500, 950)));
+	GameObject* boss_will = AddObject(Monster(L"Boss_Will", Vec2(500.f, 990.f)));
 	boss_will->SetParent(*background);
 	FSM* fsm = boss_will->AddComponent<FSM>();
 	fsm->AddState(*new MonsterIdleState);

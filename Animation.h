@@ -10,8 +10,8 @@ class Animation final : public Entity
 private:
 	Texture* atlasTex;	// 모든 프레임의 이미지를 보유하고 있는 아틀라스 텍스처
 	int frameCount;
-	vector<Vec2> offsets;		// 아틀라스 텍스처에서 각 프레임의 좌상단 좌표
-	Vec2 scale;				// 각 프레임의 이미지 크기 (모두 동일)
+	vector<Vec2<int>> offsets;		// 아틀라스 텍스처에서 각 프레임의 좌상단 좌표
+	Vec2<int> scale;				// 각 프레임의 이미지 크기 (모두 동일)
 	float duration;					// 각 프레임당 재생 시간 (모두 동일)
 	bool isRepeat;
 

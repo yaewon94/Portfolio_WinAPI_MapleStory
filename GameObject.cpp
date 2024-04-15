@@ -11,7 +11,7 @@ GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), parent(
 {
 }
 
-GameObject::GameObject(const wstring& name, Vec2 offset, Vec2 scale, LAYER_TYPE layer, bool isActive)
+GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
 	, parent(nullptr)
 {
@@ -61,7 +61,7 @@ GameObject::~GameObject()
 }
 
 // 렌더링 좌표 가져오기
-Vec2 GameObject::GetRenderPos()
+inline Vec2<float> GameObject::GetRenderPos()
 {
 	Vec2 realPos = GetPos();
 	return Level::GetMainCamera().GetRenderPos(realPos);
@@ -132,6 +132,7 @@ void GameObject::Render()
 {
 	Animator* animator = GetComponent<Animator>();
 	if (animator != nullptr) animator->Render();
+	else Engine::GetInstance().Render(GetRenderPos(), scale);
 }
 
 // 자식 오브젝트 삭제

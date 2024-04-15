@@ -30,7 +30,7 @@ SkillManager::~SkillManager()
 // 초기화
 void SkillManager::Init()
 {
-	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2::Right() * 300));
+	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2<float>::Right() * 300.f));
 }
 
 // 매 프레임마다 호출
