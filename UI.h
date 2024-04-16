@@ -10,5 +10,5 @@ public:
 	~UI();
 	virtual UI* Clone() override { return new UI(*this); }
 
-	virtual Vec2<float> GetRenderPos() override { return GetPos(); }
+	virtual Vec2<float> GetRenderPos() override { return GetRealPos(); }
 };

@@ -15,7 +15,7 @@ public:
 	~Collider();
 	virtual Collider* Clone() override { return new Collider(*this); }
 
-	Vec2<float> GetPos() { return offset + GetOwner()->GetPos(); }
+	Vec2<float> GetPos() { return offset + GetOwner()->GetRealPos(); }
 	Vec2<float> GetRenderPos();
 	Vec2<int> GetScale() const { return scale; }
 

@@ -67,7 +67,7 @@ GameObject::~GameObject()
 // ·»´õ¸µ ÁÂÇ¥ °¡Á®¿À±â
 Vec2<float> GameObject::GetRenderPos()
 {
-	Vec2 realPos = GetPos();
+	Vec2 realPos = GetRealPos();
 	return Level::GetMainCamera().GetRenderPos(realPos);
 }
 

@@ -56,7 +56,7 @@ bool Monster::DetectPlayer()
 {
 	static float playerRad = sqrtf(0.25f * (player->GetScale().x * player->GetScale().x + player->GetScale().y * player->GetScale().y));
 
-	if (GetPos().GetDistance(player->GetPos()) <= detectRange + playerRad) return true;
+	if (GetRealPos().GetDistance(player->GetRealPos()) <= detectRange + playerRad) return true;
 	else return false;
 }
 
@@ -64,14 +64,14 @@ bool Monster::DetectPlayer()
 bool Monster::Trace()
 {
 	// 일정 거리 이내까지만 추격
-	if (GetPos().GetDistance(player->GetPos()) <= MAX_TRACE_DISTANCE)
+	if (GetRealPos().GetDistance(player->GetRealPos()) <= MAX_TRACE_DISTANCE)
 	{
 		return false;
 	}
 	else
 	{
 		// 방향 설정
-		if (GetPos().x - player->GetPos().x > 0) dir = Vec2<float>::Left();
+		if (GetRealPos().x - player->GetRealPos().x > 0) dir = Vec2<float>::Left();
 		else dir = Vec2<float>::Right();
 
 		// 이동

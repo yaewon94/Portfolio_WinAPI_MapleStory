@@ -25,14 +25,14 @@ Rigidbody::~Rigidbody()
 void Rigidbody::FinalTick()
 {
 	if (!useGravity) return;
-
+	
 	float DT = TimeManager::GetInstance().GetDeltaTime();
-	Vec2 pos = GetOwner()->GetPos();
+	Vec2 pos = GetOwner()->GetRealPos();
 
 	// 중력 방향으로 가속도 적용
 	velocity += Vec2<float>::Down() * mass * 9.8f;
 
 	// 최종 속도 적용
 	pos += velocity * DT;
-	GetOwner()->SetOffset(pos);
+	GetOwner()->SetRealPos(pos);
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 
+#define DEFAULT_OBJECT_POS Vec2(0.f, 0.f)		// 오브젝트 좌표 기본값
 #define DEFAULT_OBJECT_SCALE  Vec2(100, 100)	// 오브젝트 크기 기본값
 
 class Component;
@@ -36,7 +37,8 @@ public:
 	virtual GameObject* Clone() = 0;
 	void Destroy() { if (this != nullptr) delete this; }
 
-	Vec2<float> GetPos();					// 부모 offset + 자신 offset인 실제 좌표
+	Vec2<float> GetOffset() { return offset; }	// [테스트용]
+	Vec2<float> GetRealPos();					// 부모 offset + 자신 offset인 실제 좌표
 	virtual Vec2<float> GetRenderPos();		// 렌더링 좌표
 	Vec2<int> GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
@@ -45,6 +47,7 @@ public:
 	GameObject* GetParent() { return parent; }
 
 	void SetOffset(Vec2<float> offset) { this->offset = offset; }
+	void SetRealPos(Vec2<float> pos);
 	virtual void SetActive(bool flag) { isActive = flag; }
 
 	virtual void Init();
@@ -65,10 +68,17 @@ private:
 };
 
 // 좌표 반환
-inline Vec2<float> GameObject::GetPos()
+inline Vec2<float> GameObject::GetRealPos()
 {
 	if (parent == nullptr) return offset;
-	return parent->GetPos() + offset;
+	return parent->GetRealPos() + offset;
+}
+
+// 실제 좌표 설정 (리지드바디 같은 곳에서 필요)
+inline void GameObject::SetRealPos(Vec2<float> pos)
+{
+	if (parent == nullptr) offset = pos;
+	else offset = pos - parent->GetRealPos();
 }
 
 // 컴포넌트 추가

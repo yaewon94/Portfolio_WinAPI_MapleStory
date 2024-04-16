@@ -74,8 +74,8 @@ struct Vec2
 	}
 
 	// 문자열 변환
-	wstring to_wstring(const Vec2& vec)
+	wstring to_wstring()
 	{
-		return std::to_wstring(vec.x) + L" , " + std::to_wstring(vec.y);
+		return std::to_wstring(x) + L" , " + std::to_wstring(y);
 	}
 };
