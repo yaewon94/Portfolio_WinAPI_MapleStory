@@ -48,14 +48,14 @@ void Map::Enter()
 	else if (name == L"회절의 회랑(보라)")
 	{
 		GameObject* obj = LevelManager::GetInstance().FindObject(LAYER_TYPE::GROUND);
-		obj->Set(Vec2(0.f, 195.f), Vec2(1920, 10));
+		obj->Set(Vec2(0.f, 280.f), Vec2(1920, 10));
 
 		auto& objs = LevelManager::GetInstance().FindObjects(LAYER_TYPE::WALL);
-		objs[0]->Set(Vec2(-950.f, 40.f), Vec2(10, 300));
-		objs[1]->Set(Vec2(950.f, 40.f), Vec2(10, 300));
+		objs[0]->Set(Vec2(-950.f, 110.f), Vec2(10, 300));
+		objs[1]->Set(Vec2(950.f, 110.f), Vec2(10, 300));
 
 		obj = LevelManager::GetInstance().FindObjects(LAYER_TYPE::ENEMY)[1];
-		obj->SetOffset(Vec2(500.f, 140.f));
+		obj->SetOffset(Vec2(500.f, 230.f));
 		managedObjs.push_back(obj);
 	}
 

@@ -27,10 +27,6 @@ void Camera::Init()
 {
 	player = LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
 
-	// 플레이어가 화면의 중앙에 오도록 실제 좌표와 렌더링 좌표 차이값 설정
-	diff.x = player->GetRealPos().x + (player->GetScale().x - resolution.x) * 0.5f;
-	diff.y = player->GetRealPos().y + (player->GetScale().y - resolution.y) * 0.5f;
-
 	// diff를 현재 맵의 범위에 맞춤 (Init이 SetCurrentMap 첫번째 호출보다 나중에 호출됨)
 	AdjustDiffToMap();
 }
@@ -62,6 +58,13 @@ void Camera::AdjustDiffToMap()
 {
 	float mapHalfScaleX = currentMap->GetScale().x * 0.5f;
 	float mapHalfScaleY = currentMap->GetScale().y * 0.5f;
+
+	// 플레이어가 화면의 중앙에 오도록 실제 좌표와 렌더링 좌표 차이값 설정
+	if(player != nullptr)
+	{
+		diff.x = player->GetRealPos().x + (player->GetScale().x - resolution.x) * 0.5f;
+		diff.y = player->GetRealPos().y + (player->GetScale().y - resolution.y) * 0.5f;
+	}
 
 	// x축
 	if (diff.x < (mapLeftLimit = currentMap->GetPos().x - mapHalfScaleX)) diff.x = mapLeftLimit;

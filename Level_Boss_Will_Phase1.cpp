@@ -81,7 +81,8 @@ void Level_Boss_Will_Phase1::Enter()
 	ActiveSkill* activeSkill = (ActiveSkill*)&player->AddSkill(SkillManager::GetInstance().GetSkill(1));
 	player->AddSkillKeyMap(KEY_CODE::N, *activeSkill);
 	OnUseLevelSkill(player->GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
-	
+	// TODO : 일정 시간마다 달빛게이지 회복
+
 	// 맵 진입
 	player->ChangeMap(MapManager::GetInstance().GetMap(0));
 	//player->ChangeMap(MapManager::GetInstance().GetMap(1)); // 보라맵 테스트
