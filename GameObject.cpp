@@ -35,7 +35,11 @@ GameObject::GameObject(const GameObject& origin)
 	// 원본이 가지고 있는 컴포넌트 복사
 	for (auto component : origin.components)
 	{
-		components.push_back(component->Clone());
+		Component* clone = component->Clone();
+		clone->SetOwner(*this);
+		components.push_back(clone);
+		// ERROR : 컴포넌트 복사 에러
+		//components.push_back(component->Clone());
 	}
 
 	// 카메라 제거 x (Level 소멸자에서 제거됨)

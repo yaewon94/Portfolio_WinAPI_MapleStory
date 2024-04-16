@@ -21,6 +21,7 @@ public:
 	virtual Component* Clone() = 0;
 
 	GameObject* GetOwner() const { return owner; }
+	void SetOwner(GameObject& owner) { this->owner = &owner; }
 
 	virtual void Init() {}
 	virtual void FinalTick() {}

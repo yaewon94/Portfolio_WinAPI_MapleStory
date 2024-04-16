@@ -8,9 +8,10 @@ Component::Component(GameObject& owner) : owner(&owner)
 }
 
 // 복사 생성자
-Component::Component(const Component& origin) : Entity(origin)
+Component::Component(const Component& origin) : Entity(origin), owner(nullptr)
 {
-	owner = origin.owner->Clone();
+	// ERROR : 또 다시 게임오브젝트의 복사생성자를 호출하게 되서 무한반복됨
+	//owner = origin.owner->Clone();
 }
 
 // 소멸자
