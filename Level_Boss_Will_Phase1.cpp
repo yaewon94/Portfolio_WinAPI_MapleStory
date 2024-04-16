@@ -13,6 +13,7 @@
 #include "MonsterTraceState.h"
 #include "Player.h"
 #include "Rigidbody.h"
+#include "UI.h"
 #include "Wall.h"
 
 // 생성자
@@ -32,12 +33,24 @@ void Level_Boss_Will_Phase1::Enter()
 	currentMap = &AddMap(*new Map(L"회절의 회랑(파랑)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png")));
 	AddMap(*new Map(L"회절의 회랑(보라)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png")));
 
+	// UI
+	GameObject* obj = AddObject(UI(L"달빛게이지", Vec2(120.f, 200.f)));
+	Animator* animator = obj->AddComponent<Animator>();
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_0, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_0", L"UI_MoonlightGauge_0.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_20, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_20", L"UI_MoonlightGauge_20.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_40, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_40", L"UI_MoonlightGauge_40.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_60, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_60", L"UI_MoonlightGauge_60.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_80, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_80", L"UI_MoonlightGauge_80.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_100, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_100", L"UI_MoonlightGauge_100.png"), 6);
+	animator->ChangeAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_0);
+
 	// 배경
 	GameObject& background = *AddObject(Background());
 
 	// 플레이어
-	GameObject* obj = AddObject(Player(L"Player", Vec2(0.f, 300.f), Vec2(50, 70)));
+	obj = AddObject(Player(L"Player", Vec2(0.f, 300.f), Vec2(50, 70)));
 	obj->SetParent(background);
+	// TODO : 달빛게이지 스킬 추가
 
 	// 지면
 	obj = AddObject(Ground());
@@ -58,7 +71,7 @@ void Level_Boss_Will_Phase1::Enter()
 	FSM* fsm = boss_will->AddComponent<FSM>();
 	fsm->AddState(*new MonsterIdleState);
 	fsm->AddState(*new MonsterTraceState);
-	Animator* animator = boss_will->AddComponent<Animator>();
+	animator = boss_will->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 
