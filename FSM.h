@@ -8,6 +8,7 @@ class FSM final : public Component
 private:
 	map<OBJECT_STATE, State*> stateMap;
 	State* curState;
+	OBJECT_STATE curStateType;
 
 public:
 	FSM(GameObject& owner);
@@ -20,7 +21,7 @@ public:
 
 	void AddState(State& state);
 	void ChangeState(OBJECT_STATE type);
-	OBJECT_STATE GetCurrentState() const { return curState->type; }
+	OBJECT_STATE GetCurrentState() const { return curStateType; }
 
 private:
 	State* FindState(OBJECT_STATE type);

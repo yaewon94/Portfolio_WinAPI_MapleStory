@@ -81,10 +81,13 @@ void FSM::ChangeState(OBJECT_STATE type)
 	if (state != nullptr)
 	{
 		// 쿨타임 체크
-		if ((int)(TimeManager::GetInstance().GetSecond() - state->exitTime)
-			< state->CoolDown) return;
+		if ((int)(TimeManager::GetInstance().GetSecond() - state->exitTime) < state->CoolDown)
+		{
+			Log(LOG_TYPE::LOG_ERROR, L"아직 해당 상태로 변경할 수 없습니다");
+			return;
+		}
 
-		// 변경
+		// 상태 변경
 		if(curState != nullptr) curState->Exit();
 		curState = state;
 		curState->Enter();
@@ -94,10 +97,13 @@ void FSM::ChangeState(OBJECT_STATE type)
 		// 기존 상태가 있는 경우 해제
 		if (curState != nullptr) curState->Exit();
 		curState = nullptr;
-
-		// 해당 타입의 애니메이션이 존재하는 경우 재생
-		GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
 	}
+
+	// 해당 타입의 애니메이션이 존재하는 경우 재생
+	GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
+
+	// 상태 타입 변경
+	curStateType = type;
 }
 
 // 상태 찾기
