@@ -19,8 +19,10 @@ private:
 	Texture* background;	// 배경 이미지
 	vector<GameObject*> managedObjs;	// 관리 목적의 오브젝트 (맵 퇴장시, 비활성화시킬 오브젝트 등)
 
+	const Vec2<float> DefaultPlayerPos;	// 포탈 이동을 제외한 방법으로 맵에 왔을 때, 플레이어 오브젝트가 위치할 좌표
+
 private:
-	Map(const wstring& name, Vec2<float> pos, Vec2<int> scale, Texture& background);
+	Map(const wstring& name, Vec2<float> pos, Vec2<int> scale, Texture& background, Vec2<float> defaultPlayerPos);
 	~Map();
 
 	void Enter();

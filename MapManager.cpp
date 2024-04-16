@@ -24,8 +24,8 @@ MapManager::~MapManager()
 // 초기화
 void MapManager::Init()
 {
-	maps.push_back(new Map(L"회절의 회랑(파랑)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png")));
-	maps.push_back(new Map(L"회절의 회랑(보라)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png")));
+	maps.push_back(new Map(L"회절의 회랑(파랑)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png"), Vec2(0.f, 300.f)));
+	maps.push_back(new Map(L"회절의 회랑(보라)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png"), Vec2(0.f, -300.f)));
 }
 
 // 맵 변경

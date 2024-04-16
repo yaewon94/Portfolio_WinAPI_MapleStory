@@ -5,8 +5,8 @@
 #include "LevelManager.h"
 
 // 생성자
-Map::Map(const wstring& name, Vec2<float> pos, Vec2<int> scale, Texture& background)
-	: name(name), pos(pos), scale(scale), background(&background)
+Map::Map(const wstring& name, Vec2<float> pos, Vec2<int> scale, Texture& background, Vec2<float> DefaultPlayerPos)
+	: name(name), pos(pos), scale(scale), background(&background), DefaultPlayerPos(DefaultPlayerPos)
 {
 }
 
@@ -52,6 +52,9 @@ void Map::Enter()
 
 		managedObjs.push_back(LevelManager::GetInstance().FindObjects(LAYER_TYPE::ENEMY)[0]);
 	}
+
+	// 플레이어 좌표 설정
+	LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER)->SetOffset(DefaultPlayerPos);
 }
 
 // 맵 퇴장
