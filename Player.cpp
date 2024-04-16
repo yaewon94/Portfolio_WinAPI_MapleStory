@@ -8,6 +8,7 @@
 #include "AttackState.h"
 #include "Collider.h"
 #include "FSM.h"
+#include "MapManager.h"
 #include "JumpState.h"
 #include "PlayerIdleState.h"
 #include "Rigidbody.h"
@@ -16,24 +17,33 @@
 #include "WalkState.h"
 
 // 생성자
-Player::Player(const wstring& name, Vec2<float> pos, Vec2<int> scale) 
-	: AliveObject(name, pos, scale, LAYER_TYPE::PLAYER)
+Player::Player(const wstring& name, Vec2<float> pos, Vec2<int> scale)
+	: AliveObject(name, pos, scale, LAYER_TYPE::PLAYER), currentMap(nullptr)
 {
 }
 
 // 복사 생성자
-Player::Player(const Player& origin) : AliveObject(origin)
+Player::Player(const Player& origin) : AliveObject(origin), currentMap(origin.currentMap)
 {
 }
 
 // 소멸자
 Player::~Player()
 {
+	currentMap = nullptr;
+
 	for (auto& pair : skillKeyMap)
 	{
 		// Skill*이 가리키는 객체는 SkillManager가 지움
 		pair.second = nullptr;
 	}
+}
+
+// 맵 변경
+void Player::ChangeMap(Map& map)
+{
+	MapManager::GetInstance().ChangeMap(currentMap, &map);
+	currentMap = &map;
 }
 
 // 초기화

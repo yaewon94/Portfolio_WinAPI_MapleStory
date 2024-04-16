@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Ground.h"
 #include "Map.h"
+#include "MapManager.h"
 #include "Monster.h"
 #include "MonsterIdleState.h"
 #include "MonsterTraceState.h"
@@ -29,10 +30,6 @@ Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 // 레벨 진입시 호출
 void Level_Boss_Will_Phase1::Enter()
 {
-	// 맵 추가
-	currentMap = &AddMap(*new Map(L"회절의 회랑(파랑)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png")));
-	AddMap(*new Map(L"회절의 회랑(보라)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png")));
-
 	// UI
 	GameObject* obj = AddObject(UI(L"달빛게이지", Vec2(120.f, 200.f)));
 	Animator* animator = obj->AddComponent<Animator>();
@@ -46,11 +43,6 @@ void Level_Boss_Will_Phase1::Enter()
 
 	// 배경
 	GameObject& background = *AddObject(Background());
-
-	// 플레이어
-	obj = AddObject(Player(L"Player", Vec2(0.f, 300.f), Vec2(50, 70)));
-	obj->SetParent(background);
-	// TODO : 달빛게이지 스킬 추가
 
 	// 지면
 	obj = AddObject(Ground());
@@ -75,8 +67,14 @@ void Level_Boss_Will_Phase1::Enter()
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 
+	// 플레이어
+	obj = AddObject(Player(L"Player", Vec2(0.f, 300.f), Vec2(50, 70)));
+	obj->SetParent(background);
+	Player* player = (Player*)obj;
+	// TODO : 달빛게이지 스킬 추가
+	
 	// 맵 진입
-	currentMap->Enter();
+	player->ChangeMap(MapManager::GetInstance().GetMap(0));
 }
 
 // 레벨 종료시 호출

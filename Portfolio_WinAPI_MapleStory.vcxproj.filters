@@ -111,6 +111,9 @@
     <Filter Include="game\02-Object\UI">
       <UniqueIdentifier>{a9c9a0b2-f6a6-4c1a-8573-f5c77e1f4b0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module\Skill\ActiveSkill">
+      <UniqueIdentifier>{ceff14f8-29a1-478f-89e9-18c75575f486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -123,9 +126,6 @@
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>game\00-Header</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>game\01-Level</Filter>
@@ -189,12 +189,6 @@
     </ClInclude>
     <ClInclude Include="SkillObject.h">
       <Filter>game\02-Object\SkillObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackActiveSkill.h">
-      <Filter>game\04-Module\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="ActiveSkill.h">
-      <Filter>game\04-Module\Skill</Filter>
     </ClInclude>
     <ClInclude Include="IKeyEvent.h">
       <Filter>game\05-Util\Input</Filter>
@@ -264,6 +258,18 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>game\02-Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>game\00-Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveSkill.h">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackActiveSkill.h">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>game\04-Module\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -344,12 +350,6 @@
     <ClCompile Include="SkillObject.cpp">
       <Filter>game\02-Object\SkillObject</Filter>
     </ClCompile>
-    <ClCompile Include="AttackActiveSkill.cpp">
-      <Filter>game\04-Module\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="ActiveSkill.cpp">
-      <Filter>game\04-Module\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="Asset.cpp">
       <Filter>game\04-Module\Asset</Filter>
     </ClCompile>
@@ -415,6 +415,15 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>game\02-Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveSkill.cpp">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackActiveSkill.cpp">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>game\04-Module\Map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

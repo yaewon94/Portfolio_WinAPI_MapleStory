@@ -166,6 +166,7 @@
     <ClInclude Include="Level_Boss_Will_Phase1.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapManager.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="MonsterTraceState.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="MonsterTraceState.cpp" />
