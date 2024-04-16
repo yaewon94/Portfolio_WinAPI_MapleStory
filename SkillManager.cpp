@@ -35,7 +35,7 @@ SkillManager::~SkillManager()
 void SkillManager::Init()
 {
 	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2<float>::Right() * 300.f));
-	skills.push_back(new ActiveEtcSkill(L"달빛게이지", &SkillManager::UseMoonlightGauge_Phase1));
+	skills.push_back(new ActiveEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
 }
 
 // 매 프레임마다 호출

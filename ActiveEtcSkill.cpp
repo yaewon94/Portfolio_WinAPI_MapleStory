@@ -4,8 +4,8 @@
 #include "Player.h"
 
 // »ý¼ºÀÚ
-ActiveEtcSkill::ActiveEtcSkill(const wstring& name, SKILL_CALLBACK callback)
-	: ActiveSkill(name), callback(callback)
+ActiveEtcSkill::ActiveEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback)
+	: ActiveSkill(name, Cost), callback(callback)
 {
 }
 

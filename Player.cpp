@@ -8,6 +8,7 @@
 #include "AttackState.h"
 #include "Collider.h"
 #include "FSM.h"
+#include "LevelManager.h"
 #include "MapManager.h"
 #include "JumpState.h"
 #include "PlayerIdleState.h"
@@ -37,6 +38,13 @@ Player::~Player()
 		// Skill*이 가리키는 객체는 SkillManager가 지움
 		pair.second = nullptr;
 	}
+}
+
+// 특수스킬 사용 시 코스트 소모
+void Player::UseSkillCost(int cost)
+{
+	currentSkillCost -= cost;
+	LevelManager::GetInstance().OnUseLevelSkill(currentSkillCost);
 }
 
 // 맵 변경

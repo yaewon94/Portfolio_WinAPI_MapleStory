@@ -27,4 +27,6 @@ public:
 	void DeleteObject(GameObject& obj);
 
 	Camera* GetMainCamera() { return curLevel->mainCamera; }
+
+	void OnUseLevelSkill(int currentSkillCost) { assert(curLevel); curLevel->OnUseLevelSkill(currentSkillCost); }
 };

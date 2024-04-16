@@ -30,6 +30,8 @@ protected:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
+	virtual void OnUseLevelSkill(int currentSkillCost) {}	// 현재 레벨에서만 쓸 수 있는 특수한 스킬을 사용했을 때 호출
+
 	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(const T& object);
 
 private:

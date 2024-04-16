@@ -18,7 +18,7 @@ private:
 
 private:
 	//ActiveEtcSkill(const wstring& name, SKILL_CALLBACK callback, void* params, ...);
-	ActiveEtcSkill(const wstring& name, SKILL_CALLBACK callback);
+	ActiveEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback);
 	~ActiveEtcSkill();
 
 public:

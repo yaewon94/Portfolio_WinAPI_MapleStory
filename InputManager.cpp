@@ -45,6 +45,7 @@ void InputManager::Init()
 	// 스킬 콜백
 	// TODO : 하드코딩 말고, 플레이어 사용가능 스킬 목록에서 가져와서 for문 돌려서 초기화 하기
 	keyMap.insert(make_pair(KEY_CODE::SHIFT, new KeyInfo{ KEY_TYPE::SKILL }));
+	keyMap.insert(make_pair(KEY_CODE::N, new KeyInfo{ KEY_TYPE::SKILL }));
 }
 
 // 매 프레임마다 호출
