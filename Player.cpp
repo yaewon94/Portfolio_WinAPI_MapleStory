@@ -5,17 +5,13 @@
 #include "Animator.h"
 #include "AssetManager.h"
 #include "AttackActiveSkill.h"
-#include "AttackState.h"
 #include "Collider.h"
 #include "FSM.h"
 #include "LevelManager.h"
 #include "MapManager.h"
-#include "JumpState.h"
-#include "PlayerIdleState.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
-#include "WalkState.h"
 
 // »ý¼ºÀÚ
 Player::Player(const wstring& name, Vec2<float> pos, Vec2<int> scale)
@@ -61,10 +57,6 @@ void Player::Init()
 	AddComponent<Rigidbody>();
 	Collider* collider = AddComponent<Collider>();
 	FSM* fsm = AddComponent<FSM>();
-	fsm->AddState(*new PlayerIdleState);
-	fsm->AddState(*new WalkState);
-	fsm->AddState(*new JumpState);
-	fsm->AddState(*new AttackState);
 	Animator* animator = AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
 	animator->AddAnimation(OBJECT_STATE::WALK, AssetManager::GetInstance().LoadTexture(L"PlayerWalk", L"Player_Walk.png"), 4);

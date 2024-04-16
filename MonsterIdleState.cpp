@@ -4,8 +4,15 @@
 #include "Monster.h"
 
 // 생성자
-MonsterIdleState::MonsterIdleState() : me(nullptr)
+MonsterIdleState::MonsterIdleState() : State(OBJECT_STATE::IDLE), me(nullptr)
 {
+}
+
+// 복사 생성자
+MonsterIdleState::MonsterIdleState(const MonsterIdleState& origin) : State(origin), me(nullptr)
+{
+	// 복사생성자 호출시점엔 owner가 nullptr라 me는 나중에 초기화 해줘야 함
+	// TODO : Init() 호출 안하는 객체 있는지 체크
 }
 
 // 소멸자
@@ -18,12 +25,6 @@ MonsterIdleState::~MonsterIdleState()
 void MonsterIdleState::Init()
 {
 	me = (Monster*)GetFsm().GetOwner();
-}
-
-// 상태 진입
-void MonsterIdleState::Enter()
-{
-	IdleState::Enter();
 }
 
 // 매 프레임마다 호출

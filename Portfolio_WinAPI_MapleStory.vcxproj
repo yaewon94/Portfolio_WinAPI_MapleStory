@@ -141,7 +141,6 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AttackActiveSkill.h" />
-    <ClInclude Include="AttackState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -158,10 +157,8 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="IdleState.h" />
     <ClInclude Include="IKeyEvent.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="JumpState.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Level_Boss_Will_Phase1.h" />
@@ -174,7 +171,6 @@
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="PCH.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigidbody.h" />
@@ -187,7 +183,6 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="WalkState.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +194,6 @@
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AttackActiveSkill.cpp" />
-    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -213,9 +207,7 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
-    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Level_Boss_Will_Phase1.cpp" />
@@ -228,7 +220,6 @@
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillManager.cpp" />
@@ -237,7 +228,6 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />
-    <ClCompile Include="WalkState.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>

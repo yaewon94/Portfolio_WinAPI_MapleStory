@@ -48,9 +48,6 @@
     <Filter Include="game\04-Module\State">
       <UniqueIdentifier>{9b58f1b4-8bf3-48e9-b084-cd287d4362c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Module\State\PlayerState">
-      <UniqueIdentifier>{2ed0f195-c884-4434-ba04-35ffa33d54eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\05-Util">
       <UniqueIdentifier>{1d665e56-6ad8-42d1-a1dd-051b2a52d93e}</UniqueIdentifier>
     </Filter>
@@ -211,35 +208,20 @@
     <ClInclude Include="State.h">
       <Filter>game\04-Module\State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>game\04-Module\State\PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>game\04-Module\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>game\03-Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="WalkState.h">
-      <Filter>game\04-Module\State</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpState.h">
-      <Filter>game\04-Module\State</Filter>
-    </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>game\00-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>game\04-Module\State</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="MonsterIdleState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackState.h">
-      <Filter>game\04-Module\State</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTraceState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
@@ -371,9 +353,6 @@
     <ClCompile Include="State.cpp">
       <Filter>game\04-Module\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>game\04-Module\State\PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="AliveObject.cpp">
       <Filter>game\02-Object\AliveObject</Filter>
     </ClCompile>
@@ -382,18 +361,6 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>game\03-Component\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="WalkState.cpp">
-      <Filter>game\04-Module\State</Filter>
-    </ClCompile>
-    <ClCompile Include="JumpState.cpp">
-      <Filter>game\04-Module\State</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackState.cpp">
-      <Filter>game\04-Module\State</Filter>
-    </ClCompile>
-    <ClCompile Include="IdleState.cpp">
-      <Filter>game\04-Module\State</Filter>
     </ClCompile>
     <ClCompile Include="MonsterIdleState.cpp">
       <Filter>game\04-Module\State\MonsterState</Filter>

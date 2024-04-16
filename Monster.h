@@ -14,7 +14,7 @@ private:
 	const float detectRange;	// 플레이어 감지 범위 (반지름 기준)
 
 public:
-	Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale=DEFAULT_OBJECT_SCALE, float detectRange=DEFAULT_DETECT_RANGE);
+	Monster(const wstring& name, Vec2<float> pos=DEFAULT_OBJECT_POS, Vec2<int> scale=DEFAULT_OBJECT_SCALE, float detectRange=DEFAULT_DETECT_RANGE);
 	Monster(const Monster& origin);
 	~Monster();
 	virtual Monster* Clone() override { return new Monster(*this); }

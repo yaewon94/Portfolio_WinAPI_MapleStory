@@ -5,18 +5,18 @@ class Monster;
 
 class MonsterTraceState : public State
 {
-	NO_CSTR_COPY_ASSIGN(MonsterTraceState);
-
 private:
 	Monster* me;
 
 public:
 	MonsterTraceState();
+	MonsterTraceState(const MonsterTraceState& origin);
 	~MonsterTraceState();
+	virtual MonsterTraceState* Clone() override { return new MonsterTraceState(*this); }
 
 	virtual void Init() override;
 
-	virtual void Enter() override;
+	virtual void Enter() override {}
 	virtual void Stay() override;
 	virtual void Exit() override;
 };

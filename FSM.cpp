@@ -1,5 +1,7 @@
 #include "PCH.h"
 #include "FSM.h"
+#include "Animator.h"
+#include "GameObject.h"
 #include "State.h"
 #include "TimeManager.h"
 
@@ -11,6 +13,12 @@ FSM::FSM(GameObject& owner) : Component(owner), curState(nullptr)
 // 복사 생성자
 FSM::FSM(const FSM& origin) : Component(origin), curState(nullptr)
 {
+	for (auto& pair : origin.stateMap)
+	{
+		State* state = pair.second->Clone();
+		state->SetFsm(*this);
+		stateMap.insert(make_pair(pair.first, state));
+	}
 }
 
 // 소멸자
@@ -44,8 +52,7 @@ void FSM::Init()
 // 매 프레임마다 호출
 void FSM::FinalTick()
 {
-	assert(curState);
-	curState->Stay();
+	if(curState != nullptr) curState->Stay();
 }
 
 // 상태 추가
@@ -62,6 +69,13 @@ void FSM::AddState(State& state)
 // 상태 변경
 void FSM::ChangeState(OBJECT_STATE type)
 {
+	if (curState != nullptr && curState->type == type)
+	{
+		Log(LOG_TYPE::LOG_ERROR, L"현재 상태와 변경하려는 상태가 같습니다");
+		return;
+	}
+
+	// 상태 객체 찾기
 	auto state = FindState(type);
 
 	if (state != nullptr)
@@ -71,25 +85,18 @@ void FSM::ChangeState(OBJECT_STATE type)
 			< state->CoolDown) return;
 
 		// 변경
-		if(curState != nullptr)
-		{
-			if (curState->type == type)
-			{
-				Log(LOG_TYPE::LOG_ERROR, L"현재 상태와 변경하려는 상태가 같습니다");
-				return;
-			}
-			else
-			{
-				curState->Exit();
-			}
-		}
-
+		if(curState != nullptr) curState->Exit();
 		curState = state;
 		curState->Enter();
 	}
 	else
 	{
-		Log(LOG_TYPE::LOG_ERROR, L"변경하려는 상태가 없습니다");
+		// 기존 상태가 있는 경우 해제
+		if (curState != nullptr) curState->Exit();
+		curState = nullptr;
+
+		// 해당 타입의 애니메이션이 존재하는 경우 재생
+		GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
 	}
 }
 

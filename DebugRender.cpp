@@ -59,6 +59,8 @@ void DebugRender::Render()
 
 	for (auto collider : colliders)
 	{
+		if (!collider->GetOwner()->IsActive()) continue;
+
 		HGDIOBJ prevBrush = SelectObject(subDC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
 		HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
 

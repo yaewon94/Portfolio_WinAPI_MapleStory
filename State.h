@@ -9,19 +9,22 @@ class State : public Entity
 {
 	friend class FSM;
 
-	NO_CSTR_COPY_ASSIGN(State);
-
 private:
 	FSM* fsm;
 	OBJECT_STATE type;
 	const float CoolDown;		// 해당 상태 종료 후, 다시 해당 상태가 되기 위해 필요한 쿨타임
+
+private:
+	void SetFsm(FSM& fsm) { this->fsm = &fsm; }
 
 protected:
 	float exitTime = 0.f;		// 상태 종료 시간
 
 protected:
 	State(OBJECT_STATE type, float coolDown=0.f);
+	State(const State& origin);
 	~State();
+	virtual State* Clone() = 0;
 
 	FSM& GetFsm() { return *fsm; }
 

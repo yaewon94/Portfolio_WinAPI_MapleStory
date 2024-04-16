@@ -1,22 +1,22 @@
 #pragma once
-#include "IdleState.h"
+#include "State.h"
 
 class Monster;
 
-class MonsterIdleState : public IdleState
+class MonsterIdleState : public State
 {
-	NO_CSTR_COPY_ASSIGN(MonsterIdleState);
-
 private:
 	Monster* me;
 
 public:
 	MonsterIdleState();
+	MonsterIdleState(const MonsterIdleState& origin);
 	~MonsterIdleState();
+	virtual MonsterIdleState* Clone() override { return new MonsterIdleState(*this); }
 
 	virtual void Init() override;
 
-	virtual void Enter() override;
+	virtual void Enter() override {}
 	virtual void Stay() override;
 	virtual void Exit() override {}
 };
