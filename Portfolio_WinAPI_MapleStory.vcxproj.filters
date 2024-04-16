@@ -271,6 +271,9 @@
     <ClInclude Include="MapManager.h">
       <Filter>game\04-Module\Map</Filter>
     </ClInclude>
+    <ClInclude Include="ActiveEtcSkill.h">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -424,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="MapManager.cpp">
       <Filter>game\04-Module\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveEtcSkill.cpp">
+      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

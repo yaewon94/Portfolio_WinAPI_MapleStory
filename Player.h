@@ -9,6 +9,9 @@ class Player final : public AliveObject, public IKeyEvent
 {
 private:
 	map<KEY_CODE, ActiveSkill*> skillKeyMap;
+	const int MaxSkillCost = 100;
+	int currentSkillCost;
+
 	Map* currentMap;
 
 public:
@@ -18,6 +21,9 @@ public:
 	virtual Player* Clone() override { return new Player(*this); }
 
 	ActiveSkill& GetSkill(KEY_CODE keyCode) { return *skillKeyMap.find(keyCode)->second; }
+	int GetCurrentSkillCost() const { return currentSkillCost; }
+	void UseSkillCost(int cost) { currentSkillCost -= cost; }
+
 	void ChangeMap(Map& map);
 
 	virtual void Init() override;
