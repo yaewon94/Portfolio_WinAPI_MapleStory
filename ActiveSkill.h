@@ -21,7 +21,10 @@ public:
 
 	// ===== 인스턴스 멤버 =====
 protected:
-	ActiveSkill(const wstring& name);
+	const int Cost;	// 스킬 사용시 필요한 (HP, MP, 게이지 등) 소모량
+
+protected:
+	ActiveSkill(const wstring& name, int Cost = 0);
 	~ActiveSkill();
 
 	virtual void OnKeyPressed(KEY_CODE) override {};

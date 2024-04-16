@@ -5,7 +5,8 @@
 Player* ActiveSkill::player = nullptr;
 
 // »ý¼ºÀÚ
-ActiveSkill::ActiveSkill(const wstring& name) : Skill(name)
+ActiveSkill::ActiveSkill(const wstring& name, int Cost)
+	: Skill(name), Cost(Cost)
 {
 }
 
