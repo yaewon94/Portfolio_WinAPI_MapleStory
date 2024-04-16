@@ -3,6 +3,7 @@
 class Skill;
 class AttackActiveSkill;
 
+// 스킬 관리 클래스
 class SkillManager final
 {
 	SINGLETON(SkillManager);
@@ -20,5 +21,6 @@ public:
 
 private:
 	// ========== 스킬 콜백함수 모음 ==========
-	//static void ExecuteAttackSkill(Skill& skill);
+	//void UseMoonlightGauge_Phase1();
+	static void UseMoonlightGauge_Phase1();
 };

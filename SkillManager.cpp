@@ -1,6 +1,10 @@
 #include "PCH.h"
 #include "SkillManager.h"
+#include "ActiveEtcSkill.h"
 #include "AttackActiveSkill.h"
+#include "LevelManager.h"
+#include "MapManager.h"
+#include "Player.h"
 #include "SkillObject.h"
 #include "TimeManager.h"
 
@@ -31,6 +35,7 @@ SkillManager::~SkillManager()
 void SkillManager::Init()
 {
 	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2<float>::Right() * 300.f));
+	skills.push_back(new ActiveEtcSkill(L"달빛게이지", &SkillManager::UseMoonlightGauge_Phase1));
 }
 
 // 매 프레임마다 호출
@@ -40,7 +45,7 @@ void SkillManager::Tick()
 	auto iter = reservedSkills.begin();
 
 	// 예약된 스킬 시간 체크
-	for (; iter!=reservedSkills.end(); )
+	for (; iter != reservedSkills.end(); )
 	{
 		auto skill = *iter;
 
@@ -58,9 +63,17 @@ void SkillManager::Tick()
 	}
 }
 
-/*
-// 공격스킬 발동
-void SkillManager::ExecuteAttackSkill(Skill& skill)
+// ========== 스킬 콜백함수 모음 ==========
+// 윌 1페이즈 달빛게이지 스킬 사용
+void SkillManager::UseMoonlightGauge_Phase1()
 {
+	// 야매코드
+	// mapIndex : 파란공간(0), 보라공간(1)
+	static int mapIndex = 1;
+
+	Player* player = (Player*)LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
+	player->ChangeMap(MapManager::GetInstance().GetMap(mapIndex));
+
+	if (mapIndex == 1) mapIndex = 0;
+	else mapIndex = 1;
 }
-*/

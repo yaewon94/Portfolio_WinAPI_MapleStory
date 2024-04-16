@@ -24,5 +24,6 @@ void ActiveEtcSkill::OnKeyPressed(KEY_CODE)
 	// 코스트 소모
 	GetPlayer().UseSkillCost(Cost);
 	// 콜백 호출
-	(SkillManager::GetInstance().*(callback))();
+	//(SkillManager::GetInstance().*(callback))();
+	callback();
 }
