@@ -25,7 +25,7 @@ MapManager::~MapManager()
 void MapManager::Init()
 {
 	maps.push_back(new Map(L"È¸ÀýÀÇ È¸¶û(ÆÄ¶û)", Vec2(0.f, 0.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_blue_background", L"BossWill_Phase1_blue_background.png"), Vec2(0.f, 300.f)));
-	maps.push_back(new Map(L"È¸ÀýÀÇ È¸¶û(º¸¶ó)", Vec2(0.f, 1265.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png"), Vec2(0.f, -300.f)));
+	maps.push_back(new Map(L"È¸ÀýÀÇ È¸¶û(º¸¶ó)", Vec2(0.f, -2000.f), Vec2(1920, 1265), *AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_pupple_background", L"BossWill_Phase1_pupple_background.png"), Vec2(0.f, 155.f)));
 }
 
 // ¸Ê º¯°æ

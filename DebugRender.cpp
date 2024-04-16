@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "Engine.h"
 #include "LevelManager.h"
+#include "Player.h"
 #include "TimeManager.h"
 
 // 생성자
@@ -33,16 +34,22 @@ void DebugRender::Init()
 {
 	// 렌더링 정보 초기화
 	renderLogs.push_back(new Log(LOG_TYPE::LOG, L"FPS : ", Vec2(100.f, 100.f)));
+	//renderLogs.push_back(new Log(LOG_TYPE::LOG, L"Player RealPos : ", Vec2(100.f, 500.f)));
+	//renderLogs.push_back(new Log(LOG_TYPE::LOG, L"Player RenderPos : ", Vec2(100.f, 550.f)));
 }
 
 // 매 프레임마다 호출
 void DebugRender::FinalTick()
 {
+	//static Player* player = (Player*)LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
 	size_t index = 0;
+
 	// 로그 정보 갱신
 	// 포인터로 가리켜서 바꾸면 초기 문자열 저장 범위를 넘어서 엉뚱한 곳의 데이터까지 바꿀 수 있으므로, 매번 새로운 wstring를 넘긴다
 	// [질문] => 이거 메모리에 부담 안감??
 	renderLogs[index++]->SetMessage(L"FPS : " + std::to_wstring(TimeManager::GetInstance().GetFPS()));
+	//renderLogs[index++]->SetMessage(L"Player RealPos : " + player->GetRealPos().to_wstring());
+	//renderLogs[index++]->SetMessage(L"Player RenderPos : " + player->GetRenderPos().to_wstring());
 }
 
 // 매 프레임마다 렌더링

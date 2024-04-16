@@ -26,15 +26,6 @@ Map::~Map()
 // 맵 진입
 void Map::Enter()
 {
-	// 메인카메라에 현재 맵 정보 설정
-	LevelManager::GetInstance().GetMainCamera()->SetCurrentMap(this);
-
-	// 오브젝트 활성화
-	for (auto obj : managedObjs)
-	{
-		obj->SetActive(true);
-	}
-	
 	// 배경 오브젝트 값 설정
 	Background* obj_background = (Background*)LevelManager::GetInstance().FindObject(LAYER_TYPE::BACKGROUND);
 	obj_background->Set(pos, scale, background);
@@ -50,11 +41,35 @@ void Map::Enter()
 		objs[0]->Set(Vec2(-950.f, 200.f), Vec2(10, 300));
 		objs[1]->Set(Vec2(950.f, 200.f), Vec2(10, 300));
 
-		managedObjs.push_back(LevelManager::GetInstance().FindObjects(LAYER_TYPE::ENEMY)[0]);
+		obj = LevelManager::GetInstance().FindObjects(LAYER_TYPE::ENEMY)[0];
+		obj->SetOffset(Vec2(500.f, 300.f));
+		managedObjs.push_back(obj);
+	}
+	else if (name == L"회절의 회랑(보라)")
+	{
+		GameObject* obj = LevelManager::GetInstance().FindObject(LAYER_TYPE::GROUND);
+		obj->Set(Vec2(0.f, 195.f), Vec2(1920, 10));
+
+		auto& objs = LevelManager::GetInstance().FindObjects(LAYER_TYPE::WALL);
+		objs[0]->Set(Vec2(-950.f, 40.f), Vec2(10, 300));
+		objs[1]->Set(Vec2(950.f, 40.f), Vec2(10, 300));
+
+		obj = LevelManager::GetInstance().FindObjects(LAYER_TYPE::ENEMY)[1];
+		obj->SetOffset(Vec2(500.f, 140.f));
+		managedObjs.push_back(obj);
+	}
+
+	// 오브젝트 활성화
+	for (auto obj : managedObjs)
+	{
+		obj->SetActive(true);
 	}
 
 	// 플레이어 좌표 설정
 	LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER)->SetOffset(DefaultPlayerPos);
+
+	// 메인카메라에 현재 맵 정보 설정
+	LevelManager::GetInstance().GetMainCamera()->SetCurrentMap(this);
 }
 
 // 맵 퇴장

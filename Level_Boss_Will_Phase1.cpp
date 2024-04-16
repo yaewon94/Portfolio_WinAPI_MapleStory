@@ -53,16 +53,15 @@ void Level_Boss_Will_Phase1::Enter()
 	obj->SetParent(background);
 
 	// 벽
-	obj = AddObject(Wall());
-	obj->SetParent(background);
-	obj = AddObject(Wall());
-	obj->SetParent(background);
+	Wall* wall = (Wall*)AddObject(Wall());
+	wall->SetParent(background);
+	AddObject(Wall(*wall));
 
 	// 몬스터
 	// 몬스터는 객체마다 특성이 다르므로, 클래스 외부에서 특성에 맞게 컴포넌트 추가
 	// 원래는 DB같은데서 받아와서 몬스터 클래스 내부에서 초기화 해야 함
 	// 파란공간 윌
-	GameObject* boss_will = AddObject(Monster(L"Boss_Will", Vec2(500.f, 300.f)));
+	Monster* boss_will = (Monster*)AddObject(Monster(L"Boss_Will"));
 	boss_will->SetParent(background);
 	FSM* fsm = boss_will->AddComponent<FSM>();
 	fsm->AddState(*new MonsterIdleState);
@@ -70,9 +69,12 @@ void Level_Boss_Will_Phase1::Enter()
 	animator = boss_will->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
+	boss_will->SetActive(false);
+	// 보라공간 윌
+	AddObject(Monster(*boss_will));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
 
 	// 플레이어
-	obj = AddObject(Player(L"Player", Vec2(0.f, 300.f), Vec2(50, 70)));
+	obj = AddObject(Player(L"Player", Vec2(0.f, 0.f), Vec2(50, 70)));
 	obj->SetParent(background);
 	Player* player = (Player*)obj;
 	// 달빛게이지 스킬 부여
@@ -82,6 +84,7 @@ void Level_Boss_Will_Phase1::Enter()
 	
 	// 맵 진입
 	player->ChangeMap(MapManager::GetInstance().GetMap(0));
+	//player->ChangeMap(MapManager::GetInstance().GetMap(1)); // 보라맵 테스트
 }
 
 // 레벨 종료시 호출
