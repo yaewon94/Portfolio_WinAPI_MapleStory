@@ -13,6 +13,7 @@ Animator::Animator(const Animator& origin) : Component(origin), curAnim(nullptr)
 	for (auto& pair : origin.animMap)
 	{
 		Animation* anim = pair.second->Clone();
+		anim->SetAnimator(*this);
 		animMap.insert(make_pair(pair.first, anim));
 	}
 }

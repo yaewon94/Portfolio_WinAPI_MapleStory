@@ -34,6 +34,7 @@ Animation::Animation(const Animation& origin)
 	, curFrame(0)
 	, animator(nullptr)
 {
+	// animator 초기화는 Animator 복사 생성자에서 담당
 }
 
 // 소멸자

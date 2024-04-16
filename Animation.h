@@ -26,6 +26,8 @@ private:
 	Animation(const Animation& origin);
 	~Animation();
 	virtual Animation* Clone() override { return new Animation(*this); }
+	
+	void SetAnimator(Animator& animator) { this->animator = &animator; }
 
 	void FinalTick();
 	void Render();
