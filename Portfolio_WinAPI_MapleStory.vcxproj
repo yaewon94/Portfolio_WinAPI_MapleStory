@@ -184,6 +184,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="WalkState.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
@@ -231,6 +232,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="WalkState.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>

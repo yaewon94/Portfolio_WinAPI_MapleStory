@@ -36,8 +36,8 @@ public:
 	virtual GameObject* Clone() = 0;
 	void Destroy() { if (this != nullptr) delete this; }
 
-	Vec2<float> GetPos();			// ºÎ¸ð offset + ÀÚ½Å offsetÀÎ ½ÇÁ¦ ÁÂÇ¥
-	Vec2<float> GetRenderPos();		// ·»´õ¸µ ÁÂÇ¥
+	Vec2<float> GetPos();					// ºÎ¸ð offset + ÀÚ½Å offsetÀÎ ½ÇÁ¦ ÁÂÇ¥
+	virtual Vec2<float> GetRenderPos();		// ·»´õ¸µ ÁÂÇ¥
 	Vec2<int> GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
 	bool IsActive() const { return isActive; }

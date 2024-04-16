@@ -105,6 +105,12 @@
     <Filter Include="game\02-Object\Wall">
       <UniqueIdentifier>{a3aa9fe1-98fe-4abd-aa85-6e75954ed6f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\02-Object\Background">
+      <UniqueIdentifier>{f99bcf71-d020-4bf0-a56f-8ea3db65b83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\02-Object\UI">
+      <UniqueIdentifier>{a9c9a0b2-f6a6-4c1a-8573-f5c77e1f4b0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -250,11 +256,14 @@
     <ClInclude Include="Map.h">
       <Filter>game\04-Module\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>game\02-Object</Filter>
-    </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>game\02-Object\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>game\02-Object\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>game\02-Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -398,11 +407,14 @@
     <ClCompile Include="Map.cpp">
       <Filter>game\04-Module\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>game\02-Object</Filter>
-    </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>game\02-Object\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>game\02-Object\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>game\02-Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

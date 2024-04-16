@@ -6,6 +6,7 @@ enum class LAYER_TYPE
 	BACKGROUND, GROUND, WALL
 	, ENEMY, PLAYER
 	, PLAYER_SKILL
+	, UI
 	, LAYER_TYPE_COUNT
 };
 
@@ -26,6 +27,7 @@ enum class LEVEL_TYPE
 enum class OBJECT_STATE
 {
 	IDLE, WALK, TRACE, JUMP, ATTACK
+	, UI_MOONLIGHT_GAUGE_0
 };
 
 // 2Â÷¿ø º¤ÅÍ
