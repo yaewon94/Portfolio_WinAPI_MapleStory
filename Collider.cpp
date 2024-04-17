@@ -37,5 +37,7 @@ Vec2<float> Collider::GetRenderPos()
 void Collider::Init()
 {
 	// 디버그 렌더링 등록
+	// TODO : 객체 삭제시 디버그 렌더링에서 삭제
+	// 생성자, 소멸자 말고 Init(), Destroy()에서 하게 처리
 	DebugRender::GetInstance().AddCollider(this);
 }

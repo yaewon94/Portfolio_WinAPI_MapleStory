@@ -28,6 +28,9 @@ SkillObject::~SkillObject()
 void SkillObject::Init()
 {
 	AddComponent<Collider>();
+
+	// 최상위 부모 Init() 호출
+	GameObject::Init();
 }
 
 // 매 프레임마다 호출
