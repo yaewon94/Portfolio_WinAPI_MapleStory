@@ -39,7 +39,7 @@ public:
 	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }
 
 	virtual GameObject* Clone() = 0;
-	void Destroy() { if (this != nullptr) delete this; }
+	void Destroy() { if(this != nullptr) delete this; }
 
 	Vec2<float> GetOffset() { return offset; }	// [테스트용]
 	Vec2<float> GetRealPos();					// 부모 offset + 자신 offset인 실제 좌표

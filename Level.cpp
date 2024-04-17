@@ -82,18 +82,18 @@ GameObject* Level::FindObject(LAYER_TYPE layer)
 	return obj;
 }
 
+
 // 현재 레벨의 오브젝트 모두 지우기
 void Level::DeleteObjects()
 {
 	for (auto& layer : objects)
 	{
-		for (auto object : layer)
+		auto iter =layer.begin();
+
+		while (iter != layer.end())
 		{
-			if (object != nullptr)
-			{
-				object->Destroy();
-				object = nullptr;
-			}
+			(*iter)->Destroy();
+			iter = layer.erase(iter);
 		}
 	}
 }
