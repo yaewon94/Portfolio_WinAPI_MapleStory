@@ -16,6 +16,7 @@
 #include "Player.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
+#include "TimeManager.h"
 #include "UI.h"
 #include "Wall.h"
 
@@ -49,8 +50,8 @@ void Level_Boss_Will_Phase1::Enter()
 	GameObject& background = *AddObject(Background());
 
 	// 지면
-	GameObject* obj = AddObject(Ground());
-	obj->SetParent(background);
+	GameObject* ground = AddObject(Ground());
+	ground->SetParent(background);
 
 	// 벽
 	Wall* wall = (Wall*)AddObject(Wall());
@@ -74,18 +75,18 @@ void Level_Boss_Will_Phase1::Enter()
 	AddObject(Monster(*boss_will));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
 
 	// 플레이어
-	obj = AddObject(Player(L"Player", Vec2(0.f, 0.f), Vec2(50, 70)));
-	obj->SetParent(background);
-	Player* player = (Player*)obj;
+	SetPlayer((Player*)AddObject(Player(L"Player", Vec2(0.f, 0.f), Vec2(50, 70))));
+	Player& player = GetPlayer();
+	player.SetParent(background);
 	// 달빛게이지 스킬 부여
-	ActiveSkill* activeSkill = (ActiveSkill*)&player->AddSkill(SkillManager::GetInstance().GetSkill(1));
-	player->AddSkillKeyMap(KEY_CODE::N, *activeSkill);
-	OnUseLevelSkill(player->GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
+	ActiveSkill* activeSkill = (ActiveSkill*)&player.AddSkill(SkillManager::GetInstance().GetSkill(1));
+	player.AddSkillKeyMap(KEY_CODE::N, *activeSkill);
+	OnChangeGaugePercent(player.GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
 	// TODO : 일정 시간마다 달빛게이지 회복
 
 	// 맵 진입
-	player->ChangeMap(MapManager::GetInstance().GetMap(0));
-	//player->ChangeMap(MapManager::GetInstance().GetMap(1)); // 보라맵 테스트
+	player.ChangeMap(MapManager::GetInstance().GetMap(0));
+	//player.ChangeMap(MapManager::GetInstance().GetMap(1)); // 보라맵 테스트
 }
 
 // 레벨 종료시 호출
@@ -94,8 +95,28 @@ void Level_Boss_Will_Phase1::Exit()
 	// 다음 레벨에 안쓸 오브젝트 제거
 }
 
-// 현재 레벨에서만 쓸 수 있는 특수한 스킬을 사용했을 때 호출됨
-void Level_Boss_Will_Phase1::OnUseLevelSkill(int currentSkillCost)
+// 매 프레임마다 호출
+void Level_Boss_Will_Phase1::FinalTick()
+{
+	static float time = 0.f;
+
+	// 최상위 FinalTick() 호출
+	Level::FinalTick();
+
+	// 일정 시간마다 달빛게이지 회복
+	if (time > INTERVAL_OF_FILL_GAUGE)
+	{
+		GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
+		time = 0.f;
+	}
+	else
+	{
+		time += TimeManager::GetInstance().GetDeltaTime();
+	}
+}
+
+// 달빛게이지 퍼센트 변화가 있을 때 호출
+void Level_Boss_Will_Phase1::OnChangeGaugePercent(int currentSkillCost)
 {
 	// 달빛게이지
 	OBJECT_STATE gaugePercent;

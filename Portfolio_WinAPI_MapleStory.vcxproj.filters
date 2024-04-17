@@ -90,9 +90,6 @@
     <Filter Include="game\01-Level\Boss">
       <UniqueIdentifier>{19676d7b-f763-421a-868c-028f409d86a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\01-Level\Boss\Will">
-      <UniqueIdentifier>{7e5bdd9a-8778-4181-8eac-24e0486d2093}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\04-Module\Map">
       <UniqueIdentifier>{4373269a-d4b2-4dac-b009-54cd587958d1}</UniqueIdentifier>
     </Filter>
@@ -110,6 +107,9 @@
     </Filter>
     <Filter Include="game\04-Module\Skill\ActiveSkill">
       <UniqueIdentifier>{ceff14f8-29a1-478f-89e9-18c75575f486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\01-Level\Boss\Will">
+      <UniqueIdentifier>{7e5bdd9a-8778-4181-8eac-24e0486d2093}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -40,7 +40,17 @@ Player::~Player()
 void Player::UseSkillCost(int cost)
 {
 	currentSkillCost -= cost;
-	LevelManager::GetInstance().OnUseLevelSkill(currentSkillCost);
+	LevelManager::GetInstance().OnChangeGaugePercent(currentSkillCost);
+}
+
+// 스킬 코스트 회복
+void Player::FillSkillCost(int cost)
+{
+	if (currentSkillCost == MaxSkillCost) return;
+
+	currentSkillCost += cost;
+	if (currentSkillCost > MaxSkillCost) currentSkillCost = MaxSkillCost;
+	LevelManager::GetInstance().OnChangeGaugePercent(currentSkillCost);
 }
 
 // 맵 변경

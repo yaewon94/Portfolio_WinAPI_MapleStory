@@ -24,7 +24,10 @@ public:
 	void AddSkillKeyMap(KEY_CODE keyCode, ActiveSkill& skill);
 
 	int GetCurrentSkillCost() const { return currentSkillCost; }
+
+	// use, fill 두개로 나누지말고 change하나로 묶어도 되는데 귀찮으니까 이번엔 그냥 놔둠
 	void UseSkillCost(int cost);
+	void FillSkillCost(int cost);
 
 	void ChangeMap(Map& map);
 

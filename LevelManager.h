@@ -28,5 +28,5 @@ public:
 
 	Camera* GetMainCamera() { return curLevel->mainCamera; }
 
-	void OnUseLevelSkill(int currentSkillCost) { assert(curLevel); curLevel->OnUseLevelSkill(currentSkillCost); }
+	void OnChangeGaugePercent(int currentSkillCost) { assert(curLevel); curLevel->OnChangeGaugePercent(currentSkillCost); }
 };

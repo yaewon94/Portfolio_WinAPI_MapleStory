@@ -4,6 +4,7 @@
 
 class Camera;
 class Map;
+class Player;
 
 // 게임 맵 구조 등을 설계하기 위한 클래스
 // abstract class
@@ -22,24 +23,29 @@ public:
 private:
 	wstring name;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> objects; // 렌더링 순서때문에 배열로 설정
+	Player* player;
 
 protected:
 	Level(const wstring& name);
 	~Level();
 
+	virtual void Init();
+	virtual void Tick();
+	virtual void FinalTick();
+
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
-	virtual void OnUseLevelSkill(int currentSkillCost) {}	// 현재 레벨에서만 쓸 수 있는 특수한 스킬을 사용했을 때 호출
+	Player& GetPlayer() { return *player; }
+	void SetPlayer(Player* player) { this->player = player; }
+
+	virtual void OnChangeGaugePercent(int currentSkillCost) {}
 
 	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(const T& object);
 
 private:
 	friend class LevelManager;
 
-	void Init();
-	void Tick();
-	void FinalTick();
 	void Render();
 
 	GameObject* FindObject(LAYER_TYPE layer);
