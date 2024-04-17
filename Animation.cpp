@@ -69,57 +69,10 @@ void Animation::FinalTick()
 // 렌더링 (매 프레임마다 호출)
 void Animation::Render()
 {
-	assert(atlasTex);
-
-	// 이미지 사이즈에 맞게 크기 변경
-	GameObject* obj = animator->GetOwner();
-
-	//HDC& mainDC = Engine::GetInstance().GetMainDC();
-	//Vec2 resolution = Engine::GetInstance().GetResolution();
-	Vec2 objPos = obj->GetRenderPos();
-	//Vec2 objScale = obj->GetScale();
-	//float dir = ((AliveObject*)animator->GetOwner())->GetDirection().x;
-
-	// png 이미지
-	BLENDFUNCTION bf = {};
-	bf.BlendOp = AC_SRC_OVER;
-	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
-	bf.AlphaFormat = AC_SRC_ALPHA;
-
-	/*
-	HDC strectchDC = CreateCompatibleDC(mainDC);
-	HBITMAP stretchBit = CreateCompatibleBitmap(mainDC, resolution.x, resolution.y);
-	SelectObject(strectchDC, stretchBit);
-
-	StretchBlt(Engine::GetInstance().GetSubDC()
-		, (int)objPos.x, (int)objPos.y
-		, (int)(scale.x * dir), (int)scale.y
-		, atlasTex->GetDC()
-		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
-		, (int)scale.x, (int)scale.y
-		, SRCCOPY);
-	*/
-
-	AlphaBlend(Engine::GetInstance().GetSubDC()
-		, (int)(objPos.x - scale.x * 0.5f), (int)(objPos.y - scale.y * 0.5f)
+	// 오브젝트 위치
+	Vec2 objPos = animator->GetOwner()->GetRenderPos();
+	atlasTex->Render((int)(objPos.x - scale.x * 0.5f), (int)(objPos.y - scale.y * 0.5f)
 		, scale.x, scale.y
-		, atlasTex->GetDC()
 		, offsets[curFrame].x, offsets[curFrame].y
-		, scale.x, scale.y
-		, bf);
-
-	//DeleteObject(stretchBit);
-	//DeleteDC(strectchDC);
-
-	/*
-	// 비트맵 이미지
-	TransparentBlt(Engine::GetInstance().GetSubDC()
-		, (int)objPos.x, (int)objPos.y
-		, (int)scale.x, (int)scale.y
-		, atlasTex->GetDC()
-		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
-		, (int)scale.x, (int)scale.y
-		, RGB(255, 0, 255));
-	*/
+		, scale.x, scale.y);
 }

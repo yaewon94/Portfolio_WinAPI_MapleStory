@@ -5,22 +5,24 @@
 #include "LevelManager.h"
 #include "Camera.h"
 #include "Component.h"
+#include "Texture.h"
 
 // 생성자
-GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), parent(nullptr)
+GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), texture(nullptr), parent(nullptr)
 {
 }
 
 GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
-	: name(name), offset(offset), scale(scale), layer(layer), isActive(isActive)
-	, parent(nullptr)
+	: name(name), offset(offset), scale(scale), layer(layer),isActive(isActive)
+	, texture(nullptr), parent(nullptr)
 {
 }
 
 // 복사 생성자
 GameObject::GameObject(const GameObject& origin)
 	: Entity(origin)
-	, name(origin.name), offset(origin.offset), scale(origin.scale), layer(origin.layer), isActive(origin.isActive)
+	, name(origin.name), offset(origin.offset), scale(origin.scale)
+	, layer(origin.layer), isActive(origin.isActive), texture(origin.texture)
 	, parent(origin.parent)
 {
 	// 원본이 가지고 있는 자식 오브젝트 복사
@@ -48,6 +50,10 @@ GameObject::GameObject(const GameObject& origin)
 // 소멸자
 GameObject::~GameObject()
 {
+	// Texture 객체 제거는 AssetManager 담당
+	texture = nullptr;
+
+	// 부모 오브젝트는 지우면 안됌
 	parent = nullptr;
 
 	// 자식 오브젝트 삭제
@@ -143,6 +149,10 @@ void GameObject::Render()
 {
 	Animator* animator = GetComponent<Animator>();
 	if (animator != nullptr) animator->Render();
+	else if (texture != nullptr)
+	{
+		texture->Render((int)(GetRenderPos().x - scale.x * 0.5f), (int)(GetRenderPos().y - scale.y * 0.5f), scale.x, scale.y);
+	}
 }
 
 // 자식 오브젝트 삭제

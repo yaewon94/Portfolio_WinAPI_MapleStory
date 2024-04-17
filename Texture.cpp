@@ -77,3 +77,56 @@ int Texture::Load(const wstring& absolutePath)
 
     return S_OK;
 }
+
+// 이미지 렌더링
+void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, int rscWidth, int rscHeight)
+{
+	assert(this);
+
+	// png 이미지
+	BLENDFUNCTION bf = {};
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.SourceConstantAlpha = 255;
+	bf.AlphaFormat = AC_SRC_ALPHA;
+
+	/*
+	// ERROR : 좌우반전은 되는데 몇초지나면 이미지 사라짐
+	HDC strectchDC = CreateCompatibleDC(mainDC);
+	HBITMAP stretchBit = CreateCompatibleBitmap(mainDC, resolution.x, resolution.y);
+	SelectObject(strectchDC, stretchBit);
+
+	StretchBlt(Engine::GetInstance().GetSubDC()
+		, (int)objPos.x, (int)objPos.y
+		, (int)(scale.x * dir), (int)scale.y
+		, atlasTex->GetDC()
+		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
+		, (int)scale.x, (int)scale.y
+		, SRCCOPY);
+	*/
+
+	if (rscWidth == 0) rscWidth = bitmapInfo.bmWidth;
+	if (rscHeight == 0) rscHeight = bitmapInfo.bmHeight;
+	
+	AlphaBlend(Engine::GetInstance().GetSubDC()
+		, x, y
+		, width, height
+		, this->GetDC()
+		, rscX, rscY
+		, rscWidth, rscHeight
+		, bf);
+
+	//DeleteObject(stretchBit);
+	//DeleteDC(strectchDC);
+
+	/*
+	// 비트맵 이미지
+	TransparentBlt(Engine::GetInstance().GetSubDC()
+		, (int)objPos.x, (int)objPos.y
+		, (int)scale.x, (int)scale.y
+		, atlasTex->GetDC()
+		, (int)offsets[curFrame].x, (int)offsets[curFrame].y
+		, (int)scale.x, (int)scale.y
+		, RGB(255, 0, 255));
+	*/
+}

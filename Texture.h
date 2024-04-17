@@ -23,4 +23,6 @@ public:
 	HDC& GetDC() { return subDC; }
 	int GetWidth() const { return bitmapInfo.bmWidth; }
 	int GetHeight() const { return bitmapInfo.bmHeight; }
+
+	void Render(int x, int y, int width, int height, int rscX=0, int rscY=0, int rscWidth=0, int rscHeight=0);
 };

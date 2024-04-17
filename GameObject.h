@@ -5,17 +5,20 @@
 #define DEFAULT_OBJECT_SCALE  Vec2(100, 100)	// 오브젝트 크기 기본값
 
 class Component;
+class Texture;
 
 // 플레이어, 몬스터, UI 등이 상속받는 최상위 클래스
 // [abstract class]
 class GameObject : public Entity
 {
 private:
-	vector<Component*> components;
 	LAYER_TYPE layer;
+	bool isActive;
+	vector<Component*> components;
+	Texture* texture;
+
 	GameObject* parent;
 	array<vector<GameObject*>, (size_t)LAYER_TYPE::LAYER_TYPE_COUNT> children;
-	bool isActive;
 
 protected:
 	wstring name;
@@ -28,8 +31,9 @@ protected:
 	~GameObject();
 
 public:
-	void SetParent(GameObject& parent);
 	void Set(Vec2<float> offset, Vec2<int> scale);
+	void SetTexture(Texture* texture) { this->texture = texture; }
+	void SetParent(GameObject& parent);
 	GameObject* AddChild(GameObject& child);
 	GameObject* AddChild(GameObject&& child);
 	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }
