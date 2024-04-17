@@ -78,11 +78,19 @@ int Texture::Load(const wstring& absolutePath)
     return S_OK;
 }
 
-// 리소스에서 출력되길 원하는 부분 비율 설정
+// 출력할 크기 비율 설정
+void Texture::SetRenderRatio(float x, float y)
+{
+	renderRatio.x = x;
+	renderRatio.y = y;
+}
+
+// 리소스에서 잘라서 출력하길 원하는 부분 비율 설정
 void Texture::SetSliceRatio(float x, float y)
 {
 	sliceRatio.x = x;
 	sliceRatio.y = y;
+	SetRenderRatio(x, y);
 }
 
 // 이미지 렌더링
@@ -119,7 +127,8 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 
 	AlphaBlend(Engine::GetInstance().GetSubDC()
 		, x, y
-		, width * sliceRatio.x, height * sliceRatio.y
+		, width * renderRatio.x, height * renderRatio.y
+		//, width * sliceRatio.x, height * sliceRatio.y
 		, this->GetDC()
 		, rscX, rscY
 		, rscWidth * sliceRatio.x, rscHeight * sliceRatio.y

@@ -5,17 +5,20 @@
 #include "Rigidbody.h"
 #include "Skill.h"
 #include "SkillObject.h"
+#include "Texture.h"
 
 // 생성자
-AliveObject::AliveObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, float speed, float jumpPower)
-	: GameObject(name, offset, scale, layer), speed(speed), jumpPower(jumpPower)
+AliveObject::AliveObject(const wstring& name, LAYER_TYPE layer, int MaxHP, int power, float speed, float jumpPower) 
+	: GameObject(name, DEFAULT_OBJECT_POS, DEFAULT_OBJECT_SCALE, layer)
+	, MaxHP(MaxHP), power(power), speed(speed), jumpPower(jumpPower)
 	, skillObject(nullptr)
 {
 }
 
 // 복사 생성자
 AliveObject::AliveObject(const AliveObject& origin) 
-	: GameObject(origin), speed(origin.speed), jumpPower(origin.jumpPower)
+	: GameObject(origin)
+	, MaxHP(origin.MaxHP), power(origin.power), speed(origin.speed), jumpPower(origin.jumpPower)
 	, skillObject(nullptr)
 {
 	for (Skill* skill : origin.skills)
@@ -86,4 +89,16 @@ void AliveObject::OnCollisionExit(GameObject& other)
 		GetComponent<Rigidbody>()->UseGravity(true);
 		canJump = false;
 	}
+}
+
+// 체력 변화시 호출
+void AliveObject::OnChangeHP(int changedHP)
+{
+	// 현재체력 변경
+	curHP += changedHP;
+	if (curHP < 0) curHP = 0;
+	else if (curHP > MaxHP) curHP = MaxHP;
+
+	// 자신의 체력바 UI에 반영
+	HP_fillTex->SetRenderRatio((float)curHP/MaxHP, 1.f);
 }

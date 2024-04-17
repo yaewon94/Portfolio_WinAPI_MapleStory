@@ -1,19 +1,24 @@
 #include "PCH.h"
 #include "Monster.h"
+#include "AttackActiveSkill.h"
 #include "Collider.h"
 #include "LevelManager.h"
+#include "Player.h"
+#include "SkillObject.h"
 
 // static 필드 초기화
-GameObject* Monster::player = nullptr;
+Player* Monster::player = nullptr;
 
 // 생성자
-Monster::Monster(const wstring& name, Vec2<float> pos, Vec2<int> scale, float detectRange)
-	: AliveObject(name, pos, scale, LAYER_TYPE::ENEMY, 100.f), detectRange(detectRange)
+Monster::Monster(const wstring& name, int MaxHP)
+	: AliveObject(name, LAYER_TYPE::ENEMY, MaxHP, 100.f)
 {
 }
 
 // 복사 생성자
-Monster::Monster(const Monster& origin) : AliveObject(origin), detectRange(origin.detectRange)
+Monster::Monster(const Monster& origin) 
+	: AliveObject(origin)
+	, detectRange(origin.detectRange)
 {
 }
 
@@ -26,7 +31,7 @@ Monster::~Monster()
 void Monster::Init()
 {
 	// 필드 초기화
-	if (player == nullptr) player = LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
+	if (player == nullptr) player = static_cast<Player*>(LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER));
 
 	// 컴포넌트 추가
 	// 일부 컴포넌트는 현재 레벨의 Enter()에서 추가함
@@ -39,6 +44,14 @@ void Monster::Init()
 // 충돌 진입
 void Monster::OnCollisionEnter(GameObject& other)
 {
+	AliveObject::OnCollisionEnter(other);
+
+	if (other.GetLayer() == LAYER_TYPE::PLAYER_SKILL)
+	{
+		SkillObject* obj = (SkillObject*)&other;
+		int damage = (int)(obj->GetSkill()->GetCoefficient() * player->GetPower());
+		OnChangeHP(-damage);
+	}
 }
 
 // 충돌 중

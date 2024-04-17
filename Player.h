@@ -14,7 +14,7 @@ private:
 	Map* currentMap;
 
 public:
-	Player(const wstring& name, Vec2<float> pos, Vec2<int> scale = DEFAULT_OBJECT_SCALE);
+	Player(const wstring& name, int MaxHP=100);
 	Player(const Player& origin);
 	~Player();
 	virtual Player* Clone() override { return new Player(*this); }

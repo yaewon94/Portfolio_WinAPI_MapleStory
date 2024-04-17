@@ -10,6 +10,9 @@ class AttackActiveSkill final : public ActiveSkill
 
 private:
 	SkillObject* skillObject;
+
+	const float Coefficient;	// 데미지 계수
+
 	Vec2<float> maxRange;	// 최대 이동범위 (넘어서면 자동으로 비활성화됨)
 	float speed;		// 스킬 오브젝트 이동 속도
 
@@ -19,10 +22,11 @@ private:
 	bool canWithJump;		// 점프 공격 가능 여부
 
 	NO_CSTR_COPY_ASSIGN(AttackActiveSkill);
-	AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float speed=2.f, bool canWithJump=false);
+	AttackActiveSkill(const wstring& name, Vec2<float> maxRange, float Coefficient, float speed=2.f, bool canWithJump=false);
 	~AttackActiveSkill();
 
 public:
+	float GetCoefficient() { return Coefficient; }
 	Vec2<float> GetMaxRange() const { return maxRange; }
 	float GetSpeed() const { return speed; }
 	void SetSkillObject(SkillObject& skillObject);

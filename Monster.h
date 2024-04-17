@@ -1,20 +1,23 @@
 #pragma once
 #include "AliveObject.h"
 
-constexpr auto DEFAULT_DETECT_RANGE = 500.f;
-constexpr auto MAX_TRACE_DISTANCE = 150.f;
+class Player;
+
+// 상수
+constexpr auto DEFAULT_DETECT_RANGE = 500.f;	// 최대 감지 범위
+constexpr auto MAX_TRACE_DISTANCE = 150.f;		// 추적을 멈추는 플레이어와의 거리
 
 // 몬스터 클래스 
 class Monster : public AliveObject
 {
 private:
-	static GameObject* player;
+	static Player* player;
 
 private:
-	const float detectRange;	// 플레이어 감지 범위 (반지름 기준)
+	const float detectRange = DEFAULT_DETECT_RANGE;	// 플레이어 감지 범위 (반지름 기준)
 
 public:
-	Monster(const wstring& name, Vec2<float> pos=DEFAULT_OBJECT_POS, Vec2<int> scale=DEFAULT_OBJECT_SCALE, float detectRange=DEFAULT_DETECT_RANGE);
+	Monster(const wstring& name, int MaxHP);
 	Monster(const Monster& origin);
 	~Monster();
 	virtual Monster* Clone() override { return new Monster(*this); }

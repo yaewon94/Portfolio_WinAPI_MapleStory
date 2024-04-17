@@ -14,8 +14,8 @@
 #include "SkillObject.h"
 
 // »ý¼ºÀÚ
-Player::Player(const wstring& name, Vec2<float> pos, Vec2<int> scale)
-	: AliveObject(name, pos, scale, LAYER_TYPE::PLAYER), currentMap(nullptr)
+Player::Player(const wstring& name, int MaxHP)
+	: AliveObject(name, LAYER_TYPE::PLAYER, MaxHP), currentMap(nullptr)
 {
 }
 

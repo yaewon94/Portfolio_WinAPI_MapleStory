@@ -25,6 +25,7 @@ public:
 
 	virtual void SetActive(bool flag) override;
 	void SetSkill(AttackActiveSkill& skill) { SkillObject::skill = &skill; }
+	AttackActiveSkill* GetSkill() { return skill; }
 };
 
 // 오브젝트 활성화 / 비활성화
