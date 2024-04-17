@@ -32,4 +32,7 @@ protected:
 	virtual void OnKeyReleased(KEY_CODE) override {};
 
 	Player& GetPlayer() { return *player; }
+
+public:
+	int GetCost() { return Cost; }
 };

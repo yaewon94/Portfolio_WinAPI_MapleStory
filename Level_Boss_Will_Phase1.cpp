@@ -16,35 +16,53 @@
 #include "Player.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
+#include "Texture.h"
 #include "TimeManager.h"
 #include "UI.h"
 #include "Wall.h"
 
 // 생성자
-Level_Boss_Will_Phase1::Level_Boss_Will_Phase1() : Level(L"윌 1페이즈"), gauge_moonlight(nullptr)
+Level_Boss_Will_Phase1::Level_Boss_Will_Phase1() : Level(L"윌 1페이즈")
 {
 }
 
 // 소멸자
 Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 {
-	// 오브젝트 객체 제거는 Level 담당
-	gauge_moonlight = nullptr;
+	gauge_skill = nullptr;
+	gauge_percent = nullptr;
 }
 
 // 레벨 진입시 호출
 void Level_Boss_Will_Phase1::Enter()
 {
+	// [ERROR] 이렇게 해도 몇초있다가 이미지 사라짐 뭐지
+	//textureBufferTest = AssetManager::GetInstance().LoadTexture(L"달빛게이지 배경_img", L"UI_MoonlightGauge_bgr.png");
+	//gauge_bgr->SetTexture(textureBufferTest);
+	
+
 	// [임시 하드코딩]
 	// UI
-	gauge_moonlight = AddObject(UI(L"달빛게이지", Vec2(120.f, 200.f)));
-	Animator* animator = gauge_moonlight->AddComponent<Animator>();
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_0, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_0", L"UI_MoonlightGauge_0.png"), 1);
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_20, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_20", L"UI_MoonlightGauge_20.png"), 1);
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_40, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_40", L"UI_MoonlightGauge_40.png"), 1);
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_60, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_60", L"UI_MoonlightGauge_60.png"), 1);
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_80, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_80", L"UI_MoonlightGauge_80.png"), 1);
-	animator->AddAnimation(OBJECT_STATE::UI_MOONLIGHT_GAUGE_100, AssetManager::GetInstance().LoadTexture(L"UI_MoonlightGauge_100", L"UI_MoonlightGauge_100.png"), 6);
+	// 달빛 게이지
+	GameObject* gauge_effect = AddObject(UI(L"달빛게이지 이펙트", GAUGE_POS, GAUGE_SCALE));
+	Animator* animator = gauge_effect->AddComponent<Animator>();
+	animator->AddAnimation(OBJECT_STATE::ANIM_DEFAULT, AssetManager::GetInstance().LoadTexture(L"달빛게이지 이펙트_anim", L"UI_MoonlightGauge_effect.png"), 8);
+	animator->ChangeAnimation(OBJECT_STATE::ANIM_DEFAULT);
+
+	GameObject* gauge_bgr = AddObject(UI(L"달빛게이지 배경", DEFAULT_OBJECT_POS, GAUGE_SCALE));
+	gauge_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"달빛게이지 배경_img", L"UI_MoonlightGauge_bgr.png"));
+	gauge_bgr->SetParent(*gauge_effect);
+
+	gauge_percent = AddObject(UI(L"달빛게이지 퍼센트", DEFAULT_OBJECT_POS, GAUGE_SCALE * 0.7f));
+	gauge_percent->SetTexture(AssetManager::GetInstance().LoadTexture(L"달빛게이지 게이지_img", L"UI_MoonlightGauge_fill.png"));
+	gauge_percent->SetParent(*gauge_bgr);
+
+	gauge_state = AddObject(UI(L"달빛게이지 상태", DEFAULT_OBJECT_POS, GAUGE_SCALE));
+	gauge_state->SetParent(*gauge_percent);
+	gauge_state->AddComponent<FSM>();
+	animator = gauge_state->AddComponent<Animator>();
+	animator->AddAnimation(OBJECT_STATE::MOONLIGHT_GAUGE_DISABLED, AssetManager::GetInstance().LoadTexture(L"달빛게이지 사용 불가능", L"UI_MoonlightGauge_disabled.png"), 1);
+	animator->AddAnimation(OBJECT_STATE::MOONLIGHT_GAUGE_ABLED, AssetManager::GetInstance().LoadTexture(L"달빛게이지 사용 가능", L"UI_MoonlightGauge_abled.png"), 1);
 
 	// 배경
 	GameObject& background = *AddObject(Background());
@@ -79,10 +97,9 @@ void Level_Boss_Will_Phase1::Enter()
 	Player& player = GetPlayer();
 	player.SetParent(background);
 	// 달빛게이지 스킬 부여
-	ActiveSkill* activeSkill = (ActiveSkill*)&player.AddSkill(SkillManager::GetInstance().GetSkill(1));
-	player.AddSkillKeyMap(KEY_CODE::N, *activeSkill);
+	gauge_skill = (ActiveSkill*)&player.AddSkill(SkillManager::GetInstance().GetSkill(1));
+	player.AddSkillKeyMap(KEY_CODE::N, *gauge_skill);
 	OnChangeGaugePercent(player.GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
-	// TODO : 일정 시간마다 달빛게이지 회복
 
 	// 맵 진입
 	player.ChangeMap(MapManager::GetInstance().GetMap(0));
@@ -106,7 +123,7 @@ void Level_Boss_Will_Phase1::FinalTick()
 	// 일정 시간마다 달빛게이지 회복
 	if (time > INTERVAL_OF_FILL_GAUGE)
 	{
-		GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
+		if(GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
 		time = 0.f;
 	}
 	else
@@ -119,14 +136,13 @@ void Level_Boss_Will_Phase1::FinalTick()
 void Level_Boss_Will_Phase1::OnChangeGaugePercent(int currentSkillCost)
 {
 	// 달빛게이지
-	OBJECT_STATE gaugePercent;
+	OBJECT_STATE state;
 
-	if (currentSkillCost == 100) gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_100;
-	else if (currentSkillCost >= 80) gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_80;
-	else if (currentSkillCost >= 60) gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_60;
-	else if (currentSkillCost >= 40) gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_40;
-	else if (currentSkillCost >= 20) gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_20;
-	else gaugePercent = OBJECT_STATE::UI_MOONLIGHT_GAUGE_0;
+	// TODO : 게이지 퍼센트별 이미지 변화
+	gauge_percent->GetTexture()->SetSliceRatio((float)currentSkillCost / MAX_GAUGE_MOONLIGHT, 1.f);
 
-	gauge_moonlight->GetComponent<Animator>()->ChangeAnimation(gaugePercent);
+	// 상태 아이콘 변화
+	if (currentSkillCost >= gauge_skill->GetCost()) state = OBJECT_STATE::MOONLIGHT_GAUGE_ABLED;
+	else state = OBJECT_STATE::MOONLIGHT_GAUGE_DISABLED;
+	gauge_state->GetComponent<FSM>()->ChangeState(state);
 }

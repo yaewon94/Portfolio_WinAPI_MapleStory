@@ -46,10 +46,7 @@ void Player::UseSkillCost(int cost)
 // 스킬 코스트 회복
 void Player::FillSkillCost(int cost)
 {
-	if (currentSkillCost == MaxSkillCost) return;
-
 	currentSkillCost += cost;
-	if (currentSkillCost > MaxSkillCost) currentSkillCost = MaxSkillCost;
 	LevelManager::GetInstance().OnChangeGaugePercent(currentSkillCost);
 }
 

@@ -9,8 +9,7 @@ class Player final : public AliveObject, public IKeyEvent
 {
 private:
 	map<KEY_CODE, ActiveSkill*> skillKeyMap;
-	const int MaxSkillCost = 100;
-	int currentSkillCost = MaxSkillCost;
+	int currentSkillCost = 0;
 
 	Map* currentMap;
 

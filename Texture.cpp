@@ -78,7 +78,19 @@ int Texture::Load(const wstring& absolutePath)
     return S_OK;
 }
 
+// 리소스에서 출력되길 원하는 부분 비율 설정
+void Texture::SetSliceRatio(float x, float y)
+{
+	sliceRatio.x = x;
+	sliceRatio.y = y;
+}
+
 // 이미지 렌더링
+void Texture::Render(int x, int y, int width, int height)
+{
+	Render(x, y, width, height, 0, 0, bitmapInfo.bmWidth, bitmapInfo.bmHeight);
+}
+
 void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, int rscWidth, int rscHeight)
 {
 	assert(this);
@@ -105,15 +117,12 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 		, SRCCOPY);
 	*/
 
-	if (rscWidth == 0) rscWidth = bitmapInfo.bmWidth;
-	if (rscHeight == 0) rscHeight = bitmapInfo.bmHeight;
-	
 	AlphaBlend(Engine::GetInstance().GetSubDC()
 		, x, y
-		, width, height
+		, width * sliceRatio.x, height * sliceRatio.y
 		, this->GetDC()
 		, rscX, rscY
-		, rscWidth, rscHeight
+		, rscWidth * sliceRatio.x, rscHeight * sliceRatio.y
 		, bf);
 
 	//DeleteObject(stretchBit);

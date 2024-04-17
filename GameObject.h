@@ -32,6 +32,7 @@ protected:
 
 public:
 	void Set(Vec2<float> offset, Vec2<int> scale);
+	void SetScale(Vec2<int> scale) { this->scale = scale; }
 	void SetTexture(Texture* texture) { this->texture = texture; }
 	void SetParent(GameObject& parent);
 	GameObject* AddChild(GameObject& child);
@@ -47,7 +48,7 @@ public:
 	Vec2<int> GetScale() const { return scale; }
 	LAYER_TYPE GetLayer() { return layer; }
 	bool IsActive() const { return isActive; }
-
+	Texture* GetTexture() { return texture; }
 	GameObject* GetParent() { return parent; }
 
 	void SetOffset(Vec2<float> offset) { this->offset = offset; }
