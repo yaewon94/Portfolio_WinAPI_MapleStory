@@ -107,7 +107,11 @@ void Level_Boss_Will_Phase1::Enter()
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::DEAD, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Dead", L"BossWill_Phase1_Dead.png"), 8);
+	// TODO : 공격 애니메이션 추가
+	//animator->AddAnimation(OBJECT_STATE::BOSSWILL_ATTACK_MELEE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_MeleeAttack", L"BossWill_Phase1_MeleeAttack.png"), );
 	bossWill_blue->SetActive(false);
+	bossWill_blue->AddSkill(SkillManager::GetInstance().GetSkill(2));
+
 	// 보라공간 윌
 	bossWill_pupple = (Monster*)AddObject(Monster(*bossWill_blue));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
 	bossWill_pupple->SetHPbar(*will_hpbar_fill_pupple->GetTexture());
@@ -139,19 +143,32 @@ void Level_Boss_Will_Phase1::FinalTick()
 	// 최상위 FinalTick() 호출
 	Level::FinalTick();
 
-	// 처치 성공하지 못한 경우만 호출
+	// 보스 레이드 관련 호출
 	if (isSucceed) return;
-	static float time = 0.f;
-
-	// 일정 시간마다 달빛게이지 회복
-	if (time > INTERVAL_OF_FILL_GAUGE)
+ 
+	if (isBossHpZero)
 	{
-		if(GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
-		time = 0.f;
+		static float time = 0.f;
+		time += TimeManager::GetInstance().GetDeltaTime();
+
+		if (time > INTERVAL_CHANGE_BOSS_DEAD_STATE)
+		{
+			bossWill_blue->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
+			bossWill_pupple->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
+			time = 0.f;
+		}
 	}
 	else
 	{
+		static float time = 0.f;
 		time += TimeManager::GetInstance().GetDeltaTime();
+
+		// 일정 시간마다 달빛게이지 회복
+		if (time > INTERVAL_OF_FILL_GAUGE)
+		{
+			if (GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
+			time = 0.f;
+		}
 	}
 }
 
@@ -164,19 +181,21 @@ void Level_Boss_Will_Phase1::OnAlertBossHpZero()
 
 	if (count == COUNT_PER_SUMMON)
 	{
+		count = 0;
+
 		// 윌 전체체력 현재값 변경
 		willHP_cur_total -= WILL_MAX_HP  * COUNT_PER_SUMMON;
 
 		// 체력바 UI에 반영
 		willHP_gauge_total->GetTexture()->SetSliceRatio((float)willHP_cur_total / WillHP_max_total, 1.f);
 
-		// 보스 상태 전환, 처치성공 플래그 반영
-		bossWill_blue->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
-		bossWill_pupple->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
-		isSucceed = true;
+		// 처치성공 플래그 반영
+		isBossHpZero = true;
 
 		// 달빛게이지 스킬 사용 못하게 변경
 		SkillManager::GetInstance().SetValid(&GetPlayer().GetSkill(KEY_CODE::N), false);
+
+		// TODO : 시간되면 처치성공 UI 출력
 	}
 }
 
