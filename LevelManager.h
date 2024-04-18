@@ -15,7 +15,6 @@ private:
 public:
 	void Init();
 	void Tick();
-	void FinalTick();
 	void Render();
 
 	void ChangeLevel(LEVEL_TYPE level);

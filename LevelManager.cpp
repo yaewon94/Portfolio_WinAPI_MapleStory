@@ -31,11 +31,6 @@ void LevelManager::Tick()
 {
 	assert(curLevel);
 	curLevel->Tick();
-}
-
-// 매 프레임마다 호출
-void LevelManager::FinalTick()
-{
 	curLevel->FinalTick();
 }
 
