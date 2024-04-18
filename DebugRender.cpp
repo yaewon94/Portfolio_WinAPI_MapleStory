@@ -7,7 +7,7 @@
 #include "TimeManager.h"
 
 // 생성자
-DebugRender::DebugRender()
+DebugRender::DebugRender() : isRender(true)
 {
 }
 
@@ -45,41 +45,37 @@ void DebugRender::FinalTick()
 	size_t index = 0;
 
 	// 로그 정보 갱신
-	// 포인터로 가리켜서 바꾸면 초기 문자열 저장 범위를 넘어서 엉뚱한 곳의 데이터까지 바꿀 수 있으므로, 매번 새로운 wstring를 넘긴다
-	// [질문] => 이거 메모리에 부담 안감??
 	renderLogs[index++]->SetMessage(L"FPS : " + std::to_wstring(TimeManager::GetInstance().GetFPS()));
-	//renderLogs[index++]->SetMessage(L"Player RealPos : " + player->GetRealPos().to_wstring());
-	//renderLogs[index++]->SetMessage(L"Player RenderPos : " + player->GetRenderPos().to_wstring());
 }
 
 // 매 프레임마다 렌더링
 void DebugRender::Render()
 {
-	HDC subDC = Engine::GetInstance().GetSubDC();
-	Vec2<float> pos;
-	Vec2<int> halfScale;
-
-	for (auto log : renderLogs)
+	if (isRender)
 	{
-		Engine::GetInstance().Render(log->GetPos(), log->GetText());
-	}
+		HDC dc = Engine::GetInstance().GetSubDC();
+		Vec2<float> pos;
+		Vec2<int> halfScale;
 
-	for (auto collider : colliders)
-	{
-		if (collider->IsActive())
+		for (auto log : renderLogs)
 		{
-			HGDIOBJ prevBrush = SelectObject(subDC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
-			HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
+			Engine::GetInstance().Render(log->GetPos(), log->GetText());
+		}
 
-			pos = collider->GetRenderPos();
-			halfScale = collider->GetScale() * 0.5f;
+		for (auto collider : colliders)
+		{
+			if (collider->IsActive())
+			{
+				USE_BRUSH(dc, HOLLOW);
+				USE_PEN(dc, GREEN);
 
-			Rectangle(subDC
-				, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
-				, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
+				pos = collider->GetRenderPos();
+				halfScale = collider->GetScale() * 0.5f;
 
-			SelectObject(subDC, prevBrush);
-			SelectObject(subDC, prevPen);
+				Rectangle(dc
+					, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
+					, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
+			}
 		}
 	}
 }

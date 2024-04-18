@@ -1,11 +1,17 @@
 #pragma once
 
+// 브러쉬 타입
+enum class BRUSH_TYPE
+{
+	HOLLOW, WHITE, BLACK, END_COUNT
+};
+
 // 오브젝트 레이어 타입
 enum class LAYER_TYPE
 {
 	BACKGROUND, GROUND, WALL
 	, ENEMY, PLAYER
-	, PLAYER_SKILL
+	, ENEMY_SKILL, PLAYER_SKILL
 	, UI
 	, LAYER_TYPE_COUNT
 };
@@ -29,7 +35,14 @@ enum class OBJECT_STATE
 	NONE = -1
 	, IDLE, WALK, TRACE, JUMP, ATTACK, DEAD
 	, ANIM_DEFAULT
+	, BOSSWILL_ATTACK_MELEE
 	, MOONLIGHT_GAUGE_DISABLED, MOONLIGHT_GAUGE_ABLED
+};
+
+// 펜 타입
+enum class PEN_TYPE
+{
+	BLACK, GREEN, END_COUNT
 };
 
 // 2차원 벡터

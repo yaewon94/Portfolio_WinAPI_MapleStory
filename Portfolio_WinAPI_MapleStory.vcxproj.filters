@@ -54,9 +54,6 @@
     <Filter Include="game\05-Util\Input">
       <UniqueIdentifier>{31994e6a-af9f-4778-8d93-1b2006784890}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\05-Util\Debug">
-      <UniqueIdentifier>{d5a901a8-72c4-4a4a-bd71-6d9e31996194}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\05-Util\Log">
       <UniqueIdentifier>{8b288f97-8e44-43c5-ac0e-41ddec1bc7e1}</UniqueIdentifier>
     </Filter>
@@ -120,6 +117,12 @@
     <Filter Include="game\04-Module\Skill\Module">
       <UniqueIdentifier>{63bde81a-1af8-4d8a-a626-2abde90910e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module\WindowGDI">
+      <UniqueIdentifier>{f29e41df-be90-466d-937f-215053be3ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\05-Util\Debug">
+      <UniqueIdentifier>{73dfab76-35c0-432a-a639-c9b3e89ac6a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -147,9 +150,6 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>game\05-Util\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugRender.h">
-      <Filter>game\05-Util\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
       <Filter>game\05-Util\Log</Filter>
@@ -277,6 +277,12 @@
     <ClInclude Include="EnemyAttackSkill.h">
       <Filter>game\04-Module\Skill\EnemySkill</Filter>
     </ClInclude>
+    <ClInclude Include="GDIobject.h">
+      <Filter>game\04-Module\WindowGDI</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRender.h">
+      <Filter>game\05-Util\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -307,9 +313,6 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>game\05-Util\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugRender.cpp">
-      <Filter>game\05-Util\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>game\05-Util\Log</Filter>
@@ -430,6 +433,12 @@
     </ClCompile>
     <ClCompile Include="EnemyAttackSkill.cpp">
       <Filter>game\04-Module\Skill\EnemySkill</Filter>
+    </ClCompile>
+    <ClCompile Include="GDIobject.cpp">
+      <Filter>game\04-Module\WindowGDI</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRender.cpp">
+      <Filter>game\05-Util\Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AttackSkillModule.h" />
+    <ClInclude Include="DebugRender.h" />
     <ClInclude Include="EnemyAttackSkill.h" />
     <ClInclude Include="PlayerEtcSkill.h" />
     <ClInclude Include="PlayerAttackSkill.h" />
@@ -150,7 +151,6 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DeadState.h" />
-    <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Engine.h" />
@@ -178,6 +178,7 @@
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="GDIobject.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="SkillObject.h" />
@@ -191,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AttackSkillModule.cpp" />
+    <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="EnemyAttackSkill.cpp" />
     <ClCompile Include="PlayerEtcSkill.cpp" />
     <ClCompile Include="PlayerAttackSkill.cpp" />
@@ -206,7 +208,6 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DeadState.cpp" />
-    <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="GDIobject.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="SkillObject.cpp" />

@@ -49,5 +49,6 @@ using std::make_shared;
 #include "DesignPatterns.h"
 #include "Types.h"
 #include "Constants.h"
+#include "GDIobject.h"
 #include "Log.h"
 #include "Functions.h"
