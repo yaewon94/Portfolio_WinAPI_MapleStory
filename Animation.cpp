@@ -61,7 +61,11 @@ void Animation::FinalTick()
 		if (++curFrame == offsets.size())
 		{
 			curFrame = 0;
-			if (!isRepeat) animator->GetOwner()->GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+			if (!isRepeat)
+			{
+				FSM* fsm = animator->GetOwner()->GetComponent<FSM>();
+				fsm->ChangeState(fsm->GetDefaultState());
+			}
 		}
 	}
 }

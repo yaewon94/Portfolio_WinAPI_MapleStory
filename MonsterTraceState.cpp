@@ -39,8 +39,7 @@ void MonsterTraceState::Stay()
 	}
 
 	// 범위 내에 플레이어가 없거나, 플레이어 추격이 끝난 경우
-	// IDLE 상태로 전환
-	GetFsm().ChangeState(OBJECT_STATE::IDLE);
+	GetFsm().ChangeState(GetFsm().GetDefaultState());
 }
 
 // 상태 종료

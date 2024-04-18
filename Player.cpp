@@ -64,6 +64,7 @@ void Player::Init()
 	AddComponent<Rigidbody>();
 	Collider* collider = AddComponent<Collider>();
 	FSM* fsm = AddComponent<FSM>();
+	fsm->SetDefaultState(OBJECT_STATE::IDLE);
 	Animator* animator = AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
 	animator->AddAnimation(OBJECT_STATE::WALK, AssetManager::GetInstance().LoadTexture(L"PlayerWalk", L"Player_Walk.png"), 4);
@@ -121,7 +122,8 @@ void Player::OnKeyReleased(KEY_CODE key)
 {
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
 	{
-		GetComponent<FSM>()->ChangeState(OBJECT_STATE::IDLE);
+		FSM* fsm = GetComponent<FSM>();
+		fsm->ChangeState(fsm->GetDefaultState());
 	}
 }
 
@@ -135,7 +137,7 @@ void Player::OnCollisionEnter(GameObject& other)
 		if (!canJump)
 		{
 			FSM* fsm = GetComponent<FSM>();
-			if (fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(OBJECT_STATE::IDLE);
+			if (fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(fsm->GetDefaultState());
 			GetComponent<Rigidbody>()->UseGravity(false);
 			canJump = true;
 		}

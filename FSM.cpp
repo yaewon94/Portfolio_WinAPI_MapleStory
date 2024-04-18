@@ -6,12 +6,15 @@
 #include "TimeManager.h"
 
 // 생성자
-FSM::FSM(GameObject& owner) : Component(owner), curState(nullptr)
+FSM::FSM(GameObject& owner) 
+	: Component(owner), curState(nullptr)
 {
 }
 
 // 복사 생성자
-FSM::FSM(const FSM& origin) : Component(origin), curState(nullptr)
+FSM::FSM(const FSM& origin) 
+	: Component(origin), DefaultStateType(origin.DefaultStateType)
+	, curStateType(origin.DefaultStateType), curState(nullptr)
 {
 	for (auto& pair : origin.stateMap)
 	{
@@ -45,8 +48,8 @@ void FSM::Init()
 		state.second->Init();
 	}
 
-	// IDLE 상태를 디폴트로 함
-	ChangeState(OBJECT_STATE::IDLE);
+	// 디폴트 상태 전환
+	ChangeState(DefaultStateType);
 }
 
 // 매 프레임마다 호출
