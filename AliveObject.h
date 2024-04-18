@@ -33,6 +33,8 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
+	int GetCurrentHP() { return curHP; }
+
 	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
 
 	void Move();

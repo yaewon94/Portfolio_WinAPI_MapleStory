@@ -39,6 +39,8 @@ protected:
 	Player& GetPlayer() { return *player; }
 	void SetPlayer(Player* player) { this->player = player; }
 
+	// TODO : 보스레이드 전용 레벨 클래스를 분리해서 선언해야 함
+	virtual void OnAlertBossHpZero() {}
 	virtual void OnChangeGaugePercent(int currentSkillCost) {}
 
 	template<typename T> requires std::derived_from<T, GameObject> GameObject* AddObject(const T& object);

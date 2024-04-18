@@ -46,11 +46,21 @@ void Monster::OnCollisionEnter(GameObject& other)
 {
 	AliveObject::OnCollisionEnter(other);
 
+	// 플레이어 스킬에 맞았을 경우
 	if (other.GetLayer() == LAYER_TYPE::PLAYER_SKILL)
 	{
-		SkillObject* obj = (SkillObject*)&other;
-		int damage = (int)(obj->GetSkill()->GetCoefficient() * player->GetPower());
-		OnChangeHP(-damage);
+		// 현재 체력이 0 이상일때만
+		if (GetCurrentHP() > 0)
+		{
+			// 입은 데미지만큼 체력 감소시킴
+			SkillObject* obj = (SkillObject*)&other;
+			int damage = (int)(obj->GetSkill()->GetCoefficient() * player->GetPower());
+			OnChangeHP(-damage);
+
+			// TODO : 일반몬스터 클래스와 보스몬스터 클래스를 분리해서 구현해야 함
+			// 체력이 0인 경우 보스몬스터 체력 0 알림 호출
+			if (GetCurrentHP() == 0) LevelManager::GetInstance().OnAlertBossHPzero();
+		}
 	}
 }
 

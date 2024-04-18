@@ -39,7 +39,6 @@ void Level_Boss_Will_Phase1::Enter()
 	// [ERROR] 이렇게 해도 몇초있다가 이미지 사라짐 뭐지
 	//textureBufferTest = AssetManager::GetInstance().LoadTexture(L"달빛게이지 배경_img", L"UI_MoonlightGauge_bgr.png");
 	//gauge_bgr->SetTexture(textureBufferTest);
-	
 
 	// [임시 하드코딩]
 	// [UI] 달빛 게이지
@@ -66,9 +65,18 @@ void Level_Boss_Will_Phase1::Enter()
 	// [UI] 보스몬스터 윌 체력바
 	GameObject* will_hpbar_bgr = AddObject(UI(L"윌 HP바 배경", Vec2(960.f, 50.f), Vec2(1200, 60)));
 	will_hpbar_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"윌 HP바 배경_img", L"UI_BossWill_HPbar_bgr.png"));
+	// 파란공간 윌 + 보라공간 윌 체력바 전체
+	willHP_gauge_total = AddObject(UI(L"윌 HP바 전체", Vec2(27.f, -15.f), Vec2(1134, 15)));
+	willHP_gauge_total->SetTexture(AssetManager::GetInstance().LoadTexture(L"몬스터 HP바 게이지_img", L"UI_Moster_HPbar_gauge.png"));
+	willHP_gauge_total->SetParent(*will_hpbar_bgr);
+	// 파란공간 윌 체력바
 	GameObject* will_hpbar_fill_blue = AddObject(UI(L"윌 HP바 파란게이지", Vec2(27.f, 9.f), Vec2(1130, 7)));
 	will_hpbar_fill_blue->SetTexture(AssetManager::GetInstance().LoadTexture(L"윌 HP바 파란게이지_img", L"UI_BossWill_HPbar_fill_blue.png"));
 	will_hpbar_fill_blue->SetParent(*will_hpbar_bgr);
+	// 보라공간 윌 체력바
+	GameObject* will_hpbar_fill_pupple = AddObject(UI(L"윌 HP바 보라게이지", Vec2(27.f, 20.f), Vec2(1130, 7)));
+	will_hpbar_fill_pupple->SetTexture(AssetManager::GetInstance().LoadTexture(L"윌 HP바 보라게이지_img", L"UI_BossWill_HPbar_fill_pupple.png"));
+	will_hpbar_fill_pupple->SetParent(*will_hpbar_bgr);
 
 	// 배경
 	GameObject& background = *AddObject(Background());
@@ -97,8 +105,8 @@ void Level_Boss_Will_Phase1::Enter()
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 	boss_will->SetActive(false);
 	// 보라공간 윌
-	AddObject(Monster(*boss_will));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
-
+	Monster* boss_will2 = (Monster*)AddObject(Monster(*boss_will));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
+	boss_will2->SetHPbar(*will_hpbar_fill_pupple->GetTexture());
 
 	// 플레이어
 	SetPlayer((Player*)AddObject(Player(L"Player")));
@@ -107,6 +115,7 @@ void Level_Boss_Will_Phase1::Enter()
 	// 달빛게이지 스킬 부여
 	moonlight_gauge_skill = (ActiveSkill*)&player.AddSkill(SkillManager::GetInstance().GetSkill(1));
 	player.AddSkillKeyMap(KEY_CODE::N, *moonlight_gauge_skill);
+	player.FillSkillCost(MAX_GAUGE_MOONLIGHT);	// TEST : 달빛게이지 최대로 부여
 	OnChangeGaugePercent(player.GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
 
 	// 맵 진입
@@ -140,13 +149,32 @@ void Level_Boss_Will_Phase1::FinalTick()
 	}
 }
 
+// TODO : 체력공유형 보스몬스터 클래스를 만들어서, 거기서 체력 관리
+// 보스몬스터의 체력이 0이 되었을 때 호출
+void Level_Boss_Will_Phase1::OnAlertBossHpZero()
+{
+	static int count = 0;
+	++count;
+
+	if (count == COUNT_PER_SUMMON)
+	{
+		// 윌 전체체력 현재값 변경
+		willHP_cur_total -= WILL_MAX_HP  * COUNT_PER_SUMMON;
+
+		// 체력바 UI에 반영
+		willHP_gauge_total->GetTexture()->SetSliceRatio((float)willHP_cur_total / WillHP_max_total, 1.f);
+
+		// TODO : 보스 처치 성공 구현
+	}
+}
+
 // 달빛게이지 퍼센트 변화가 있을 때 호출
 void Level_Boss_Will_Phase1::OnChangeGaugePercent(int currentSkillCost)
 {
 	// 달빛게이지
 	OBJECT_STATE state;
 
-	// TODO : 게이지 퍼센트별 이미지 변화
+	// 게이지 퍼센트별 이미지 변화
 	moonlight_gauge_ratio_obj->GetTexture()->SetSliceRatio((float)currentSkillCost / MAX_GAUGE_MOONLIGHT, 1.f);
 
 	// 상태 아이콘 변화

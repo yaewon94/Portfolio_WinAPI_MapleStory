@@ -28,5 +28,7 @@ public:
 
 	Camera* GetMainCamera() { return curLevel->mainCamera; }
 
+	// TODO : 보스 레이드 전용 레벨 포인터로 캐스팅해서, 성공했을 때만 호출해야 함
+	void OnAlertBossHPzero() { assert(curLevel); curLevel->OnAlertBossHpZero(); }
 	void OnChangeGaugePercent(int currentSkillCost) { assert(curLevel); curLevel->OnChangeGaugePercent(currentSkillCost); }
 };
