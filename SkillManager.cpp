@@ -1,12 +1,15 @@
 #include "PCH.h"
 #include "SkillManager.h"
-#include "ActiveEtcSkill.h"
-#include "AttackActiveSkill.h"
 #include "LevelManager.h"
 #include "MapManager.h"
 #include "Player.h"
+#include "PlayerAttackSkill.h"
+#include "PlayerEtcSkill.h"
 #include "SkillObject.h"
 #include "TimeManager.h"
+
+// 상수
+#define NO_LIMIT_DURATION (float)(INT_MAX)
 
 // 생성자
 SkillManager::SkillManager()
@@ -34,8 +37,9 @@ SkillManager::~SkillManager()
 // 초기화
 void SkillManager::Init()
 {
-	skills.push_back(new AttackActiveSkill(L"기본공격", Vec2<float>::Right() * 300.f, 1.f));
-	skills.push_back(new ActiveEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
+	skills.push_back(new PlayerAttackSkill(L"기본공격", 1.f, DEFAULT_ANIM_DURATION*2.f, NO_LIMIT_DURATION, Vec2<float>::Right()*300.f, 1.f));
+	//skills.push_back(new PlayerAttackSkill(L"기본공격", Vec2<float>::Right() * 300.f, 1.f));
+	skills.push_back(new PlayerEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
 }
 
 // 매 프레임마다 호출

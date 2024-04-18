@@ -29,11 +29,12 @@ protected:
 	Vec2<float> dir = Vec2<float>::Left();	// 현재 이동방향
 	bool canJump = false;	// 점프 가능 여부
 
-	AliveObject(const wstring& name, LAYER_TYPE layer, int MaxHP, int power=100, float speed = 200.f, float jumpPower = 500.f);
+	AliveObject(const wstring& name, LAYER_TYPE layer, int MaxHP, int power = 100, float speed = 200.f, float jumpPower = 500.f);
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
 	int GetCurrentHP() { return curHP; }
+	Skill& GetSkill(int index) { assert(index < skills.size()); return *skills[index]; }
 
 	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
 

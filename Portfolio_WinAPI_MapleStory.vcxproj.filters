@@ -105,11 +105,20 @@
     <Filter Include="game\02-Object\UI">
       <UniqueIdentifier>{a9c9a0b2-f6a6-4c1a-8573-f5c77e1f4b0d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\04-Module\Skill\ActiveSkill">
-      <UniqueIdentifier>{ceff14f8-29a1-478f-89e9-18c75575f486}</UniqueIdentifier>
-    </Filter>
     <Filter Include="game\01-Level\Boss\Will">
       <UniqueIdentifier>{7e5bdd9a-8778-4181-8eac-24e0486d2093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill\EnemySkill">
+      <UniqueIdentifier>{e607a763-ae3d-419a-a73c-b22b617dd1f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill\PlayerSkill">
+      <UniqueIdentifier>{09fd90d9-5847-4372-be5e-713705a4c4e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill\PlayerSkill\ActiveSkill">
+      <UniqueIdentifier>{ceff14f8-29a1-478f-89e9-18c75575f486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Skill\Module">
+      <UniqueIdentifier>{63bde81a-1af8-4d8a-a626-2abde90910e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,22 +254,28 @@
       <Filter>game\00-Header</Filter>
     </ClInclude>
     <ClInclude Include="ActiveSkill.h">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackActiveSkill.h">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
     </ClInclude>
     <ClInclude Include="MapManager.h">
       <Filter>game\04-Module\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="ActiveEtcSkill.h">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
     </ClInclude>
     <ClInclude Include="DeadState.h">
       <Filter>game\04-Module\State</Filter>
     </ClInclude>
     <ClInclude Include="MonsterDeadState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEtcSkill.h">
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackSkill.h">
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackSkillModule.h">
+      <Filter>game\04-Module\Skill\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackSkill.h">
+      <Filter>game\04-Module\Skill\EnemySkill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,22 +408,28 @@
       <Filter>game\02-Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="ActiveSkill.cpp">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackActiveSkill.cpp">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
     </ClCompile>
     <ClCompile Include="MapManager.cpp">
       <Filter>game\04-Module\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="ActiveEtcSkill.cpp">
-      <Filter>game\04-Module\Skill\ActiveSkill</Filter>
     </ClCompile>
     <ClCompile Include="DeadState.cpp">
       <Filter>game\04-Module\State</Filter>
     </ClCompile>
     <ClCompile Include="MonsterDeadState.cpp">
       <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEtcSkill.cpp">
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackSkill.cpp">
+      <Filter>game\04-Module\Skill\PlayerSkill\ActiveSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackSkillModule.cpp">
+      <Filter>game\04-Module\Skill\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttackSkill.cpp">
+      <Filter>game\04-Module\Skill\EnemySkill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

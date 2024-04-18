@@ -1,22 +1,22 @@
 #include "PCH.h"
-#include "ActiveEtcSkill.h"
+#include "PlayerEtcSkill.h"
 #include "SkillManager.h"
 #include "Player.h"
 
 // 생성자
-ActiveEtcSkill::ActiveEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback)
+PlayerEtcSkill::PlayerEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback)
 	: ActiveSkill(name, Cost), callback(callback)
 {
 }
 
 // 소멸자
-ActiveEtcSkill::~ActiveEtcSkill()
+PlayerEtcSkill::~PlayerEtcSkill()
 {
 	callback = nullptr;
 }
 
 // [event] 키 입력 시 호출
-void ActiveEtcSkill::OnKeyPressed(KEY_CODE)
+void PlayerEtcSkill::OnKeyPressed(KEY_CODE)
 {
 	if (IsValid())
 	{

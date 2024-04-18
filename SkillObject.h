@@ -1,14 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
-class AttackActiveSkill;
+class AttackSkillModule;
 
-// TODO : 스킬 추가하면 SkillObject 클래스 세분화 해야할듯
+// 스킬오브젝트 클래스
 class SkillObject : public GameObject
 {
 private:
 	const Vec2<float> StartPos = offset;
-	AttackActiveSkill* skill;
+	AttackSkillModule* skill;
 
 public:
 	SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
@@ -24,8 +24,8 @@ public:
 	virtual void OnCollisionExit(GameObject& other) override {}
 
 	virtual void SetActive(bool flag) override;
-	void SetSkill(AttackActiveSkill& skill) { SkillObject::skill = &skill; }
-	AttackActiveSkill* GetSkill() { return skill; }
+	void SetSkill(AttackSkillModule& skill) { this->skill = &skill; }
+	AttackSkillModule* GetSkill() { return skill; }
 };
 
 // 오브젝트 활성화 / 비활성화

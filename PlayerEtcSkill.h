@@ -8,18 +8,18 @@ class SkillManager;
 typedef void(* SKILL_CALLBACK)(void);
 
 // (공격x, 버프x 인 기타 종류) 액티브 스킬 클래스
-class ActiveEtcSkill final : public ActiveSkill
+class PlayerEtcSkill final : public ActiveSkill
 {
 	friend class SkillManager;
-	NO_CSTR_COPY_ASSIGN(ActiveEtcSkill);
+	NO_CSTR_COPY_ASSIGN(PlayerEtcSkill);
 
 private:
 	SKILL_CALLBACK callback;
 
 private:
-	//ActiveEtcSkill(const wstring& name, SKILL_CALLBACK callback, void* params, ...);
-	ActiveEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback);
-	~ActiveEtcSkill();
+	//PlayerEtcSkill(const wstring& name, SKILL_CALLBACK callback, void* params, ...);
+	PlayerEtcSkill(const wstring& name, int Cost, SKILL_CALLBACK callback);
+	~PlayerEtcSkill();
 
 public:
 	virtual void OnKeyPressed(KEY_CODE) override;

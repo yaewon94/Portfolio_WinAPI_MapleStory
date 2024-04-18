@@ -1,6 +1,6 @@
 #include "PCH.h"
 #include "SkillObject.h"
-#include "AttackActiveSkill.h"
+#include "AttackSkillModule.h"
 #include "Collider.h"
 #include "TimeManager.h"
 
@@ -9,7 +9,7 @@
 SkillObject::SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer)
 	: GameObject(name, offset, scale, layer, false), skill(nullptr)
 {
-	if (layer == LAYER_TYPE::PLAYER_SKILL) {}
+	if (layer == LAYER_TYPE::PLAYER_SKILL || layer == LAYER_TYPE::ENEMY_SKILL) {}
 	else throw std::invalid_argument("invalid layer type");	// 按眉 积己 秒家
 }
 

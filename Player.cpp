@@ -4,11 +4,11 @@
 #include "Animation.h"
 #include "Animator.h"
 #include "AssetManager.h"
-#include "AttackActiveSkill.h"
 #include "Collider.h"
 #include "FSM.h"
 #include "LevelManager.h"
 #include "MapManager.h"
+#include "PlayerAttackSkill.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
@@ -63,6 +63,7 @@ void Player::Init()
 	// 컴포넌트 추가
 	AddComponent<Rigidbody>();
 	Collider* collider = AddComponent<Collider>();
+	collider->SetScale(Vec2(50, 70));
 	FSM* fsm = AddComponent<FSM>();
 	fsm->SetDefaultState(OBJECT_STATE::IDLE);
 	Animator* animator = AddComponent<Animator>();
@@ -80,7 +81,7 @@ void Player::Init()
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2<float>((float)scale.x, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
-	((AttackActiveSkill*)activeSkill)->SetSkillObject(*skillObject);
+	((PlayerAttackSkill*)activeSkill)->SetSkillObject(*skillObject);
 
 	// 필드 초기화
 	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::PLAYER_SKILL));

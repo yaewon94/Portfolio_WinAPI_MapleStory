@@ -2,7 +2,7 @@
 #include "ActiveSkill.h"
 
 class Skill;
-class AttackActiveSkill;
+class PlayerAttackSkill;
 
 // 스킬 관리 클래스
 class SkillManager final
@@ -11,14 +11,14 @@ class SkillManager final
 
 private:
 	vector<Skill*> skills;
-	list<AttackActiveSkill*> reservedSkills;	 // 딜레이 타임이 있는 스킬들 스킬오브젝트 활성화 준비용도
+	list<PlayerAttackSkill*> reservedSkills;	 // 딜레이 타임이 있는 스킬들 스킬오브젝트 활성화 준비용도
 
 public:
 	void Init();
 	void Tick();
 
 	Skill& GetSkill(size_t index) { return *skills.at(index); }
-	void LaunchSkill(AttackActiveSkill& skill) { reservedSkills.push_back(&skill); }
+	void LaunchSkill(PlayerAttackSkill& skill) { reservedSkills.push_back(&skill); }
 	void SetValid(ActiveSkill* skill, bool flag) { skill->isValid = flag; }
 
 private:
