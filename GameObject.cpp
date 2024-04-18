@@ -10,14 +10,12 @@
 // 생성자
 GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), texture(nullptr), parent(nullptr)
 {
-	SetActive(isActive);
 }
 
 GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer),isActive(isActive)
 	, texture(nullptr), parent(nullptr)
 {
-	SetActive(isActive);
 }
 
 // 복사 생성자
@@ -45,8 +43,6 @@ GameObject::GameObject(const GameObject& origin)
 		// ERROR : 컴포넌트 복사 에러
 		//components.push_back(component->Clone());
 	}
-
-	SetActive(isActive);
 }
 
 // 소멸자
@@ -106,12 +102,9 @@ void GameObject::Set(Vec2<float> offset, Vec2<int> scale)
 void GameObject::SetActive(bool flag)
 {
 	// 컴포넌트 활성화/비활성화
-	if (isActive != flag)
+	for (auto component : components)
 	{
-		for (auto component : components)
-		{
-			component->SetActive(flag);
-		}
+		component->SetActive(flag);
 	}
 
 	// 필드값 설정
@@ -152,6 +145,8 @@ void GameObject::Init()
 	{
 		component->Init();
 	}
+
+	SetActive(isActive);
 }
 
 // 매 프레임마다 호출
