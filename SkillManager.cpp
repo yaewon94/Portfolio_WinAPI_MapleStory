@@ -65,7 +65,7 @@ void SkillManager::Tick()
 
 // ========== 스킬 콜백함수 모음 ==========
 // 윌 1페이즈 달빛게이지 스킬 사용
-void SkillManager::UseMoonlightGauge_Phase1(ActiveSkill* skill)
+void SkillManager::UseMoonlightGauge_Phase1()
 {
 	// 야매코드
 	// mapIndex : 파란공간(0), 보라공간(1)

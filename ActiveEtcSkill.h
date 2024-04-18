@@ -5,7 +5,7 @@ class SkillManager;
 
 // 콜백 메소드
 //typedef void(SkillManager::* SKILL_CALLBACK)();
-typedef void(* SKILL_CALLBACK)(ActiveSkill*);
+typedef void(* SKILL_CALLBACK)(void);
 
 // (공격x, 버프x 인 기타 종류) 액티브 스킬 클래스
 class ActiveEtcSkill final : public ActiveSkill

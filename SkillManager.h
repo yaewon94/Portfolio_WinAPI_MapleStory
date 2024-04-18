@@ -24,5 +24,5 @@ public:
 private:
 	// ========== 스킬 콜백함수 모음 ==========
 	//void UseMoonlightGauge_Phase1();
-	static void UseMoonlightGauge_Phase1(ActiveSkill* skill);
+	static void UseMoonlightGauge_Phase1();
 };
