@@ -20,8 +20,12 @@ public:
 	static void SetPlayer(Player* player) { ActiveSkill::player = player; }
 
 	// ===== 인스턴스 멤버 =====
+private:
+	bool isValid = true;	// 스킬 사용 가능 여부
+
 protected:
 	const int Cost;	// 스킬 사용시 필요한 (HP, MP, 게이지 등) 소모량
+	bool IsValid() { return isValid; }
 
 protected:
 	ActiveSkill(const wstring& name, int Cost = 0);

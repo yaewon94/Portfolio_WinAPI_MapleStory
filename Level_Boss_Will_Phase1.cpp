@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "MapManager.h"
 #include "Monster.h"
+#include "MonsterDeadState.h"
 #include "MonsterIdleState.h"
 #include "MonsterTraceState.h"
 #include "Player.h"
@@ -94,19 +95,22 @@ void Level_Boss_Will_Phase1::Enter()
 	// 몬스터는 객체마다 특성이 다르므로, 클래스 외부에서 특성에 맞게 컴포넌트 추가
 	// 원래는 DB같은데서 받아와서 몬스터 클래스 내부에서 초기화 해야 함
 	// 파란공간 윌
-	Monster* boss_will = (Monster*)AddObject(Monster(L"Boss_Will", WILL_MAX_HP));
-	boss_will->SetParent(background);
-	boss_will->SetHPbar(*will_hpbar_fill_blue->GetTexture());
-	FSM* fsm = boss_will->AddComponent<FSM>();
+	bossWill_blue = (Monster*)AddObject(Monster(L"Boss_Will", WILL_MAX_HP));
+	bossWill_blue->SetParent(background);
+	bossWill_blue->SetHPbar(*will_hpbar_fill_blue->GetTexture());
+	FSM* fsm = bossWill_blue->AddComponent<FSM>();
+	fsm->SetDefaultState(OBJECT_STATE::IDLE);
 	fsm->AddState(*new MonsterIdleState);
 	fsm->AddState(*new MonsterTraceState);
-	animator = boss_will->AddComponent<Animator>();
+	fsm->AddState(*new MonsterDeadState(3.f));
+	animator = bossWill_blue->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
-	boss_will->SetActive(false);
+	animator->AddAnimation(OBJECT_STATE::DEAD, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Dead", L"BossWill_Phase1_Dead.png"), 8);
+	bossWill_blue->SetActive(false);
 	// 보라공간 윌
-	Monster* boss_will2 = (Monster*)AddObject(Monster(*boss_will));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
-	boss_will2->SetHPbar(*will_hpbar_fill_pupple->GetTexture());
+	bossWill_pupple = (Monster*)AddObject(Monster(*bossWill_blue));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
+	bossWill_pupple->SetHPbar(*will_hpbar_fill_pupple->GetTexture());
 
 	// 플레이어
 	SetPlayer((Player*)AddObject(Player(L"Player")));
@@ -132,10 +136,12 @@ void Level_Boss_Will_Phase1::Exit()
 // 매 프레임마다 호출
 void Level_Boss_Will_Phase1::FinalTick()
 {
-	static float time = 0.f;
-
 	// 최상위 FinalTick() 호출
 	Level::FinalTick();
+
+	// 처치 성공하지 못한 경우만 호출
+	if (isSucceed) return;
+	static float time = 0.f;
 
 	// 일정 시간마다 달빛게이지 회복
 	if (time > INTERVAL_OF_FILL_GAUGE)
@@ -164,7 +170,13 @@ void Level_Boss_Will_Phase1::OnAlertBossHpZero()
 		// 체력바 UI에 반영
 		willHP_gauge_total->GetTexture()->SetSliceRatio((float)willHP_cur_total / WillHP_max_total, 1.f);
 
-		// TODO : 보스 처치 성공 구현
+		// 보스 상태 전환, 처치성공 플래그 반영
+		bossWill_blue->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
+		bossWill_pupple->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
+		isSucceed = true;
+
+		// 달빛게이지 스킬 사용 못하게 변경
+		SkillManager::GetInstance().SetValid(&GetPlayer().GetSkill(KEY_CODE::N), false);
 	}
 }
 

@@ -18,12 +18,15 @@ ActiveEtcSkill::~ActiveEtcSkill()
 // [event] 키 입력 시 호출
 void ActiveEtcSkill::OnKeyPressed(KEY_CODE)
 {
-	// 스킬 사용에 필요한 코스트량 확인
-	if (GetPlayer().GetCurrentSkillCost() < Cost) return;
+	if (IsValid())
+	{
+		// 스킬 사용에 필요한 코스트량 확인
+		if (GetPlayer().GetCurrentSkillCost() < Cost) return;
 
-	// 코스트 소모
-	GetPlayer().UseSkillCost(Cost);
-	// 콜백 호출
-	//(SkillManager::GetInstance().*(callback))();
-	callback();
+		// 코스트 소모
+		GetPlayer().UseSkillCost(Cost);
+		// 콜백 호출
+		//(SkillManager::GetInstance().*(callback))();
+		callback(this);
+	}
 }

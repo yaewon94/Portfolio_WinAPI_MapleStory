@@ -3,6 +3,7 @@
 
 class ActiveSkill;
 class GameObject;
+class Monster;
 
 // [임시 하드코딩] 상수
 #define MOONLIGHT_GAUGE_SCALE Vec2(150, 150)	// 달빛게이지 크기
@@ -18,12 +19,18 @@ class Level_Boss_Will_Phase1 final : public Level
 	friend class LevelManager;
 
 private:
+	// 보스레이드 성공 여부
+	bool isSucceed = false;
+
 	// 달빛게이지
 	ActiveSkill* moonlight_gauge_skill = nullptr;
 	GameObject* moonlight_gauge_ratio_obj = nullptr; 
 	GameObject* moonlight_gauge_state_icon = nullptr;
 	//Texture* textureBufferTest;
 
+	// 윌 오브젝트
+	Monster* bossWill_blue = nullptr;
+	Monster* bossWill_pupple = nullptr;
 	// 윌 체력게이지
 	const int WillHP_max_total = WILL_MAX_HP * COUNT_PER_SUMMON;	// 윌 전체체력 MAX값
 	int willHP_cur_total = WillHP_max_total;						// 윌 전체체력 현재값
