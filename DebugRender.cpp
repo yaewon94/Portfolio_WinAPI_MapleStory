@@ -66,19 +66,20 @@ void DebugRender::Render()
 
 	for (auto collider : colliders)
 	{
-		if (!collider->GetOwner()->IsActive()) continue;
+		if (collider->IsActive())
+		{
+			HGDIOBJ prevBrush = SelectObject(subDC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
+			HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
 
-		HGDIOBJ prevBrush = SelectObject(subDC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
-		HGDIOBJ prevPen = SelectObject(subDC, CreatePen(PS_SOLID, 1, RGB(0, 255, 0)));
+			pos = collider->GetRenderPos();
+			halfScale = collider->GetScale() * 0.5f;
 
-		pos = collider->GetRenderPos();
-		halfScale = collider->GetScale() * 0.5f;
+			Rectangle(subDC
+				, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
+				, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
 
-		Rectangle(subDC
-			, (int)(pos.x - halfScale.x), (int)(pos.y - halfScale.y)
-			, (int)(pos.x + halfScale.x), (int)(pos.y + halfScale.y));
-
-		SelectObject(subDC, prevBrush);
-		SelectObject(subDC, prevPen);
+			SelectObject(subDC, prevBrush);
+			SelectObject(subDC, prevPen);
+		}
 	}
 }

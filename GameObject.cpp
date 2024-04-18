@@ -100,6 +100,22 @@ void GameObject::Set(Vec2<float> offset, Vec2<int> scale)
 	this->scale = scale;
 }
 
+// 오브젝트 활성화/비활성화
+void GameObject::SetActive(bool flag)
+{
+	// 컴포넌트 활성화/비활성화
+	if (isActive != flag)
+	{
+		for (auto component : components)
+		{
+			component->SetActive(flag);
+		}
+	}
+
+	// 필드값 설정
+	isActive = flag;
+}
+
 // 자식 오브젝트 추가
 GameObject* GameObject::AddChild(GameObject& child)
 {
@@ -141,7 +157,7 @@ void GameObject::FinalTick()
 {
 	for (auto component : components)
 	{
-		component->FinalTick();
+		if (component->IsActive()) component->FinalTick();
 	}
 }
 

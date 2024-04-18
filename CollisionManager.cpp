@@ -26,7 +26,7 @@ void CollisionManager::FinalTick()
 	{
 		for (auto collider : layer)
 		{
-			if(collider->GetOwner()->IsActive()) CollisionCheck(*collider);
+			if(collider->IsActive()) CollisionCheck(*collider);
 		}
 	}
 }
