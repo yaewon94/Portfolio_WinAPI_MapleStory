@@ -30,9 +30,13 @@ void State::Stay()
 	// 상태 지속시간이 존재할 경우에만, 경과시간 누적
 	if (Duration > 0.f)
 	{
-		time = TimeManager::GetInstance().GetDeltaTime();
+		time += TimeManager::GetInstance().GetDeltaTime();
 
 		// 지속시간을 초과한 경우, 디폴트 상태로 전환
-		if (time >= Duration) fsm->ChangeState(fsm->GetDefaultState());
+		if (time >= Duration)
+		{
+			time = 0.f;
+			fsm->ChangeState(fsm->GetDefaultState());
+		}
 	}
 }

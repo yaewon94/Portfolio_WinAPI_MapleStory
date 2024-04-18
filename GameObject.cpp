@@ -10,12 +10,14 @@
 // 생성자
 GameObject::GameObject(LAYER_TYPE layer) : layer(layer), isActive(true), texture(nullptr), parent(nullptr)
 {
+	SetActive(isActive);
 }
 
 GameObject::GameObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer, bool isActive)
 	: name(name), offset(offset), scale(scale), layer(layer),isActive(isActive)
 	, texture(nullptr), parent(nullptr)
 {
+	SetActive(isActive);
 }
 
 // 복사 생성자
@@ -44,7 +46,7 @@ GameObject::GameObject(const GameObject& origin)
 		//components.push_back(component->Clone());
 	}
 
-	// 카메라 제거 x (Level 소멸자에서 제거됨)
+	SetActive(isActive);
 }
 
 // 소멸자

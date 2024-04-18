@@ -256,6 +256,12 @@
     <ClInclude Include="ActiveEtcSkill.h">
       <Filter>game\04-Module\Skill\ActiveSkill</Filter>
     </ClInclude>
+    <ClInclude Include="DeadState.h">
+      <Filter>game\04-Module\State</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDeadState.h">
+      <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -397,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="ActiveEtcSkill.cpp">
       <Filter>game\04-Module\Skill\ActiveSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadState.cpp">
+      <Filter>game\04-Module\State</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDeadState.cpp">
+      <Filter>game\04-Module\State\MonsterState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

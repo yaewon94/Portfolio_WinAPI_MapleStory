@@ -147,6 +147,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="DeadState.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="DesignPatterns.h" />
     <ClInclude Include="Background.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterDeadState.h" />
     <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="MonsterTraceState.h" />
     <ClInclude Include="PathManager.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="DeadState.cpp" />
     <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterDeadState.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="PathManager.cpp" />

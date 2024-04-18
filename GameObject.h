@@ -13,7 +13,7 @@ class GameObject : public Entity
 {
 private:
 	LAYER_TYPE layer;
-	bool isActive;
+	bool isActive = true;
 	vector<Component*> components;
 	Texture* texture;
 
