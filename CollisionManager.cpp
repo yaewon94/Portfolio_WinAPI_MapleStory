@@ -19,7 +19,7 @@ CollisionManager::~CollisionManager()
 }
 
 // 매 프레임마다 호출
-void CollisionManager::FinalTick()
+void CollisionManager::Tick()
 {
 	// 등록된 콜라이더 충돌체크
 	for (auto& layer : colliders)

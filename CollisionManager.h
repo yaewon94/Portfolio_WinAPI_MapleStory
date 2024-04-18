@@ -12,7 +12,7 @@ private:
 	map<std::pair<UINT, UINT>, bool> stateMap;	// 두 충돌체가 이전 프레임에도 충돌했는지 정보를 저장
 
 public:
-	void FinalTick();
+	void Tick();
 
 	void AddCollider(Collider& collider);
 	void RemoveCollider(Collider& collider);
