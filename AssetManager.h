@@ -13,7 +13,7 @@ public:
 	void Init();
 
 	Texture* CreateTexture(const wstring& key, UINT width, UINT height);
-	Texture* LoadTexture(const wstring& key, const wstring& relativePath);
+	Texture* LoadTexture(const wstring& key, const wstring& relativePath=L"");
 
 private:
 	Texture* FindTexture(const wstring& key);

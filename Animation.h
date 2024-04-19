@@ -15,7 +15,8 @@ private:
 	float duration;					// 각 프레임당 재생 시간 (모두 동일)
 	bool isRepeat;
 
-	int curFrame;
+	int curFrame = 0;		// 현재 프레임 인덱스
+	float curTime = 0.f;	// 현재 프레임 재생 후 경과시간
 
 private:
 	friend class Animator;

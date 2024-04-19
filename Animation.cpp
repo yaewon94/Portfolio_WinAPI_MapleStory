@@ -10,7 +10,6 @@
 // 생성자
 Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat, float duration)
 	: animator(animator), atlasTex(atlasTex), frameCount(frameCount), isRepeat(isRepeat), duration(duration)
-	, curFrame(0)
 {
 	// 각 프레임별 가로 길이 (모두 동일)
 	int widthPerFrame = atlasTex->GetWidth() / frameCount;
@@ -31,7 +30,6 @@ Animation::Animation(Animator* animator, Texture* atlasTex, int frameCount, bool
 Animation::Animation(const Animation& origin)
 	: Entity(origin), atlasTex(origin.atlasTex), frameCount(origin.frameCount), isRepeat(origin.isRepeat)
 	, offsets(origin.offsets), scale(origin.scale), duration(origin.duration)
-	, curFrame(0)
 	, animator(nullptr)
 {
 	// animator 초기화는 Animator 복사 생성자에서 담당
@@ -49,18 +47,20 @@ void Animation::FinalTick()
 {
 	if (frameCount == 1) return;
 
-	static float time = 0;
-	time += TimeManager::GetInstance().GetDeltaTime();
+	curTime += TimeManager::GetInstance().GetDeltaTime();
 
 	// 프레임당 재생 시간이 지나면 다음 프레임으로 바꿔줌
-	if (time >= duration)
+	if(curTime >= duration)
 	{
-		time = 0;
+		curTime -= duration;
 
 		// 마지막 프레임일 경우
 		if (++curFrame == offsets.size())
 		{
+			// 프레임 인덱스 초기화
 			curFrame = 0;
+
+			// 반복재생이 아닌 경우
 			if (!isRepeat)
 			{
 				FSM* fsm = animator->GetOwner()->GetComponent<FSM>();

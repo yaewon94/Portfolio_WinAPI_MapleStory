@@ -78,6 +78,13 @@ int Texture::Load(const wstring& absolutePath)
     return S_OK;
 }
 
+// 게임오브젝트 내의 이미지 상대좌표 지정
+void Texture::SetOffset(float x, float y)
+{
+	offset.x = x;
+	offset.y = y;
+}
+
 // 출력할 크기 비율 설정
 void Texture::SetRenderRatio(float x, float y)
 {
@@ -111,7 +118,7 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	/*
-	// ERROR : 좌우반전은 되는데 몇초지나면 이미지 사라짐
+	// 비트맵 좌우변경 가능 함수
 	HDC strectchDC = CreateCompatibleDC(mainDC);
 	HBITMAP stretchBit = CreateCompatibleBitmap(mainDC, resolution.x, resolution.y);
 	SelectObject(strectchDC, stretchBit);
@@ -125,8 +132,21 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 		, SRCCOPY);
 	*/
 
+	//// png 좌우변경 가능 함수
+	//const void* lpBits;
+	//BITMAPINFO bitmapInfo;
+	//UINT iUsage;
+
+	//StretchDIBits(Engine::GetInstance().GetSubDC()
+	//	, x, y
+	//	, width * renderRatio.x, height * renderRatio.y
+	//	, rscX, rscY
+	//	, rscWidth * sliceRatio.x, rscHeight * sliceRatio.y
+	//	, lpBits, &bitmapInfo, iUsage, SRCCOPY);
+
+	// 얘는 좌우변경 못함
 	AlphaBlend(Engine::GetInstance().GetSubDC()
-		, x, y
+		, x + offset.x, y + offset.y
 		, width * renderRatio.x, height * renderRatio.y
 		//, width * sliceRatio.x, height * sliceRatio.y
 		, this->GetDC()
