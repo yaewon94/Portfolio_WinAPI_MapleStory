@@ -3,6 +3,7 @@
 #include "AssetManager.h"
 #include "MapManager.h"
 #include "SkillManager.h"
+#include "UIManager.h"
 
 // »ı¼ºÀÚ
 DataManager::DataManager()
@@ -21,4 +22,5 @@ void DataManager::Init()
 	AssetManager::GetInstance().Init();
 	MapManager::GetInstance().Init();
 	SkillManager::GetInstance().Init();
+	UIManager::GetInstance().Init();
 }

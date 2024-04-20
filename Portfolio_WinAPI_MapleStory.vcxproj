@@ -138,6 +138,7 @@
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="EnemyAttackSkill.h" />
     <ClInclude Include="MonsterAttackState.h" />
+    <ClInclude Include="PlayerDeadState.h" />
     <ClInclude Include="PlayerEtcSkill.h" />
     <ClInclude Include="PlayerAttackSkill.h" />
     <ClInclude Include="ActiveSkill.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +201,7 @@
     <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="EnemyAttackSkill.cpp" />
     <ClCompile Include="MonsterAttackState.cpp" />
+    <ClCompile Include="PlayerDeadState.cpp" />
     <ClCompile Include="PlayerEtcSkill.cpp" />
     <ClCompile Include="PlayerAttackSkill.cpp" />
     <ClCompile Include="ActiveSkill.cpp" />
@@ -244,6 +247,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>

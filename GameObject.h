@@ -38,6 +38,7 @@ public:
 	GameObject* AddChild(GameObject& child);
 	GameObject* AddChild(GameObject&& child);
 	GameObject* GetChild(LAYER_TYPE layer) { return children[(size_t)layer].at(0); }
+	vector<GameObject*>& GetChildren(LAYER_TYPE layer) { return children.at((int)layer); }
 
 	virtual GameObject* Clone() = 0;
 	void Destroy() { if(this != nullptr) delete this; }
