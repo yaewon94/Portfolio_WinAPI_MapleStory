@@ -9,6 +9,7 @@ class SkillObject : public GameObject
 private:
 	const Vec2<float> StartPos = offset;
 	AttackSkillModule* skill;
+	float time = 0.f;	// 스킬오브젝트 활성화 이후 경과시간
 
 public:
 	SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
@@ -23,14 +24,6 @@ public:
 	virtual void OnCollisionStay(GameObject& other) override {}
 	virtual void OnCollisionExit(GameObject& other) override {}
 
-	virtual void SetActive(bool flag) override;
 	void SetSkill(AttackSkillModule& skill) { this->skill = &skill; }
 	AttackSkillModule* GetSkill() { return skill; }
 };
-
-// 오브젝트 활성화 / 비활성화
-inline void SkillObject::SetActive(bool flag)
-{
-	offset = StartPos;
-	GameObject::SetActive(flag);
-}

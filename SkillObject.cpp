@@ -36,9 +36,16 @@ void SkillObject::Init()
 // 매 프레임마다 호출
 void SkillObject::Tick()
 {
+	float dt = TimeManager::GetInstance().GetDeltaTime();
+	time += dt;
+
+	// 스킬오브젝트 활성화 시간이 지나거나
 	// 최대 이동거리를 넘어서면 자동으로 비활성화
-	if (offset - StartPos > skill->GetMaxRange())
+	if (time >= skill->GetDuration()
+		|| offset - StartPos > skill->GetMaxRange())
 	{
+		offset = StartPos;
+		time = 0.f;
 		SetActive(false);
 		return;
 	}
