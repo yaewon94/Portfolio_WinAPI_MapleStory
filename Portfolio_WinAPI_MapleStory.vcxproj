@@ -136,6 +136,7 @@
     <ClInclude Include="AttackSkillModule.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="EnemyAttackSkill.h" />
+    <ClInclude Include="MonsterAttackState.h" />
     <ClInclude Include="PlayerEtcSkill.h" />
     <ClInclude Include="PlayerAttackSkill.h" />
     <ClInclude Include="ActiveSkill.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="PCH.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portfolio_WinAPI_MapleStory.h" />
+    <ClInclude Include="RandomManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="GDIobject.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="AttackSkillModule.cpp" />
     <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="EnemyAttackSkill.cpp" />
+    <ClCompile Include="MonsterAttackState.cpp" />
     <ClCompile Include="PlayerEtcSkill.cpp" />
     <ClCompile Include="PlayerAttackSkill.cpp" />
     <ClCompile Include="ActiveSkill.cpp" />
@@ -229,6 +232,7 @@
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RandomManager.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="GDIobject.cpp" />
     <ClCompile Include="Skill.cpp" />

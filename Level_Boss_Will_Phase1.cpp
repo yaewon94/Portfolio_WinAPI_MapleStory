@@ -11,9 +11,6 @@
 #include "Map.h"
 #include "MapManager.h"
 #include "Monster.h"
-#include "MonsterDeadState.h"
-#include "MonsterIdleState.h"
-#include "MonsterTraceState.h"
 #include "Player.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
@@ -37,10 +34,6 @@ Level_Boss_Will_Phase1::~Level_Boss_Will_Phase1()
 // 레벨 진입시 호출
 void Level_Boss_Will_Phase1::Enter()
 {
-	// [ERROR] 이렇게 해도 몇초있다가 이미지 사라짐 뭐지
-	//textureBufferTest = AssetManager::GetInstance().LoadTexture(L"달빛게이지 배경_img", L"UI_MoonlightGauge_bgr.png");
-	//gauge_bgr->SetTexture(textureBufferTest);
-
 	// [임시 하드코딩]
 	// [UI] 달빛 게이지
 	GameObject* gauge_effect = AddObject(UI(L"달빛게이지 이펙트", Vec2(120.f, 200.f)));
@@ -98,17 +91,11 @@ void Level_Boss_Will_Phase1::Enter()
 	bossWill_blue = (Monster*)AddObject(Monster(L"Boss_Will", WILL_MAX_HP));
 	bossWill_blue->SetParent(background);
 	bossWill_blue->SetHPbar(*will_hpbar_fill_blue->GetTexture());
-	FSM* fsm = bossWill_blue->AddComponent<FSM>();
-	fsm->SetDefaultState(OBJECT_STATE::IDLE);
-	fsm->AddState(*new MonsterIdleState);
-	fsm->AddState(*new MonsterTraceState);
-	fsm->AddState(*new MonsterDeadState(3.f));
 	animator = bossWill_blue->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Idle", L"BossWill_Phase1_Idle.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::TRACE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Move", L"BossWill_Phase1_Move.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::DEAD, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Dead", L"BossWill_Phase1_Dead.png"), 8);
-	// TODO : 공격 애니메이션 추가
-	//animator->AddAnimation(OBJECT_STATE::BOSSWILL_ATTACK_MELEE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_MeleeAttack", L"BossWill_Phase1_MeleeAttack.png"), );
+	animator->AddAnimation(OBJECT_STATE::BOSSWILL_ATTACK_MELEE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_MeleeAttack", L"BossWill_Phase1_MeleeAttack.png"), 20, false);
 	bossWill_blue->SetActive(false);
 	bossWill_blue->AddSkill(SkillManager::GetInstance().GetSkill(2));
 

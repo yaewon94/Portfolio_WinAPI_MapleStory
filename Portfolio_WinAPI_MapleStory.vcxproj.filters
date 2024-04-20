@@ -123,6 +123,9 @@
     <Filter Include="game\05-Util\Debug">
       <UniqueIdentifier>{73dfab76-35c0-432a-a639-c9b3e89ac6a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\05-Util\Random">
+      <UniqueIdentifier>{dd97d835-c3c7-4fea-ac61-c0432bebf4ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -283,6 +286,12 @@
     <ClInclude Include="DebugRender.h">
       <Filter>game\05-Util\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="RandomManager.h">
+      <Filter>game\05-Util\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttackState.h">
+      <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -439,6 +448,12 @@
     </ClCompile>
     <ClCompile Include="DebugRender.cpp">
       <Filter>game\05-Util\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomManager.cpp">
+      <Filter>game\05-Util\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttackState.cpp">
+      <Filter>game\04-Module\State\MonsterState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
