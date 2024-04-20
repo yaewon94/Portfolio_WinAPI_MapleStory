@@ -14,7 +14,8 @@ Level::Level(const wstring& name) : name(name), player(nullptr)
 // 소멸자
 Level::~Level()
 {
-	player = nullptr;
+	//player = nullptr;
+	
 	// 레벨이 전환되도 플레이어같은 오브젝트는 지워지면 안되므로, 
 	// 각 레벨에 맞게 오브젝트를 지우도록 구현
 }

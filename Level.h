@@ -33,8 +33,8 @@ protected:
 	virtual void Tick();
 	virtual void FinalTick();
 
-	virtual void Enter() = 0;
-	virtual void Exit() = 0;
+	virtual void Enter() = 0;	// 각 레벨의 오브젝트 초기화 구현
+	virtual void Exit() = 0;	// 각 레벨의 오브젝트 선택적 삭제 구현
 
 	Player& GetPlayer() { return *player; }
 	void SetPlayer(Player* player) { this->player = player; }
