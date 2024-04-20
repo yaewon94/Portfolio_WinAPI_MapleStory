@@ -100,5 +100,6 @@ void AliveObject::OnChangeHP(int changedHP)
 	else if (curHP > MaxHP) curHP = MaxHP;
 
 	// 자신의 체력바 UI에 반영
+	// TODO : 텍스처는 클라이언트에 하나뿐이라 텍스처 필드를 건드리지말고 텍스처를 가지고 있는 오브젝트 크기를 변경해야 함
 	HP_fillTex->SetRenderRatio((float)curHP/MaxHP, 1.f);
 }

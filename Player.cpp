@@ -146,18 +146,17 @@ void Player::OnCollisionEnter(GameObject& other)
 	// 몬스터 스킬에 맞았을 경우
 	if (other.GetLayer() == LAYER_TYPE::ENEMY_SKILL)
 	{
-		//// 현재 체력이 0 이상일때만
-		//if (GetCurrentHP() > 0)
-		//{
-		//	// TODO : 윌 스킬 콜라이더 출력이 안될때가 있는데 제대로 맞았는지 확인
-		//	// 입은 데미지만큼 체력 감소시킴
-		//	SkillObject * obj = (SkillObject*)&other;
-		//	int damage = (int)(obj->GetSkill()->GetCoefficient() * GetMaxHP());	// 플레이어 최대체력 비례 데미지
-		//	OnChangeHP(-damage);
+		// 현재 체력이 0 이상일때만
+		if (GetCurrentHP() > 0)
+		{
+			// 입은 데미지만큼 체력 감소시킴
+			SkillObject * obj = (SkillObject*)&other;
+			int damage = (int)(obj->GetSkill()->GetCoefficient() * GetMaxHP());	// 플레이어 최대체력 비례 데미지
+			OnChangeHP(-damage);
 
-		//	// 체력이 0인 경우 Dead 상태로 전환
-		//	if (GetCurrentHP() == 0) GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
-		//}
+			// 체력이 0인 경우 Dead 상태로 전환
+			//if (GetCurrentHP() == 0) GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD_BEFORE);
+		}
 	}
 }
 

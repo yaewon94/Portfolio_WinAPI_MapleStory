@@ -61,7 +61,7 @@ void Level_Boss_Will_Phase1::Enter()
 	will_hpbar_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"윌 HP바 배경_img", L"UI_BossWill_HPbar_bgr.png"));
 	// 파란공간 윌 + 보라공간 윌 체력바 전체
 	willHP_gauge_total = AddObject(UI(L"윌 HP바 전체", Vec2(27.f, -15.f), Vec2(1134, 15)));
-	willHP_gauge_total->SetTexture(AssetManager::GetInstance().LoadTexture(L"UI_HPbar_gauge", L"UI_HPbar_gauge.png"));
+	willHP_gauge_total->SetTexture(AssetManager::GetInstance().LoadTexture(L"몬스터 HP바 게이지_img", L"UI_Monster_HPbar_gauge.png"));
 	willHP_gauge_total->SetParent(*will_hpbar_bgr);
 	// 파란공간 윌 체력바
 	GameObject* will_hpbar_fill_blue = AddObject(UI(L"윌 HP바 파란게이지", Vec2(27.f, 9.f), Vec2(1130, 7)));
