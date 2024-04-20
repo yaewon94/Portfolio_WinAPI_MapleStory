@@ -30,6 +30,7 @@ public:
 	virtual void OnCollisionStay(GameObject& other) override;
 	virtual void OnCollisionExit(GameObject& other) override;
 
+	void Attack();
 	bool DetectPlayer();
 	bool Trace();
 };

@@ -1,9 +1,17 @@
 #include "PCH.h"
 #include "Monster.h"
-#include "AttackActiveSkill.h"
 #include "Collider.h"
+#include "EnemyAttackSkill.h"
+#include "FSM.h"
 #include "LevelManager.h"
+#include "MonsterAttackState.h"
+#include "MonsterDeadState.h"
+#include "MonsterIdleState.h"
+#include "MonsterTraceState.h"
 #include "Player.h"
+#include "PlayerAttackSkill.h"
+#include "RandomManager.h"
+#include "Skill.h"
 #include "SkillObject.h"
 
 // static 필드 초기화
@@ -11,7 +19,7 @@ Player* Monster::player = nullptr;
 
 // 생성자
 Monster::Monster(const wstring& name, int MaxHP)
-	: AliveObject(name, LAYER_TYPE::ENEMY, MaxHP, 100.f)
+	: AliveObject(name, LAYER_TYPE::ENEMY, MaxHP)
 {
 }
 
@@ -36,6 +44,23 @@ void Monster::Init()
 	// 컴포넌트 추가
 	// 일부 컴포넌트는 현재 레벨의 Enter()에서 추가함
 	Collider* collider = AddComponent<Collider>();
+	//collider->SetScale(DEFAULT_OBJECT_SCALE);
+	FSM* fsm = AddComponent<FSM>();
+	fsm->SetDefaultState(OBJECT_STATE::IDLE);
+	fsm->AddState(*new MonsterIdleState);
+	fsm->AddState(*new MonsterTraceState);
+	fsm->AddState(*new MonsterAttackState(3.f));
+	fsm->AddState(*new MonsterDeadState(3.f));
+
+	// TODO : 몬스터 스킬 DB
+	// 몬스터마다 보유스킬이 다르므로 임시로 레벨에서 추가해줬음
+
+	// 자식 오브젝트 추가
+	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(150.f, 300.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL));
+	((EnemyAttackSkill*)&GetSkill(0))->SetSkillObject(*skillObject);
+
+	// 필드 초기화
+	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
 
 	// 최상위 부모 Init() 호출
 	GameObject::Init();
@@ -74,6 +99,16 @@ void Monster::OnCollisionExit(GameObject& other)
 {
 }
 
+// 공격
+void Monster::Attack()
+{
+	// 몬스터가 가지고 있는 스킬들중 랜덤으로 사용
+	int index = RandomManager::Create(GetSkillCount());
+
+	Skill* skill = &GetSkill(index);
+	skill->UseSkill();
+}
+
 // 플레이어 감지
 bool Monster::DetectPlayer()
 {
@@ -84,12 +119,13 @@ bool Monster::DetectPlayer()
 }
 
 // 플레이어 추격
+// @ return : 플레이어 근처에 도달했는지 여부
 bool Monster::Trace()
 {
 	// 일정 거리 이내까지만 추격
 	if (GetRealPos().GetDistance(player->GetRealPos()) <= MAX_TRACE_DISTANCE)
 	{
-		return false;
+		return true;
 	}
 	else
 	{
@@ -100,6 +136,6 @@ bool Monster::Trace()
 		// 이동
 		Move();
 
-		return true;
+		return false;
 	}
 }
