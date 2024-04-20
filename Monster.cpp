@@ -56,7 +56,7 @@ void Monster::Init()
 	// 몬스터마다 보유스킬이 다르므로 임시로 레벨에서 추가해줬음
 
 	// 자식 오브젝트 추가
-	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(150.f, 300.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL));
+	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(150.f, 0.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL));
 
 	// 필드 초기화
 	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
