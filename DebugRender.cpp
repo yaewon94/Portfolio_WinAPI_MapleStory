@@ -67,7 +67,7 @@ void DebugRender::Render()
 			if (collider->IsActive())
 			{
 				USE_BRUSH(dc, HOLLOW);
-				USE_PEN(dc, GREEN);
+				USE_PEN(dc, RED);
 
 				pos = collider->GetRenderPos();
 				halfScale = collider->GetScale() * 0.5f;

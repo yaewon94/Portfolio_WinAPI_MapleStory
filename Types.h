@@ -42,7 +42,7 @@ enum class OBJECT_STATE
 // Ææ Å¸ÀÔ
 enum class PEN_TYPE
 {
-	BLACK, GREEN, END_COUNT
+	BLACK, GREEN, RED, END_COUNT
 };
 
 // 2Â÷¿ø º¤ÅÍ
