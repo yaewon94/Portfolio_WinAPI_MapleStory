@@ -19,14 +19,6 @@ DeadState::~DeadState()
 {
 }
 
-// 상태 진입
-void DeadState::Enter()
-{
-	// 콜라이더 비활성화
-	Collider* collider =GetFsm().GetOwner()->GetComponent<Collider>();
-	if (collider != nullptr) collider->SetActive(false);
-}
-
 // 상태 종료
 void DeadState::Exit()
 {

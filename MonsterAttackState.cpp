@@ -24,6 +24,7 @@ MonsterAttackState::~MonsterAttackState()
 // √ ±‚»≠
 void MonsterAttackState::Init()
 {
+	State::Init();
 	me = (Monster*)GetFsm().GetOwner();
 }
 

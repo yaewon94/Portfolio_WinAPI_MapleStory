@@ -10,6 +10,5 @@ protected:
 	DeadState(const DeadState& origin);
 	~DeadState();
 
-	virtual void Enter() override;
 	virtual void Exit() override;
 };

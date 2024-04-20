@@ -292,6 +292,9 @@
     <ClInclude Include="MonsterAttackState.h">
       <Filter>game\04-Module\State\MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="DeadBeforeState.h">
+      <Filter>game\04-Module\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="MonsterAttackState.cpp">
       <Filter>game\04-Module\State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadBeforeState.cpp">
+      <Filter>game\04-Module\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

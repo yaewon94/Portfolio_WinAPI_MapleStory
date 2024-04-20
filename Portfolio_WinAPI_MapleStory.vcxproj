@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AttackSkillModule.h" />
+    <ClInclude Include="DeadBeforeState.h" />
     <ClInclude Include="DebugRender.h" />
     <ClInclude Include="EnemyAttackSkill.h" />
     <ClInclude Include="MonsterAttackState.h" />
@@ -194,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AttackSkillModule.cpp" />
+    <ClCompile Include="DeadBeforeState.cpp" />
     <ClCompile Include="DebugRender.cpp" />
     <ClCompile Include="EnemyAttackSkill.cpp" />
     <ClCompile Include="MonsterAttackState.cpp" />

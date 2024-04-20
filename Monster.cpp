@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "Monster.h"
 #include "Collider.h"
+#include "DeadBeforeState.h"
 #include "EnemyAttackSkill.h"
 #include "FSM.h"
 #include "LevelManager.h"
@@ -50,7 +51,8 @@ void Monster::Init()
 	fsm->AddState(*new MonsterIdleState);
 	fsm->AddState(*new MonsterTraceState);
 	fsm->AddState(*new MonsterAttackState(3.f));
-	fsm->AddState(*new MonsterDeadState(3.f));
+	fsm->AddState(*new DeadBeforeState(3.f));
+	fsm->AddState(*new MonsterDeadState(5.f));
 
 	// TODO : 몬스터 스킬 DB
 	// 몬스터마다 보유스킬이 다르므로 임시로 레벨에서 추가해줬음

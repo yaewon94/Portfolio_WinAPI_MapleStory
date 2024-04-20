@@ -20,7 +20,6 @@ class Level_Boss_Will_Phase1 final : public Level
 
 private:
 	// 보스레이드 성공 여부
-	bool isBossHpZero = false;
 	bool isSucceed = false;
 
 	// 달빛게이지

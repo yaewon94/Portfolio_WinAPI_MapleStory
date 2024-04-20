@@ -12,25 +12,27 @@ class State : public Entity
 private:
 	FSM* fsm;
 	OBJECT_STATE type;
+	OBJECT_STATE nextState = OBJECT_STATE::NONE;
 	const float CoolDown;		// 해당 상태 종료 후, 다시 해당 상태가 되기 위해 필요한 쿨타임
-	const float Duration;		// 상태 지속시간
-	float time = 0.f;			// 상태가 시작된 후 경과한 시간
 
 private:
 	void SetFsm(FSM& fsm) { this->fsm = &fsm; }
 
 protected:
+	const float Duration;		// 상태 지속시간
+	float time = 0.f;			// 상태가 시작된 후 경과한 시간
 	float exitTime = 0.f;		// 상태 종료 시간
 
 protected:
 	State(OBJECT_STATE type, float coolDown=0.f, float Duration=0.f);
+	State(OBJECT_STATE type, OBJECT_STATE nextState, float coolDown = 0.f, float Duration = 0.f);
 	State(const State& origin);
 	~State();
 	virtual State* Clone() = 0;
 
 	FSM& GetFsm() { return *fsm; }
 
-	virtual void Init() {}
+	virtual void Init();
 
 	virtual void Enter() = 0;
 	virtual void Stay();

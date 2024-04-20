@@ -26,6 +26,7 @@ MonsterTraceState::~MonsterTraceState()
 // √ ±‚»≠
 void MonsterTraceState::Init()
 {
+	State::Init();
 	me = (Monster*)GetFsm().GetOwner();
 }
 

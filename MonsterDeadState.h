@@ -9,5 +9,6 @@ public:
 	~MonsterDeadState();
 	virtual MonsterDeadState* Clone() { return new MonsterDeadState(*this); }
 
+	virtual void Enter() override {}
 	virtual void Exit() override;
 };

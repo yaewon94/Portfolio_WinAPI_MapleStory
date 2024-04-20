@@ -24,6 +24,7 @@ MonsterIdleState::~MonsterIdleState()
 // √ ±‚»≠
 void MonsterIdleState::Init()
 {
+	State::Init();
 	me = (Monster*)GetFsm().GetOwner();
 }
 

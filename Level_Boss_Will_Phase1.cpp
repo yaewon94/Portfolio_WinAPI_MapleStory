@@ -61,7 +61,7 @@ void Level_Boss_Will_Phase1::Enter()
 	will_hpbar_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"윌 HP바 배경_img", L"UI_BossWill_HPbar_bgr.png"));
 	// 파란공간 윌 + 보라공간 윌 체력바 전체
 	willHP_gauge_total = AddObject(UI(L"윌 HP바 전체", Vec2(27.f, -15.f), Vec2(1134, 15)));
-	willHP_gauge_total->SetTexture(AssetManager::GetInstance().LoadTexture(L"몬스터 HP바 게이지_img", L"UI_Moster_HPbar_gauge.png"));
+	willHP_gauge_total->SetTexture(AssetManager::GetInstance().LoadTexture(L"UI_HPbar_gauge", L"UI_HPbar_gauge.png"));
 	willHP_gauge_total->SetParent(*will_hpbar_bgr);
 	// 파란공간 윌 체력바
 	GameObject* will_hpbar_fill_blue = AddObject(UI(L"윌 HP바 파란게이지", Vec2(27.f, 9.f), Vec2(1130, 7)));
@@ -113,6 +113,15 @@ void Level_Boss_Will_Phase1::Enter()
 	player.FillSkillCost(MAX_GAUGE_MOONLIGHT);	// TEST : 달빛게이지 최대로 부여
 	OnChangeGaugePercent(player.GetCurrentSkillCost());	// 남은 스킬코스트에 맞는 달빛게이지 애니메이션 재생 용도
 
+	// [UI] 플레이어 체력바
+	GameObject* player_hpbar_bgr = AddObject(UI(L"플레이어 상태바 배경", Vec2(960.f, 980.f), Vec2(306, 81)));
+	player_hpbar_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"플레이어 상태바 배경", L"UI_Player_StatusBar_bgr.png"));
+	// 플레이어 체력바 게이지
+	GameObject* player_hpbar_fill = AddObject(UI(L"플레이어 HP바 게이지", Vec2(13.f, 11.f), Vec2(256, 17)));
+	player_hpbar_fill->SetTexture(AssetManager::GetInstance().LoadTexture(L"플레이어 HP바 게이지", L"UI_Player_HPbar_fill.png"));
+	player_hpbar_fill->SetParent(*player_hpbar_bgr);
+	player.SetHPbar(*player_hpbar_fill->GetTexture());
+	
 	// 맵 진입
 	player.ChangeMap(MapManager::GetInstance().GetMap(0));
 	//player.ChangeMap(MapManager::GetInstance().GetMap(1)); // 보라맵 테스트
@@ -132,30 +141,15 @@ void Level_Boss_Will_Phase1::FinalTick()
 
 	// 보스 레이드 관련 호출
 	if (isSucceed) return;
- 
-	if (isBossHpZero)
-	{
-		static float time = 0.f;
-		time += TimeManager::GetInstance().GetDeltaTime();
 
-		if (time > INTERVAL_CHANGE_BOSS_DEAD_STATE)
-		{
-			bossWill_blue->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
-			bossWill_pupple->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD);
-			time = 0.f;
-		}
-	}
-	else
-	{
-		static float time = 0.f;
-		time += TimeManager::GetInstance().GetDeltaTime();
+	static float time = 0.f;
+	time += TimeManager::GetInstance().GetDeltaTime();
 
-		// 일정 시간마다 달빛게이지 회복
-		if (time > INTERVAL_OF_FILL_GAUGE)
-		{
-			if (GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
-			time = 0.f;
-		}
+	// 일정 시간마다 달빛게이지 회복
+	if (time > INTERVAL_OF_FILL_GAUGE)
+	{
+		if (GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
+		time = 0.f;
 	}
 }
 
@@ -176,10 +170,12 @@ void Level_Boss_Will_Phase1::OnAlertBossHpZero()
 		// 체력바 UI에 반영
 		willHP_gauge_total->GetTexture()->SetSliceRatio((float)willHP_cur_total / WillHP_max_total, 1.f);
 
-		// 처치성공 플래그 반영
-		isBossHpZero = true;
+		// 보스몬스터 상태 전환, 처치성공 플래그 변경
+		isSucceed = true;
+		bossWill_blue->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD_BEFORE);
+		bossWill_pupple->GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD_BEFORE);
 
-		// 달빛게이지 스킬 사용 못하게 변경
+		// 플레이어가 달빛게이지 스킬 사용 못하게 변경
 		SkillManager::GetInstance().SetValid(&GetPlayer().GetSkill(KEY_CODE::N), false);
 
 		// TODO : 시간되면 처치성공 UI 출력
