@@ -8,7 +8,6 @@ class AttackSkillModule
 	friend class SkillManager;
 
 private:
-	SkillObject* skillObject;
 	float time = 0.f;			// 스킬 시전 후 경과시간
 
 protected:
@@ -24,13 +23,9 @@ protected:
 	AttackSkillModule(float Coefficient, float Delay, float Duration, Vec2<float> MaxRange, float Speed);
 	virtual ~AttackSkillModule();
 
-protected:
-	SkillObject& GetSkillObject() { assert(skillObject); return *skillObject; }
-
 public:
 	float GetCoefficient() const { return Coefficient; }
 	float GetDuration() const { return Duration; }
 	Vec2<float> GetMaxRange() const { return MaxRange; }
 	float GetSpeed() const { return Speed; }
-	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
 };

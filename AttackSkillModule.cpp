@@ -5,12 +5,10 @@
 AttackSkillModule::AttackSkillModule(float Coefficient, float Delay, float Duration, Vec2<float> MaxRange, float Speed)
 	: Coefficient(Coefficient), Delay(Delay), Duration(Duration)
 	, MaxRange(MaxRange), Speed(Speed)
-	, skillObject(nullptr)
 {
 }
 
 // ¼Ò¸êÀÚ
 AttackSkillModule::~AttackSkillModule()
 {
-	skillObject = nullptr;
 }

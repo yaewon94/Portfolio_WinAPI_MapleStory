@@ -57,7 +57,6 @@ void Monster::Init()
 
 	// 자식 오브젝트 추가
 	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(150.f, 300.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL));
-	((EnemyAttackSkill*)&GetSkill(0))->SetSkillObject(*skillObject);
 
 	// 필드 초기화
 	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
@@ -106,7 +105,7 @@ void Monster::Attack()
 	int index = RandomManager::Create(GetSkillCount());
 
 	Skill* skill = &GetSkill(index);
-	skill->UseSkill();
+	skill->UseSkill(this, (SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
 }
 
 // 플레이어 감지

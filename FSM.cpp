@@ -81,6 +81,7 @@ void FSM::ChangeState(OBJECT_STATE type)
 	// 상태 객체 찾기
 	auto state = FindState(type);
 
+	// 객체가 존재할 경우
 	if (state != nullptr)
 	{
 		// 쿨타임 체크
@@ -93,20 +94,20 @@ void FSM::ChangeState(OBJECT_STATE type)
 		// 상태 변경
 		if(curState != nullptr) curState->Exit();
 		curState = state;
+		curStateType = type;
 		curState->Enter();
+		GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
 	}
+	// 객체가 존재하지 않을 경우
+	// 상태 객체는 없지만 애니메이션 전환 용도
 	else
 	{
 		// 기존 상태가 있는 경우 해제
 		if (curState != nullptr) curState->Exit();
 		curState = nullptr;
+		GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
+		curStateType = type;
 	}
-
-	// 해당 타입의 애니메이션이 존재하는 경우 재생
-	GetOwner()->GetComponent<Animator>()->ChangeAnimation(type);
-
-	// 상태 타입 변경
-	curStateType = type;
 }
 
 // 상태 찾기

@@ -20,11 +20,6 @@ SkillManager::SkillManager()
 // 소멸자
 SkillManager::~SkillManager()
 {
-	for (auto& skill : reservedSkills)
-	{
-		skill = nullptr;
-	}
-
 	for (auto& skill : skills)
 	{
 		if (skill != nullptr)
@@ -53,7 +48,8 @@ void SkillManager::Tick()
 	// 예약된 스킬 시간 체크
 	for (; iter != reservedSkills.end(); )
 	{
-		auto skill = *iter;
+		auto skill = iter->first;
+		auto skillObj = iter->second;
 
 		if (skill->time < skill->Delay)
 		{
@@ -63,7 +59,7 @@ void SkillManager::Tick()
 		else
 		{
 			skill->time = 0.f;
-			skill->skillObject->SetActive(true);
+			skillObj->SetActive(true);
 			iter = reservedSkills.erase(iter);
 		}
 	}

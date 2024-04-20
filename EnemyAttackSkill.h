@@ -13,5 +13,5 @@ private:
 	~EnemyAttackSkill();
 
 public:
-	virtual void UseSkill() override;
+	virtual void UseSkill(GameObject* caster, SkillObject* skillObj) override;
 };

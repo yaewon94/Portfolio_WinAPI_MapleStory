@@ -19,4 +19,7 @@ private:
 
 public:
 	virtual void OnKeyPressed(KEY_CODE keyCode) override;
+
+private:
+	virtual void UseSkill(GameObject* caster, SkillObject* skillObj) override {}
 };

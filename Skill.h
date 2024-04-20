@@ -2,6 +2,7 @@
 #include "Entity.h"
 
 class GameObject;
+class SkillObject;
 //class Skill;
 //class SkillManager;
 
@@ -19,7 +20,6 @@ class Skill : public Entity
 private:
 	wstring name;
 	OBJECT_STATE state = OBJECT_STATE::NONE;	// 상태전환 or 애니메이션 전환에 이용
-	GameObject* caster;	// 스킬 시전자
 	//SKILL_CALLBACK callback;
 
 protected:
@@ -29,15 +29,13 @@ protected:
 
 protected:
 	OBJECT_STATE GetObjectState() const { return state; }
-	GameObject& GetCaster() { return *caster; }
 
 private:
 	void SetObjectState(OBJECT_STATE state) { this->state = state; }
 
 public:
 	const wstring& GetName() { return name; }
-	void SetSkillCaster(GameObject* caster) { this->caster = caster; }
 
 public:
-	virtual void UseSkill() = 0;
+	virtual void UseSkill(GameObject* caster, SkillObject* skillObj) = 0;
 };
