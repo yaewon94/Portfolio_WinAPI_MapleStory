@@ -32,14 +32,17 @@ void MonsterTraceState::Init()
 // 매 프레임마다 호출
 void MonsterTraceState::Stay()
 {
-	// 범위 내에 플레이어가 있을 경우, 플레이어 추격
+	// 범위 내에 플레이어가 있는지 계속 감지
 	if (me->DetectPlayer())
 	{
-		if (me->Trace()) return;
+		// 플레이어 근처에 도달한 경우 공격상태로 전환
+		if (me->Trace()) GetFsm().ChangeState(OBJECT_STATE::ATTACK);
 	}
-
-	// 범위 내에 플레이어가 없거나, 플레이어 추격이 끝난 경우
-	GetFsm().ChangeState(GetFsm().GetDefaultState());
+	else
+	{
+		// 범위 내에 플레이어가 없을경우 디폴트상태로 전환
+		GetFsm().ChangeState(GetFsm().GetDefaultState());
+	}
 }
 
 // 상태 종료

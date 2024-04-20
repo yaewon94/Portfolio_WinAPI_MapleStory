@@ -32,4 +32,6 @@ void MonsterIdleState::Stay()
 {
 	// 범위 내에 플레이어가 감지되면, 추적 상태로 전환
 	if (me->DetectPlayer()) GetFsm().ChangeState(OBJECT_STATE::TRACE);
+	// 감지되지 않으면 공격상태 전환
+	else GetFsm().ChangeState(OBJECT_STATE::ATTACK);
 }
