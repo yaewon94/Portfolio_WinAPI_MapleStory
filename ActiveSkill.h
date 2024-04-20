@@ -39,4 +39,7 @@ protected:
 
 public:
 	int GetCost() { return Cost; }
+
+private:
+	virtual void UseSkill() override {}
 };

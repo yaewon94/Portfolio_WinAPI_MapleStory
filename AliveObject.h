@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Skill.h"
 
 class Skill;
 class SkillObject;
@@ -34,6 +35,7 @@ protected:
 	~AliveObject();
 
 	int GetCurrentHP() { return curHP; }
+	int GetSkillCount() { return (int)(skills.size()); }
 	Skill& GetSkill(int index) { assert(index < skills.size()); return *skills[index]; }
 
 	void SetSkillObject(SkillObject& skillObject) { this->skillObject = &skillObject; }
@@ -61,5 +63,6 @@ public:
 inline Skill& AliveObject::AddSkill(Skill& skill)
 {
 	skills.push_back(&skill);
+	skills.back()->SetSkillCaster(this);	// TODO : 원래는 클래스 외부가 아니라 스킬매니저에서 db 가져와서 초기화 해야함
 	return *skills.back();
 }

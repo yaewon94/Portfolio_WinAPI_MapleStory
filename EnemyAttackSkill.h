@@ -11,4 +11,7 @@ class EnemyAttackSkill final : public Skill, public AttackSkillModule
 private:
 	EnemyAttackSkill(const wstring& name, float Coefficient, float Delay, float Duration, Vec2<float> MaxRange, float Speed);
 	~EnemyAttackSkill();
+
+public:
+	virtual void UseSkill() override;
 };

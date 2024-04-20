@@ -2,18 +2,12 @@
 #include "Skill.h"
 
 // 持失切
-/*
-Skill::Skill(const wstring& name, SKILL_CALLBACK callback) 
-	: ID(nextID++), name(name), callback(callback)
-{
-}
-*/
-
-Skill::Skill(const wstring& name) : name(name)
+Skill::Skill(const wstring& name) : name(name), caster(nullptr)
 {
 }
 
 // 社瑚切
 Skill::~Skill()
 {
+	caster = nullptr;
 }

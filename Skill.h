@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 
+class GameObject;
 //class Skill;
 //class SkillManager;
 
@@ -9,17 +10,34 @@
 //typedef void(* SKILL_CALLBACK)(Skill&);	// SkillManager의 static 함수 호출할 것
 
 // 모든 스킬 타입의 상위 클래스
-// [abstract class]
+// 추상클래스는 아니지만 접근제한자 때문에 외부에서 생성 불가
 class Skill : public Entity
 {
 	friend class SkillManager;
 	NO_CSTR_COPY_ASSIGN(Skill);
 
-protected:
+private:
 	wstring name;
+	OBJECT_STATE state = OBJECT_STATE::NONE;	// 상태전환 or 애니메이션 전환에 이용
+	GameObject* caster;	// 스킬 시전자
 	//SKILL_CALLBACK callback;
 
+protected:
 	//Skill(const wstring& name, SKILL_CALLBACK callback);
 	Skill(const wstring& name);
 	~Skill();
+
+protected:
+	OBJECT_STATE GetObjectState() const { return state; }
+	GameObject& GetCaster() { return *caster; }
+
+private:
+	void SetObjectState(OBJECT_STATE state) { this->state = state; }
+
+public:
+	const wstring& GetName() { return name; }
+	void SetSkillCaster(GameObject* caster) { this->caster = caster; }
+
+public:
+	virtual void UseSkill() = 0;
 };
