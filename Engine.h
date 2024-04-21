@@ -20,6 +20,7 @@ private:
 	HBRUSH brushes[(int)BRUSH_TYPE::END_COUNT];
 
 public:
+	HWND& GetMainWindow() { return hWnd; }
 	HDC& GetMainDC() { return mainDC; }
 	//HDC& GetSubDC() { return subTex->GetDC(); }
 	HDC& GetSubDC() { return subDC; }

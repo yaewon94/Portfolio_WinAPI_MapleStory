@@ -304,6 +304,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>game\02-Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>game\02-Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -474,6 +477,9 @@
       <Filter>game\04-Module\State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
+      <Filter>game\02-Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
       <Filter>game\02-Object\UI</Filter>
     </ClCompile>
   </ItemGroup>

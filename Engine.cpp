@@ -10,6 +10,7 @@
 #include "SkillManager.h"
 #include "Texture.h"
 #include "TimeManager.h"
+#include "UIManager.h"
 
 # define FULL_HD Vec2{1920,1080}
 
@@ -74,6 +75,7 @@ void Engine::Progress()
 	// Tick()
 	TimeManager::GetInstance().Tick();
 	InputManager::GetInstance().Tick();
+	UIManager::GetInstance().Tick();
 	SkillManager::GetInstance().Tick();
 	LevelManager::GetInstance().Tick();
 	CollisionManager::GetInstance().Tick();
