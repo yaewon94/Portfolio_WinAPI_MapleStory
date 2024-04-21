@@ -43,12 +43,12 @@ void State::Stay()
 	if (Duration > 0.f)
 	{
 		time += TimeManager::GetInstance().GetDeltaTime();
+	}
 
-		// 지속시간을 초과한 경우, 다음 상태로 전환
-		if (time >= Duration)
-		{
-			time = 0.f;
-			fsm->ChangeState(nextState);
-		}
+	// 지속시간을 초과한 경우, 다음 상태로 전환
+	if (time >= Duration)
+	{
+		time = 0.f;
+		fsm->ChangeState(nextState);
 	}
 }

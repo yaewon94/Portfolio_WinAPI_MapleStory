@@ -25,5 +25,7 @@ void MonsterDeadState::Exit()
 	
 	// 몬스터 오브젝트 파괴
 	GameObject* monster = GetFsm().GetOwner();
-	LevelManager::GetInstance().DeleteObject(*monster);
+	LevelManager::GetInstance().DeleteObjectFromList(*monster);
+	monster->Destroy();
+	monster = nullptr;
 }
