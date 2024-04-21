@@ -48,7 +48,6 @@ GameObject::GameObject(const GameObject& origin)
 // 소멸자
 GameObject::~GameObject()
 {
-
 	// Texture 객체 제거는 AssetManager 담당
 	texture = nullptr;
 
@@ -156,7 +155,7 @@ void GameObject::FinalTick()
 {
 	for (auto component : components)
 	{
-		if (component->IsActive()) component->FinalTick();
+		if (component!=nullptr && component->IsActive()) component->FinalTick();
 	}
 }
 
@@ -179,14 +178,8 @@ void GameObject::DeleteChildren()
 
 		for (auto child : layer)
 		{
-			// 현재 레벨에 등록된 오브젝트 목록에서 삭제
-			LevelManager::GetInstance().DeleteObjectFromList(*child);
-
-			// 실제 객체 삭제
-			//delete child;
-			child->Destroy();
+			LevelManager::GetInstance().DeleteObject(*child);
 			child = nullptr;
-
 		}
 	}
 }

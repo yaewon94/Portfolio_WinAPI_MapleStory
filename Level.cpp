@@ -59,7 +59,7 @@ void Level::FinalTick()
 	{
 		for (auto object : layer)
 		{
-			if (object->IsActive()) object->FinalTick();
+			if (object!=nullptr &&object->IsActive()) object->FinalTick();
 		}
 	}
 }
@@ -81,20 +81,4 @@ GameObject* Level::FindObject(LAYER_TYPE layer)
 {
 	GameObject* obj = objects[(size_t)layer][0];
 	return obj;
-}
-
-
-// 현재 레벨의 오브젝트 모두 지우기
-void Level::DeleteObjects()
-{
-	for (auto& layer : objects)
-	{
-		auto iter =layer.begin();
-
-		while (iter != layer.end())
-		{
-			(*iter)->Destroy();
-			iter = layer.erase(iter);
-		}
-	}
 }

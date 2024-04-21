@@ -14,7 +14,14 @@ LevelManager::~LevelManager()
 {
 	if (curLevel != nullptr)
 	{
-		curLevel->DeleteObjects();
+		for (auto& layer : curLevel->objects)
+		{
+			for(auto obj : layer)
+			{
+				if(obj != nullptr) DeleteObject(*obj);
+			}
+		}
+
 		delete curLevel;
 		curLevel = nullptr;
 	}
@@ -130,20 +137,23 @@ vector<GameObject*>& LevelManager::FindObjects(LAYER_TYPE layer)
 	return curLevel->objects[(size_t)layer];
 }
 
-// 현재 레벨의 오브젝트 목록에서만 삭제
-// 실제 객체를 삭제하는것은 아님
-void LevelManager::DeleteObjectFromList(GameObject& obj)
+// 현재 레벨의 오브젝트 리스트에서 삭제, 실제 객체 제거
+void LevelManager::DeleteObject(GameObject& me)
 {
 	assert(curLevel);
-	auto& items = curLevel->objects[(size_t)obj.GetLayer()];
-	auto iter = items.begin();
 
-	for (; iter != items.end(); ++iter)
+	auto& objects = curLevel->objects[(int)me.GetLayer()];
+	int size = objects.size();
+
+	for (int i=0; i<size; ++i)
 	{
-		if (&obj == *iter)
+		if (objects[i] != nullptr)
 		{
-			items.erase(iter);
-			return;
+			if (objects[i]->GetID() == me.GetID())
+			{
+				objects[i]->Destroy();
+				objects[i] = nullptr;
+			}
 		}
 	}
 }

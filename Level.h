@@ -51,7 +51,6 @@ private:
 	void Render();
 
 	GameObject* FindObject(LAYER_TYPE layer);
-	void DeleteObjects();
 };
 
 // 게임오브젝트 추가

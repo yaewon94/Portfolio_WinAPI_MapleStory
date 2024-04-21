@@ -20,8 +20,15 @@ UIManager::~UIManager()
 	{
 		if (pair.second != nullptr)
 		{
-			LevelManager::GetInstance().DeleteObjectFromList(*pair.second);
-			delete pair.second;
+			if (LevelManager::GetInstance().FindObject(*pair.second) != nullptr)
+			{
+				LevelManager::GetInstance().DeleteObject(*pair.second);
+			}
+			else
+			{
+				delete pair.second;
+			}
+
 			pair.second = nullptr;
 		}
 	}
