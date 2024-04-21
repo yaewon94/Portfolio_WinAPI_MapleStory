@@ -3,6 +3,10 @@
 #include "GameObject.h"
 
 // 생성자
+Component::Component() : owner(nullptr)
+{
+}
+
 Component::Component(GameObject& owner) : owner(&owner)
 {
 }
@@ -18,4 +22,5 @@ Component::Component(const Component& origin) : Entity(origin), owner(nullptr)
 Component::~Component()
 {
 	// GameObject* 가 가리키는 것은 Level에서 삭제할거임
+	owner = nullptr;
 }

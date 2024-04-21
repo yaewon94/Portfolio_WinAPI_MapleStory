@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "PlayerAttackSkill.h"
+#include "Animator.h"
 #include "SkillManager.h"
 #include "FSM.h"
 #include "LevelManager.h"
@@ -32,7 +33,8 @@ void PlayerAttackSkill::OnKeyPressed(KEY_CODE keyCode)
 
 	// 상태 변경, 스킬 오브젝트에 현재 스킬 세팅
 	fsm->ChangeState(OBJECT_STATE::ATTACK);
-	skillObj->SetSkill(*this);
+	skillObj->SetSkill(this, this);
+	//skillObj->GetComponent<Animator>()->SetAnimationMap(GetAnimationMap(), GetObjectState());
 
 	// 딜레이 시간 이후, 스킬 오브젝트 활성화
 	SkillManager::GetInstance().LaunchSkill(this, skillObj);

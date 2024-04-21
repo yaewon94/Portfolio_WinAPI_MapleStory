@@ -60,6 +60,7 @@ void Monster::Init()
 	// 사용할 스킬 오브젝트 추가
 	SkillObject* skillObject = new SkillObject(L"", *this, Vec2<float>(150.f, 0.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL);
 	skillObject->SetParent(*this->GetParent());
+	skillObject->AddSkill(2);
 	SetSkillObject(*skillObject);
 
 	// 최상위 부모 Init() 호출

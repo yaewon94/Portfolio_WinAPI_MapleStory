@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animator.h"
 #include "AssetManager.h"
+#include "AttackSkillModule.h"
 #include "Collider.h"
 #include "DeadBeforeState.h"
 #include "FSM.h"
@@ -87,6 +88,7 @@ void Player::Init()
 	// 사용할 스킬 오브젝트 추가
 	SkillObject* skillObject = new SkillObject(L"", *this, Vec2<float>(25.f, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL);
 	skillObject->SetParent(*this->GetParent());
+	skillObject->AddSkill(0);
 	SetSkillObject(*skillObject);
 
 	// 최상위 부모 Init() 호출

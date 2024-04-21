@@ -3,6 +3,10 @@
 #include "Animation.h"
 
 // 생성자
+Animator::Animator() : curAnim(nullptr)
+{
+}
+
 Animator::Animator(GameObject& owner) : Component(owner), curAnim(nullptr)
 {
 }
@@ -36,15 +40,13 @@ Animator::~Animator()
 // 매 프레임마다 호출
 void Animator::FinalTick()
 {
-	assert(curAnim);
-	curAnim->FinalTick();
+	if(curAnim != nullptr) curAnim->FinalTick();
 }
 
 // 렌더링 (매 프레임마다 호출)
 void Animator::Render()
 {
-	assert(curAnim);
-	curAnim->Render();
+	if(curAnim != nullptr) curAnim->Render();
 }
 
 // 애니메이션 추가
@@ -63,6 +65,7 @@ void Animator::AddAnimation(OBJECT_STATE key, Texture* atlasTex, int frameCount,
 // 애니메이션 변경
 void Animator::ChangeAnimation(OBJECT_STATE key)
 {
+	if (curAnim != nullptr) curAnim->curFrame = 0;	// 현재 애니메이션의 인덱스 초기화
 	Animation* anim = FindAnimation(key);
 
 	if (anim == nullptr)
@@ -72,6 +75,19 @@ void Animator::ChangeAnimation(OBJECT_STATE key)
 	}
 
 	curAnim = anim;
+}
+
+// 상태 - 애니메이션 맵 설정
+// 하나의 스킬오브젝트로 각각 다른 스킬을 쓸때 애니메이션 바꾸는 용도
+void Animator::SetAnimationMap(map<OBJECT_STATE, Animation*>& animMap, OBJECT_STATE defaultState)
+{
+	this->animMap = animMap;
+	for (auto& pair : this->animMap)
+	{
+		pair.second->SetAnimator(*this);
+	}
+
+	curAnim = animMap.find(defaultState)->second;
 }
 
 // 애니메이션 찾기

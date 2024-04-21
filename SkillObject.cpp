@@ -1,7 +1,11 @@
 #include "PCH.h"
 #include "SkillObject.h"
+#include "Animation.h"
+#include "Animator.h"
 #include "AttackSkillModule.h"
 #include "Collider.h"
+#include "Skill.h"
+#include "SkillManager.h"
 #include "TimeManager.h"
 
 // 생성자
@@ -24,12 +28,41 @@ SkillObject::SkillObject(const SkillObject& origin)
 SkillObject::~SkillObject()
 {
 	skill = nullptr;
+
+	// 애니메이터에 있는 애니메이션 초기화
+	GetComponent<Animator>()->ClearAnimationMap();
+
+	// 스킬 애니메이션 제거
+	for (auto& skillPair : skillMap)
+	{
+		for (auto& state_anim_pair : skillPair.second)
+		{
+			if (state_anim_pair.second != nullptr)
+			{
+				delete state_anim_pair.second;
+				state_anim_pair.second = nullptr;
+			}
+		}
+	}
 }
 
 // 초기화
 void SkillObject::Init()
 {
+	// 컴포넌트 추가
 	AddComponent<Collider>();
+	AddComponent<Animator>();
+
+	// 담당 스킬들 관련 초기화
+	for (auto& skillPair : skillMap)
+	{
+		// 스킬 애니메이션 map 복제
+		Skill& skill = SkillManager::GetInstance().GetSkill(skillPair.first);
+		for (auto& state_anim_pair : skill.GetAnimationMap())
+		{
+			skillPair.second.insert(make_pair(state_anim_pair.first, state_anim_pair.second->Clone()));
+		}
+	}
 
 	// 최상위 부모 Init() 호출
 	GameObject::Init();
@@ -62,6 +95,25 @@ void SkillObject::OnCollisionEnter(GameObject& other)
 	if (other.GetLayer() == LAYER_TYPE::ENEMY) SetActive(false);
 }
 
+// 스킬오브젝트가 담당하는 스킬들 추가
+void SkillObject::AddSkill(int index)
+{
+	map<OBJECT_STATE, Animation*> map;
+	skillMap.insert(make_pair(index, map));
+}
+
+// 현재 사용할 스킬 설정
+void SkillObject::SetSkill(AttackSkillModule* me_attack, Skill* me_skill)
+{
+	if (this->skill == me_attack) return;
+
+	this->skill = me_attack;
+	auto& pair = skillMap.find(me_skill->GetIndex())->second;
+
+	// 스킬 애니메이션 변경
+	if(pair.size() > 0) GetComponent<Animator>()->SetAnimationMap(pair, me_skill->GetObjectState());
+}
+
 // 스킬오브젝트 활성화,비활성화
 void SkillObject::SetActive(bool flag)
 {
@@ -72,5 +124,11 @@ void SkillObject::SetActive(bool flag)
 		// 시전자를 기준으로 시작좌표 설정
 		startPos = caster.GetRealPos() + Offset;
 		SetRealPos(startPos);
+		auto render = GetRenderPos();
+	}
+	else
+	{
+		// 현재 애니메이션 인덱스 0으로 설정
+		GetComponent<Animator>()->ResetAnimationIndex();
 	}
 }

@@ -12,6 +12,7 @@ private:
 	bool isActive = true;
 
 protected:
+	Component();
 	Component(GameObject& owner);
 	Component(const Component& origin);
 	~Component();

@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
+class Animation;
 class AttackSkillModule;
+class Skill;
 
 // 스킬오브젝트 클래스
 class SkillObject : public GameObject
@@ -11,8 +13,11 @@ private:
 	const Vec2<float> Offset;	// 시전자 기준 오프셋
 	Vec2<float> startPos;		// 스킬 활성화 되었을 때 시작좌표 (스킬 시전자 좌표 + Offset)
 
-	AttackSkillModule* skill;
+	AttackSkillModule* skill;	// 현재 스킬
 	float time = 0.f;	// 스킬오브젝트 활성화 이후 경과시간
+
+	// 담당 스킬 모음
+	map<int, map<OBJECT_STATE, Animation*>> skillMap;	// key:스킬인덱스, value:상태-애니메이션
 
 public:
 	SkillObject(const wstring& name, GameObject& caster, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
@@ -27,8 +32,12 @@ public:
 	virtual void OnCollisionStay(GameObject& other) override {}
 	virtual void OnCollisionExit(GameObject& other) override {}
 
-	void SetSkill(AttackSkillModule& skill) { this->skill = &skill; }
+	void AddSkill(int index);
 	AttackSkillModule* GetSkill() { return skill; }
+
+	// ERROR : 스킬클래스 구조 잘못만든듯
+	// AttackSkillModule이랑 Skill이랑 완전히 다른 클래스라 형변환이 안됌. 두 포인터 타입으로 다 받아야 함
+	void SetSkill(AttackSkillModule* me_attack, Skill* me_skill);
 
 	virtual void SetActive(bool flag) override;
 };

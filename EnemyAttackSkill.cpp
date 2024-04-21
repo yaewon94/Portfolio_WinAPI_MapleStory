@@ -29,7 +29,7 @@ void EnemyAttackSkill::UseSkill(GameObject* caster, SkillObject* skillObj)
 		// TODO : 플레이어 스킬클래스도 static Player* 대신 Skill::caster 필드 이용
 		// 애니메이션 변경, 스킬 오브젝트에 현재 스킬 세팅
 		caster->GetComponent<Animator>()->ChangeAnimation(GetObjectState());
-		skillObj->SetSkill(*this);
+		skillObj->SetSkill(this, this);
 
 		// 딜레이 시간 이후에 스킬오브젝트 활성화 되도록 예약
 		SkillManager::GetInstance().LaunchSkill(this, skillObj);
