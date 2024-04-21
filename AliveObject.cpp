@@ -41,9 +41,12 @@ AliveObject::~AliveObject()
 // 이동
 void AliveObject::Move()
 {
+	FSM* fsm = GetComponent<FSM>();
+	if (fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
+
 	if (canMove)
 	{
-		if (canJump) GetComponent<FSM>()->ChangeState(OBJECT_STATE::WALK);
+		if (canJump) fsm->ChangeState(OBJECT_STATE::WALK);
 		offset += dir * speed * TimeManager::GetInstance().GetDeltaTime();
 		prevDir = dir;
 	}
@@ -52,9 +55,10 @@ void AliveObject::Move()
 // 점프
 void AliveObject::Jump()
 {
-	if (!canJump) return;
+	FSM* fsm = GetComponent<FSM>();
+	if (!canJump || fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
 
-	GetComponent<FSM>()->ChangeState(OBJECT_STATE::JUMP);
+	fsm->ChangeState(OBJECT_STATE::JUMP);
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	rb->UseGravity(true);
 	rb->AddForce(Vec2<float>::Up() * jumpPower);

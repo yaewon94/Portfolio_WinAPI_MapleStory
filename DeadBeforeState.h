@@ -6,7 +6,7 @@
 class DeadBeforeState final : public State
 {
 public:
-	DeadBeforeState(float Duration);
+	DeadBeforeState(float Duration=0.f);
 	DeadBeforeState(const DeadBeforeState& origin);
 	~DeadBeforeState();
 	virtual DeadBeforeState* Clone() { return new DeadBeforeState(*this); }
