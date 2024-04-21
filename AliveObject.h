@@ -54,6 +54,7 @@ public:
 	int GetPower() { return power; }
 	Vec2<float> GetDirection() const { return dir; }
 	bool CanJump() { return canJump; }
+	SkillObject* GetSkillObject() { return skillObject; }
 
 	void SetHPbar(Texture& fill_texture) { HP_fillTex = &fill_texture; }
 	void FillHP(int hp) { OnChangeHP(hp); }

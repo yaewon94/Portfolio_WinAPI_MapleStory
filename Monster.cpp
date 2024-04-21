@@ -57,11 +57,10 @@ void Monster::Init()
 	// TODO : 몬스터 스킬 DB
 	// 몬스터마다 보유스킬이 다르므로 임시로 레벨에서 추가해줬음
 
-	// 자식 오브젝트 추가
-	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2(150.f, 0.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL));
-
-	// 필드 초기화
-	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
+	// 사용할 스킬 오브젝트 추가
+	SkillObject* skillObject = new SkillObject(L"", *this, Vec2<float>(150.f, 0.f), DEFAULT_OBJECT_SCALE, LAYER_TYPE::ENEMY_SKILL);
+	skillObject->SetParent(*this->GetParent());
+	SetSkillObject(*skillObject);
 
 	// 최상위 부모 Init() 호출
 	GameObject::Init();
@@ -75,6 +74,8 @@ void Monster::OnCollisionEnter(GameObject& other)
 	// 플레이어 스킬에 맞았을 경우
 	if (other.GetLayer() == LAYER_TYPE::PLAYER_SKILL)
 	{
+		other.SetActive(false);
+
 		// 현재 체력이 0 이상일때만
 		if (GetCurrentHP() > 0)
 		{
@@ -107,7 +108,7 @@ void Monster::Attack()
 	int index = RandomManager::Create(GetSkillCount());
 
 	Skill* skill = &GetSkill(index);
-	skill->UseSkill(this, (SkillObject*)GetChild(LAYER_TYPE::ENEMY_SKILL));
+	skill->UseSkill(this, GetSkillObject());
 }
 
 // 플레이어 감지

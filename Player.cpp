@@ -84,11 +84,10 @@ void Player::Init()
 	ActiveSkill* activeSkill = (ActiveSkill*)&AddSkill(SkillManager::GetInstance().GetSkill(0));
 	AddSkillKeyMap(KEY_CODE::SHIFT, *activeSkill);
 
-	// 자식 오브젝트 추가
-	SkillObject* skillObject = (SkillObject*)AddChild(SkillObject(L"", Vec2<float>((float)scale.x, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL));
-
-	// 필드 초기화
-	SetSkillObject(*(SkillObject*)GetChild(LAYER_TYPE::PLAYER_SKILL));
+	// 사용할 스킬 오브젝트 추가
+	SkillObject* skillObject = new SkillObject(L"", *this, Vec2<float>(25.f, 0.f), Vec2(20, 20), LAYER_TYPE::PLAYER_SKILL);
+	skillObject->SetParent(*this->GetParent());
+	SetSkillObject(*skillObject);
 
 	// 최상위 부모 Init() 호출
 	GameObject::Init();

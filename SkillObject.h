@@ -7,12 +7,15 @@ class AttackSkillModule;
 class SkillObject : public GameObject
 {
 private:
-	const Vec2<float> StartPos = offset;
+	GameObject& caster;			// 스킬 시전자
+	const Vec2<float> Offset;	// 시전자 기준 오프셋
+	Vec2<float> startPos;		// 스킬 활성화 되었을 때 시작좌표 (스킬 시전자 좌표 + Offset)
+
 	AttackSkillModule* skill;
 	float time = 0.f;	// 스킬오브젝트 활성화 이후 경과시간
 
 public:
-	SkillObject(const wstring& name, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
+	SkillObject(const wstring& name, GameObject& caster, Vec2<float> offset, Vec2<int> scale, LAYER_TYPE layer);
 	SkillObject(const SkillObject& origin);
 	~SkillObject();
 	virtual SkillObject* Clone() override { return new SkillObject(*this); }
@@ -26,4 +29,6 @@ public:
 
 	void SetSkill(AttackSkillModule& skill) { this->skill = &skill; }
 	AttackSkillModule* GetSkill() { return skill; }
+
+	virtual void SetActive(bool flag) override;
 };

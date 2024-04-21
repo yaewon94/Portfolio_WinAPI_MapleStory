@@ -54,7 +54,7 @@ public:
 
 	void SetOffset(Vec2<float> offset) { this->offset = offset; }
 	void SetRealPos(Vec2<float> pos);
-	void SetActive(bool flag);
+	virtual void SetActive(bool flag);
 
 	virtual void Init();
 	virtual void Tick() {}

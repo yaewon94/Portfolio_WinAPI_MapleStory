@@ -27,7 +27,7 @@ void PlayerAttackSkill::OnKeyPressed(KEY_CODE keyCode)
 	if (!canWithJump && !GetPlayer().CanJump()) return;
 
 	// TODO : 몬스터처럼 현재 상태로 판단해서 공격가능 여부 체크하는걸로 변경
-	SkillObject* skillObj = (SkillObject*)GetPlayer().GetChild(LAYER_TYPE::PLAYER_SKILL);
+	SkillObject* skillObj = GetPlayer().GetSkillObject();
 	if (skillObj->IsActive()) return;
 
 	// 상태 변경, 스킬 오브젝트에 현재 스킬 세팅
