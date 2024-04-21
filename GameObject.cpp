@@ -109,6 +109,8 @@ void GameObject::SetActive(bool flag)
 
 	// 필드값 설정
 	isActive = flag;
+
+	// 자식 오브젝트는 선택적으로 활성화/비활성화
 }
 
 // 자식 오브젝트 추가
@@ -177,9 +179,8 @@ void GameObject::DeleteChildren()
 
 		for (auto child : layer)
 		{
-
 			// 현재 레벨에 등록된 오브젝트 목록에서 삭제
-			LevelManager::GetInstance().DeleteObject(*child);
+			LevelManager::GetInstance().DeleteObjectFromList(*child);
 
 			// 실제 객체 삭제
 			//delete child;

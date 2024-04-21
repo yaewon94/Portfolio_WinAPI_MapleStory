@@ -26,7 +26,8 @@ const wstring LAYER_NAME[] =
 // 레벨
 enum class LEVEL_TYPE
 {
-	NONE, TEST
+	NONE = -1
+	, BOSS_WILL_PHASE1
 };
 
 // 오브젝트 상태

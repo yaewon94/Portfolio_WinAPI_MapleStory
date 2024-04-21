@@ -34,7 +34,6 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
-	int GetMaxHP() { return MaxHP; }
 	int GetCurrentHP() { return curHP; }
 	int GetSkillCount() { return (int)(skills.size()); }
 	Skill& GetSkill(int index) { assert(index < skills.size()); return *skills[index]; }
@@ -51,11 +50,13 @@ protected:
 	void OnChangeHP(int changedHP);
 
 public:
+	int GetMaxHP() { return MaxHP; }
 	int GetPower() { return power; }
 	Vec2<float> GetDirection() const { return dir; }
 	bool CanJump() { return canJump; }
 
 	void SetHPbar(Texture& fill_texture) { HP_fillTex = &fill_texture; }
+	void FillHP(int hp) { OnChangeHP(hp); }
 
 	Skill& AddSkill(Skill& skill);
 };

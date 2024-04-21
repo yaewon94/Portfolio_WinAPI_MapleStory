@@ -5,10 +5,12 @@
 #include "Animator.h"
 #include "AssetManager.h"
 #include "Collider.h"
+#include "DeadBeforeState.h"
 #include "FSM.h"
 #include "LevelManager.h"
 #include "MapManager.h"
 #include "PlayerAttackSkill.h"
+#include "PlayerDeadState.h"
 #include "Rigidbody.h"
 #include "SkillManager.h"
 #include "SkillObject.h"
@@ -65,12 +67,15 @@ void Player::Init()
 	Collider* collider = AddComponent<Collider>();
 	collider->SetScale(Vec2(50, 70));
 	FSM* fsm = AddComponent<FSM>();
+	fsm->AddState(*new DeadBeforeState);
+	fsm->AddState(*new PlayerDeadState);
 	fsm->SetDefaultState(OBJECT_STATE::IDLE);
 	Animator* animator = AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::IDLE, AssetManager::GetInstance().LoadTexture(L"PlayerIdle", L"Player_Idle.png"), 3);
 	animator->AddAnimation(OBJECT_STATE::WALK, AssetManager::GetInstance().LoadTexture(L"PlayerWalk", L"Player_Walk.png"), 4);
 	animator->AddAnimation(OBJECT_STATE::JUMP, AssetManager::GetInstance().LoadTexture(L"PlayerJump", L"Player_Jump.png"), 1);
 	animator->AddAnimation(OBJECT_STATE::ATTACK, AssetManager::GetInstance().LoadTexture(L"PlayerAttack", L"Player_AttackSwing.png"), 3, false);
+	animator->AddAnimation(OBJECT_STATE::DEAD, AssetManager::GetInstance().LoadTexture(L"PlayerDead", L"Player_Dead.png"), 1);
 
 	// [CHECK]
 	// 스킬 추가 (임시 하드코딩. 시간되면 DB에서 불러오도록 구현 예정)
@@ -123,7 +128,7 @@ void Player::OnKeyReleased(KEY_CODE key)
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
 	{
 		FSM* fsm = GetComponent<FSM>();
-		fsm->ChangeState(fsm->GetDefaultState());
+		if(fsm->GetCurrentState() != OBJECT_STATE::DEAD) fsm->ChangeState(fsm->GetDefaultState());
 	}
 }
 
@@ -155,7 +160,7 @@ void Player::OnCollisionEnter(GameObject& other)
 			OnChangeHP(-damage);
 
 			// 체력이 0인 경우 Dead 상태로 전환
-			//if (GetCurrentHP() == 0) GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD_BEFORE);
+			if (GetCurrentHP() == 0) GetComponent<FSM>()->ChangeState(OBJECT_STATE::DEAD_BEFORE);
 		}
 	}
 }

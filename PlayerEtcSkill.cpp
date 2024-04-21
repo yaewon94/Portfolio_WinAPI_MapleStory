@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "PlayerEtcSkill.h"
+#include "FSM.h"
 #include "SkillManager.h"
 #include "Player.h"
 
@@ -18,6 +19,8 @@ PlayerEtcSkill::~PlayerEtcSkill()
 // [event] 키 입력 시 호출
 void PlayerEtcSkill::OnKeyPressed(KEY_CODE)
 {
+	if (GetPlayer().GetComponent<FSM>()->GetCurrentState() == OBJECT_STATE::DEAD) return;
+
 	if (IsValid())
 	{
 		// 스킬 사용에 필요한 코스트량 확인
