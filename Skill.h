@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 
+class Animation;
 class GameObject;
 class SkillObject;
 //class Skill;
@@ -18,8 +19,10 @@ class Skill : public Entity
 	NO_CSTR_COPY_ASSIGN(Skill);
 
 private:
+	int index = -1;
 	wstring name;
-	OBJECT_STATE state = OBJECT_STATE::NONE;	// 상태전환 or 애니메이션 전환에 이용
+	OBJECT_STATE state = OBJECT_STATE::DEFAULT;	// 상태전환 or 애니메이션 전환에 이용
+	map<OBJECT_STATE, Animation*> animMap;		// 스킬오브젝트 애니메이션 재생용
 	//SKILL_CALLBACK callback;
 
 protected:
@@ -27,14 +30,14 @@ protected:
 	Skill(const wstring& name);
 	~Skill();
 
-protected:
-	OBJECT_STATE GetObjectState() const { return state; }
-
 private:
 	void SetObjectState(OBJECT_STATE state) { this->state = state; }
 
 public:
+	int GetIndex() { return index; }
 	const wstring& GetName() { return name; }
+	OBJECT_STATE GetObjectState() const { return state; }
+	map<OBJECT_STATE, Animation*>& GetAnimationMap() { return animMap; }
 
 public:
 	virtual void UseSkill(GameObject* caster, SkillObject* skillObj) = 0;

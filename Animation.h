@@ -22,14 +22,15 @@ private:
 	friend class Animator;
 
 	Animator* animator;
-
-	Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat=true, float duration= DEFAULT_ANIM_DURATION);
-	Animation(const Animation& origin);
-	~Animation();
-	virtual Animation* Clone() override { return new Animation(*this); }
 	
 	void SetAnimator(Animator& animator) { this->animator = &animator; }
 
 	void FinalTick();
 	void Render();
+
+public:
+	Animation(Animator* animator, Texture* atlasTex, int frameCount, bool isRepeat = true, float duration = DEFAULT_ANIM_DURATION);
+	Animation(const Animation& origin);
+	~Animation();
+	virtual Animation* Clone() override { return new Animation(*this); }
 };

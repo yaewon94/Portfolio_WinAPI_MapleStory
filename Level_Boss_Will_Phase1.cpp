@@ -38,8 +38,8 @@ void Level_Boss_Will_Phase1::Enter()
 	// [UI] 달빛 게이지
 	GameObject* gauge_effect = AddObject(UI(L"달빛게이지 이펙트", Vec2(120.f, 200.f)));
 	Animator* animator = gauge_effect->AddComponent<Animator>();
-	animator->AddAnimation(OBJECT_STATE::ANIM_DEFAULT, AssetManager::GetInstance().LoadTexture(L"달빛게이지 이펙트_anim", L"UI_MoonlightGauge_effect.png"), 8);
-	animator->ChangeAnimation(OBJECT_STATE::ANIM_DEFAULT);
+	animator->AddAnimation(OBJECT_STATE::DEFAULT, AssetManager::GetInstance().LoadTexture(L"달빛게이지 이펙트_anim", L"UI_MoonlightGauge_effect.png"), 8);
+	animator->ChangeAnimation(OBJECT_STATE::DEFAULT);
 
 	GameObject* gauge_bgr = AddObject(UI(L"달빛게이지 배경", DEFAULT_OBJECT_POS, MOONLIGHT_GAUGE_SCALE));
 	gauge_bgr->SetTexture(AssetManager::GetInstance().LoadTexture(L"달빛게이지 배경_img", L"UI_MoonlightGauge_bgr.png"));
@@ -86,7 +86,7 @@ void Level_Boss_Will_Phase1::Enter()
 
 	// 몬스터
 	// 몬스터는 객체마다 특성이 다르므로, 클래스 외부에서 특성에 맞게 컴포넌트 추가
-	// 원래는 DB같은데서 받아와서 몬스터 클래스 내부에서 초기화 해야 함
+	// TODO : DB 에서 받아와서 데이터매니저 에서 초기화
 	// 파란공간 윌
 	bossWill_blue = (Monster*)AddObject(Monster(L"Boss_Will", WILL_MAX_HP));
 	bossWill_blue->SetParent(background);
@@ -97,9 +97,9 @@ void Level_Boss_Will_Phase1::Enter()
 	animator->AddAnimation(OBJECT_STATE::DEAD, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_Dead", L"BossWill_Phase1_Dead.png"), 8);
 	animator->AddAnimation(OBJECT_STATE::BOSSWILL_ATTACK_MELEE, AssetManager::GetInstance().LoadTexture(L"BossWill_Phase1_MeleeAttack", L"BossWill_Phase1_MeleeAttack.png"), 20, false);
 	bossWill_blue->SetActive(false);
+	// 스킬추가
 	bossWill_blue->AddSkill(SkillManager::GetInstance().GetSkill(2));
-
-	// 보라공간 윌
+	// 보라공간 윌 (파란공간 윌 클론)
 	bossWill_pupple = (Monster*)AddObject(Monster(*bossWill_blue));	// Clone()하면 안됌. AddObject() 내부에서 new 이용해서 생성하기 때문
 	bossWill_pupple->SetHPbar(*will_hpbar_fill_pupple->GetTexture());
 
