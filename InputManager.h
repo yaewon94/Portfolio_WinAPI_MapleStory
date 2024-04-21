@@ -36,9 +36,17 @@ class InputManager final
 private:
 	map<KEY_CODE, KeyInfo*> keyMap;
 	map<KEY_STATE, KEY_CALLBACK> stateCallbackMap;
+
+	Vec2<int> mousePos;
+	bool isClicked = false;
+
 	Player* player;
 
 public:
 	void Init();
 	void Tick();
+
+public:
+	bool IsClicked() { return isClicked; }
+	Vec2<int> GetMousePos() { return mousePos; }
 };
