@@ -23,7 +23,7 @@ public:
 	GameObject* FindObject(LAYER_TYPE layer);
 	GameObject* FindObject(GameObject& obj);
 	vector<GameObject*>& FindObjects(LAYER_TYPE layer);
-	void DeleteObject(GameObject& obj);
+	void DeleteObjectFromList(GameObject& obj);
 
 	Camera* GetMainCamera() { return curLevel->mainCamera; }
 

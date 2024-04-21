@@ -130,8 +130,9 @@ vector<GameObject*>& LevelManager::FindObjects(LAYER_TYPE layer)
 	return curLevel->objects[(size_t)layer];
 }
 
-// 현재 레벨의 오브젝트 목록에서 삭제
-void LevelManager::DeleteObject(GameObject& obj)
+// 현재 레벨의 오브젝트 목록에서만 삭제
+// 실제 객체를 삭제하는것은 아님
+void LevelManager::DeleteObjectFromList(GameObject& obj)
 {
 	assert(curLevel);
 	auto& items = curLevel->objects[(size_t)obj.GetLayer()];
