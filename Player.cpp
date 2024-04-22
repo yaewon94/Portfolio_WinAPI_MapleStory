@@ -129,7 +129,7 @@ void Player::OnKeyReleased(KEY_CODE key)
 	if (key == KEY_CODE::LEFT || key == KEY_CODE::RIGHT)
 	{
 		FSM* fsm = GetComponent<FSM>();
-		if(fsm->GetCurrentState() != OBJECT_STATE::DEAD) fsm->ChangeState(fsm->GetDefaultState());
+		if(fsm->GetCurrentState() != OBJECT_STATE::DEAD_BEFORE && fsm->GetCurrentState() != OBJECT_STATE::DEAD) fsm->ChangeState(fsm->GetDefaultState());
 	}
 }
 
@@ -144,7 +144,9 @@ void Player::OnCollisionEnter(GameObject& other)
 		if (!canJump)
 		{
 			FSM* fsm = GetComponent<FSM>();
-			if (fsm->GetCurrentState() != OBJECT_STATE::ATTACK) fsm->ChangeState(fsm->GetDefaultState());
+			if (fsm->GetCurrentState() != OBJECT_STATE::ATTACK 
+				&& fsm->GetCurrentState() == OBJECT_STATE::DEAD_BEFORE
+				&& fsm->GetCurrentState() != OBJECT_STATE::DEAD) fsm->ChangeState(fsm->GetDefaultState());
 			GetComponent<Rigidbody>()->UseGravity(false);
 			canJump = true;
 		}

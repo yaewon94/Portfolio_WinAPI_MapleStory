@@ -42,7 +42,7 @@ AliveObject::~AliveObject()
 void AliveObject::Move()
 {
 	FSM* fsm = GetComponent<FSM>();
-	if (fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
+	if (fsm->GetCurrentState() == OBJECT_STATE::DEAD_BEFORE || fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
 
 	if (canMove)
 	{
@@ -56,7 +56,8 @@ void AliveObject::Move()
 void AliveObject::Jump()
 {
 	FSM* fsm = GetComponent<FSM>();
-	if (!canJump || fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
+	if (!canJump 
+		|| fsm->GetCurrentState() == OBJECT_STATE::DEAD_BEFORE || fsm->GetCurrentState() == OBJECT_STATE::DEAD) return;
 
 	fsm->ChangeState(OBJECT_STATE::JUMP);
 	Rigidbody* rb = GetComponent<Rigidbody>();
