@@ -10,7 +10,7 @@ class DebugRender final
 private:
 	vector<Log*> renderLogs;
 	vector<Collider*> colliders;
-	bool isRender;
+	bool isRender = false;
 
 public:
 	void Init();

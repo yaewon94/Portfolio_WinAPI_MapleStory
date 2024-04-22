@@ -7,7 +7,7 @@
 #include "TimeManager.h"
 
 // 생성자
-DebugRender::DebugRender() : isRender(true)
+DebugRender::DebugRender()
 {
 }
 
@@ -38,9 +38,13 @@ void DebugRender::Init()
 	//renderLogs.push_back(new Log(LOG_TYPE::LOG, L"Player RenderPos : ", Vec2(100.f, 550.f)));
 }
 
+#include "SkillObject.h"
 // 매 프레임마다 호출
 void DebugRender::FinalTick()
 {
+	// 키 입력 감지
+	if (GetAsyncKeyState(VK_TAB)) isRender = !isRender;
+	
 	//static Player* player = (Player*)LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
 	size_t index = 0;
 
