@@ -129,6 +129,12 @@
     <Filter Include="game\04-Module\State\PlayerState">
       <UniqueIdentifier>{e4cc36ef-0b80-4d2f-95d9-ccf6927d4269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\04-Module\Asset\Texture">
+      <UniqueIdentifier>{e1581630-40c3-4968-96d8-6597112dc99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\04-Module\Asset\Sound">
+      <UniqueIdentifier>{de64a2f9-34b7-493e-9261-6fd5c72101bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH.h" />
@@ -206,9 +212,6 @@
       <Filter>game\05-Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="Asset.h">
-      <Filter>game\04-Module\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
       <Filter>game\04-Module\Asset</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
@@ -310,6 +313,15 @@
     <ClInclude Include="SkillSummonerObject.h">
       <Filter>game\02-Object\SkillObject</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>game\04-Module\Asset\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>game\04-Module\Asset\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>game\04-Module\Asset\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Portfolio_WinAPI_MapleStory.rc">
@@ -387,9 +399,6 @@
       <Filter>game\02-Object\SkillObject</Filter>
     </ClCompile>
     <ClCompile Include="Asset.cpp">
-      <Filter>game\04-Module\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
       <Filter>game\04-Module\Asset</Filter>
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
@@ -487,6 +496,15 @@
     </ClCompile>
     <ClCompile Include="SkillSummonerObject.cpp">
       <Filter>game\02-Object\SkillObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>game\04-Module\Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>game\04-Module\Asset\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>game\04-Module\Asset\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
