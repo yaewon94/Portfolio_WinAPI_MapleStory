@@ -34,7 +34,6 @@ protected:
 	AliveObject(const AliveObject& origin);
 	~AliveObject();
 
-	int GetCurrentHP() { return curHP; }
 	int GetSkillCount() { return (int)(skills.size()); }
 	Skill& GetSkill(int index) { assert(index < skills.size()); return *skills[index]; }
 
@@ -51,6 +50,7 @@ protected:
 
 public:
 	int GetMaxHP() { return MaxHP; }
+	int GetCurrentHP() { return curHP; }
 	int GetPower() { return power; }
 	Vec2<float> GetDirection() const { return dir; }
 	bool CanJump() { return canJump; }

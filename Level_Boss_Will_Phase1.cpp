@@ -141,7 +141,6 @@ void Level_Boss_Will_Phase1::Enter()
 	spiderLegs[3]->SetOffset(Vec2(750.f, 0.f));
 	spiderLegs[3]->GetComponent<Animator>()->ChangeAnimation(OBJECT_STATE::DEFAULT);
 
-
 	// 플레이어
 	SetPlayer((Player*)AddObject(Player(L"Player")));
 	Player& player = GetPlayer();
@@ -207,14 +206,34 @@ void Level_Boss_Will_Phase1::FinalTick()
 	// 보스 레이드 관련 호출
 	if (isSucceed) return;
 
+	// 일정 시간마다 달빛게이지 회복
 	static float time = 0.f;
 	time += TimeManager::GetInstance().GetDeltaTime();
-
-	// 일정 시간마다 달빛게이지 회복
 	if (time > INTERVAL_OF_FILL_GAUGE)
 	{
 		if (GetPlayer().GetCurrentSkillCost() < MAX_GAUGE_MOONLIGHT) GetPlayer().FillSkillCost(RECOVERY_AMOUNT_OF_GAUGE);
 		time = 0.f;
+	}
+	
+	// 플레이어가 죽으면 체력이 더 많이 남은 쪽을 기준으로 몬스터의 체력을 회복시킴
+	static bool isFilledHP = false;
+	auto playerState = GetPlayer().GetComponent<FSM>()->GetCurrentState();
+	if (playerState == OBJECT_STATE::DEAD_BEFORE || playerState == OBJECT_STATE::DEAD)
+	{
+		if (!isFilledHP)
+		{
+			isFilledHP = true;
+
+			int blueHP = bossWill_blue->GetCurrentHP();
+			int puppleHP = bossWill_pupple->GetCurrentHP();
+
+			if (blueHP > puppleHP) bossWill_pupple->FillHP(blueHP - puppleHP);
+			else bossWill_blue->FillHP(puppleHP - blueHP);
+		}
+	}
+	else
+	{
+		isFilledHP = false;
 	}
 }
 
