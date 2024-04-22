@@ -12,9 +12,6 @@
 #include "SkillObject.h"
 #include "TimeManager.h"
 
-// 상수
-#define NO_LIMIT_DURATION (float)INT_MAX
-
 // 생성자
 SkillManager::SkillManager()
 {
@@ -37,7 +34,7 @@ SkillManager::~SkillManager()
 void SkillManager::Init()
 {
 	map<OBJECT_STATE, Animation*> animMap;
-	skills.push_back(new PlayerAttackSkill(L"체인라이트닝", 1.f, DEFAULT_ANIM_DURATION*2.f, NO_LIMIT_DURATION, Vec2<float>::Right()*300.f, 3.f));
+	skills.push_back(new PlayerAttackSkill(L"체인라이트닝", 1.f, DEFAULT_ANIM_DURATION * 2.f, NO_LIMIT_DURATION, Vec2<float>::Right() * 300.f, 3.f));
 	animMap.insert(make_pair(OBJECT_STATE::DEFAULT, new Animation(nullptr, AssetManager::GetInstance().LoadTexture(L"체인라이트닝", L"Skill_ChainLightening.png"), 8)));
 	skills.back()->animMap = animMap;
 	skills.back()->index = 0;
@@ -45,16 +42,20 @@ void SkillManager::Init()
 	skills.push_back(new PlayerEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
 	skills.back()->index = 1;
 
-	skills.push_back(new EnemyAttackSkill(L"윌 근거리공격", 0.2f, DEFAULT_ANIM_DURATION*12, DEFAULT_ANIM_DURATION*3, Vec2<float>::Right() * 200.f, 5.f));
+	skills.push_back(new EnemyAttackSkill(L"윌 근거리공격", 0.2f, DEFAULT_ANIM_DURATION * 12, DEFAULT_ANIM_DURATION * 3, Vec2<float>::Right() * 200.f, 5.f));
 	skills.back()->SetObjectState(OBJECT_STATE::BOSSWILL_ATTACK_MELEE);
 	skills.back()->index = 2;
 
 	map<OBJECT_STATE, Animation*> animMap2;
-	skills.push_back(new EnemyAttackSkill(L"주시하는 눈동자", 0.1f, 0.f, NO_LIMIT_DURATION, Vec2(0.f, 0.f), 2.f));
+	skills.push_back(new EnemyAttackSkill(L"주시하는 눈동자", 0.1f, 0.f, DEFAULT_ANIM_DURATION * 16, Vec2(0.f, 0.f), 2.f));
 	animMap2.insert(make_pair(OBJECT_STATE::DEFAULT, new Animation(nullptr, AssetManager::GetInstance().LoadTexture(L"주시하는 눈동자 탄환", L"Skill_WatchingEye_Bullet.png"), 8)));
-	skills.back()->on_disappear = &SkillManager::SetActiveFalseSummoner;
 	skills.back()->animMap = animMap2;
+	skills.back()->on_disappear = &SkillManager::SetActiveFalseSummoner;
 	skills.back()->index = 3;
+
+	skills.push_back(new EnemyAttackSkill(L"거미다리 내려찍기", 0.2f, DEFAULT_ANIM_DURATION * 5, DEFAULT_ANIM_DURATION * 5.5f, Vec2(0.f, 600.f), 5.f));
+	skills.back()->on_disappear = &SkillManager::SetActiveFalseSummoner;
+	skills.back()->index = 4;
 }
 
 // 매 프레임마다 호출
@@ -88,6 +89,7 @@ void SkillManager::Tick()
 void SkillManager::SetActiveFalseSummoner(GameObject* obj)
 {
 	obj->GetParent()->SetActive(false);
+	obj->GetParent()->GetComponent<Animator>()->ResetAnimationIndex();
 }
 
 // 윌 1페이즈 달빛게이지 스킬 사용
