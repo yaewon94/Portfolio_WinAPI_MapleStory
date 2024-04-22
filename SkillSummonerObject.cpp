@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "SkillSummonerObject.h"
 #include "EnemyAttackSkill.h"
+#include "SkillManager.h"
 #include "SkillObject.h"
 
 // 생성자
@@ -47,17 +48,14 @@ void SkillSummonerObject::Init()
 	GameObject::Init();
 }
 
-// 오브젝트 활성화,비활성화
-void SkillSummonerObject::SetActive(bool flag)
+// 스킬 소환(사용)
+void SkillSummonerObject::UseSkill()
 {
-	GameObject::SetActive(flag);
+	GameObject::SetActive(true);
 
-	if (flag)
+	for (auto skillObj : skillObjects)
 	{
-		// 스킬오브젝트 활성화
-		for (auto skillObj : skillObjects)
-		{
-			skillObj->SetActive(true);
-		}
+		// 딜레이 시간 이후에 스킬오브젝트 활성화 되도록 예약
+		SkillManager::GetInstance().LaunchSkill(skill, skillObj);
 	}
 }

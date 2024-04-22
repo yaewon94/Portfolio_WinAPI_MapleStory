@@ -112,16 +112,25 @@ void Level_Boss_Will_Phase1::Enter()
 	watchingEyes[0]->AddSkillVelocity(Vec2(0.f, 500.f), 0);
 	watchingEyes[0]->AddSkillVelocity(Vec2(-300.f, 500.f), 1);
 	watchingEyes[0]->AddSkillVelocity(Vec2(300.f, 500.f), 2);
-	watchingEyes[0]->SetActive(false);
 	animator = watchingEyes[0]->AddComponent<Animator>();
 	animator->AddAnimation(OBJECT_STATE::DEFAULT, AssetManager::GetInstance().LoadTexture(L"주시하는 눈동자", L"Skill_WatchingEye.png"), 16);
 	animator->ChangeAnimation(OBJECT_STATE::DEFAULT);
+	watchingEyes[0]->SetActive(false);
 	watchingEyes[1] = (SkillSummonerObject*)AddObject(*watchingEyes[0]->Clone());
 	watchingEyes[1]->SetOffset(Vec2(-600.f, -100.f));
 	watchingEyes[1]->GetComponent<Animator>()->ChangeAnimation(OBJECT_STATE::DEFAULT);
 	watchingEyes[2] = (SkillSummonerObject*)AddObject(*watchingEyes[0]->Clone());
 	watchingEyes[2]->SetOffset(Vec2(600.f, -100.f));
 	watchingEyes[2]->GetComponent<Animator>()->ChangeAnimation(OBJECT_STATE::DEFAULT);
+	//// 거미다리 내려찍기
+	//spiderLegs[0] = (SkillSummonerObject*)AddObject(SkillSummonerObject(L"거미다리 내려찍기", LAYER_TYPE::ENEMY, 1, (EnemyAttackSkill&)SkillManager::GetInstance().GetSkill(4)));
+	//spiderLegs[0]->SetOffset(Vec2(-750.f, 0.f));
+	//spiderLegs[0]->SetParent(background);
+	//animator = spiderLegs[0]->AddComponent<Animator>();
+	//animator->AddAnimation(OBJECT_STATE::DEFAULT, AssetManager::GetInstance().LoadTexture(L"거미다리 내려찍기", L"Skill_SpiderLeg.png"), 12);
+	//animator->ChangeAnimation(OBJECT_STATE::DEFAULT);
+	//spiderLegs[0]->SetActive(false);
+	//spiderLegs[0]->UseSkill();
 
 	// 플레이어
 	SetPlayer((Player*)AddObject(Player(L"Player")));
@@ -148,7 +157,7 @@ void Level_Boss_Will_Phase1::Enter()
 
 	//// 사운드 로딩
 	Sound* sound= AssetManager::GetInstance().LoadSound(L"윌 1페 브금", L"Sound_Boss_Will.wav");
-	sound->SetVolume(20.f);
+	sound->SetVolume(100.f);
 	sound->Play(true);
 }
 
@@ -166,7 +175,7 @@ void Level_Boss_Will_Phase1::Tick()
 
 	if (isSucceed) return;
 
-	// 일정 주기마다 몬스터 소환
+	// 일정 주기마다 맵 자체스킬 시전
 	static float time =  0.f;
 	time += TimeManager::GetInstance().GetDeltaTime();
 	if (time > INTERVAL_SUMMON_MONSTER)
@@ -177,18 +186,18 @@ void Level_Boss_Will_Phase1::Tick()
 
 		if (count == 1)
 		{
-			watchingEyes[0]->SetActive(true);
+			watchingEyes[0]->UseSkill();
 		}
 		else if (count == 2)
 		{
-			watchingEyes[1]->SetActive(true);
-			watchingEyes[2]->SetActive(true);
+			watchingEyes[1]->UseSkill();
+			watchingEyes[2]->UseSkill();
 		}
 		else
 		{
-			watchingEyes[0]->SetActive(true);
-			watchingEyes[1]->SetActive(true);
-			watchingEyes[2]->SetActive(true);
+			watchingEyes[0]->UseSkill();
+			watchingEyes[1]->UseSkill();
+			watchingEyes[2]->UseSkill();
 		}
 	}
 }

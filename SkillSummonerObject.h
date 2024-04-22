@@ -23,6 +23,6 @@ public:
 	virtual void Init() override;
 
 public:
-	virtual void SetActive(bool flag) override;
+	void UseSkill();
 	void AddSkillVelocity(Vec2<float> velocity, int index) { skillVelocityVec[index] = velocity; }
 };
