@@ -114,7 +114,8 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
+	//bf.SourceConstantAlpha = 255;
+	bf.SourceConstantAlpha = alpha;
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	/*

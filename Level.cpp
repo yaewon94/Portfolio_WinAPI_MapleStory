@@ -74,6 +74,8 @@ void Level::Render()
 			if (object->IsActive()) object->Render();
 		}
 	}
+
+	mainCamera->Render();
 }
 
 // 게임오브젝트 찾기

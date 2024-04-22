@@ -1,9 +1,11 @@
 #include "PCH.h"
 #include "Camera.h"
+#include "AssetManager.h"
 #include "Engine.h"
 #include "GameObject.h"
 #include "LevelManager.h"
 #include "Map.h"
+#include "Texture.h"
 
 // 소스파일 전역변수
 static float mapLeftLimit, mapRightLimit, mapTopLimit, mapBottomLimit;
@@ -11,7 +13,7 @@ static float mapLeftLimit, mapRightLimit, mapTopLimit, mapBottomLimit;
 // 생성자
 Camera::Camera()
 	: resolution(Engine::GetInstance().GetResolution())
-	, player(nullptr), currentMap(nullptr)
+	, player(nullptr), currentMap(nullptr), fadeTex(nullptr)
 {
 }
 
@@ -20,12 +22,14 @@ Camera::~Camera()
 {
 	player = nullptr;
 	currentMap = nullptr;
+	fadeTex = nullptr;	// 텍스처 제거는 에셋매니저가 담당
 }
 
 // 초기화
 void Camera::Init()
 {
 	player = LevelManager::GetInstance().FindObject(LAYER_TYPE::PLAYER);
+	fadeTex = AssetManager::GetInstance().LoadTexture(L"FadeTexture", L"FadeTexture.png");
 
 	// diff를 현재 맵의 범위에 맞춤 (Init이 SetCurrentMap 첫번째 호출보다 나중에 호출됨)
 	AdjustDiffToMap();
@@ -44,6 +48,27 @@ void Camera::FinalTick()
 	// 차이값이 맵 렌더링 범위를 벗어나는지 확인
 	if (diff.y < mapTopLimit || diff.y > mapBottomLimit) diff.y = prevDiffY;
 	if (diff.x < mapLeftLimit || diff.x > mapRightLimit) diff.x = prevDiffX;
+
+	// 맵이 바뀌면 페이드 인-아웃 효과
+	if (useFadeTex)
+	{
+		if (isFadeIn)
+		{
+			if (curAlpha < MAX_ALPHA) fadeTex->SetAlpha(curAlpha+=5);
+			else isFadeIn = false;
+		}
+		else
+		{
+			fadeTex->SetAlpha(curAlpha-=5);
+			if (curAlpha <= 0) useFadeTex = false;
+		}
+	}
+}
+
+// 렌더링 (매 프레임마다 호출)
+void Camera::Render()
+{
+	if (useFadeTex) fadeTex->Render(0, 0, 1920, 1080);
 }
 
 // 현재 맵 변경
@@ -51,6 +76,23 @@ void Camera::SetCurrentMap(Map* map)
 {
 	currentMap = map;
 	AdjustDiffToMap();
+	SetFadeOut();
+}
+
+// 페이드 인 설정
+void Camera::SetFadeIn()
+{
+	useFadeTex = true;
+	curAlpha = 0;
+	isFadeIn = true;
+}
+
+// 페이드 아웃 설정
+void Camera::SetFadeOut()
+{
+	useFadeTex = true;
+	curAlpha = MAX_ALPHA;
+	isFadeIn = false;
 }
 
 // diff를 맵의 범위에 맞춘다 (맵 밖이 렌더링되지 않도록)
