@@ -37,16 +37,24 @@ SkillManager::~SkillManager()
 void SkillManager::Init()
 {
 	map<OBJECT_STATE, Animation*> animMap;
-
 	skills.push_back(new PlayerAttackSkill(L"체인라이트닝", 1.f, DEFAULT_ANIM_DURATION*2.f, NO_LIMIT_DURATION, Vec2<float>::Right()*300.f, 3.f));
-	animMap.insert(make_pair(OBJECT_STATE::DEFAULT, new Animation(nullptr, AssetManager::GetInstance().LoadTexture(L"체인라이트닝", L"Skill_ChainLightening.png"), 9)));
+	animMap.insert(make_pair(OBJECT_STATE::DEFAULT, new Animation(nullptr, AssetManager::GetInstance().LoadTexture(L"체인라이트닝", L"Skill_ChainLightening.png"), 8)));
 	skills.back()->animMap = animMap;
 	skills.back()->index = 0;
+
 	skills.push_back(new PlayerEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
 	skills.back()->index = 1;
+
 	skills.push_back(new EnemyAttackSkill(L"윌 근거리공격", 0.2f, DEFAULT_ANIM_DURATION*12, DEFAULT_ANIM_DURATION*3, Vec2<float>::Right() * 200.f, 5.f));
 	skills.back()->SetObjectState(OBJECT_STATE::BOSSWILL_ATTACK_MELEE);
 	skills.back()->index = 2;
+
+	map<OBJECT_STATE, Animation*> animMap2;
+	skills.push_back(new EnemyAttackSkill(L"주시하는 눈동자", 0.1f, 0.f, NO_LIMIT_DURATION, Vec2(0.f, 0.f), 2.f));
+	animMap2.insert(make_pair(OBJECT_STATE::DEFAULT, new Animation(nullptr, AssetManager::GetInstance().LoadTexture(L"주시하는 눈동자 탄환", L"Skill_WatchingEye_Bullet.png"), 8)));
+	skills.back()->on_disappear = &SkillManager::SetActiveFalseSummoner;
+	skills.back()->animMap = animMap2;
+	skills.back()->index = 3;
 }
 
 // 매 프레임마다 호출
@@ -76,6 +84,12 @@ void SkillManager::Tick()
 }
 
 // ========== 스킬 콜백함수 모음 ==========
+// 자신을 소환한 스킬 오브젝트 비활성화
+void SkillManager::SetActiveFalseSummoner(GameObject* obj)
+{
+	obj->GetParent()->SetActive(false);
+}
+
 // 윌 1페이즈 달빛게이지 스킬 사용
 void SkillManager::UseMoonlightGauge_Phase1()
 {

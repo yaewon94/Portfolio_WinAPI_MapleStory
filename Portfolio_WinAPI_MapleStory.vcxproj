@@ -137,6 +137,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="DeadBeforeState.h" />
     <ClInclude Include="DebugRender.h" />
+    <ClInclude Include="SkillSummonerObject.h" />
     <ClInclude Include="EnemyAttackSkill.h" />
     <ClInclude Include="MonsterAttackState.h" />
     <ClInclude Include="PlayerDeadState.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DeadBeforeState.cpp" />
     <ClCompile Include="DebugRender.cpp" />
+    <ClCompile Include="SkillSummonerObject.cpp" />
     <ClCompile Include="EnemyAttackSkill.cpp" />
     <ClCompile Include="MonsterAttackState.cpp" />
     <ClCompile Include="PlayerDeadState.cpp" />

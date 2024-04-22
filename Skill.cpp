@@ -24,3 +24,9 @@ Skill::~Skill()
 
 	animMap.clear();
 }
+
+// 스킬오브젝트 사라질때 콜백
+void Skill::OnDisappear(GameObject* obj)
+{
+	if(on_disappear != nullptr) on_disappear(obj);
+}

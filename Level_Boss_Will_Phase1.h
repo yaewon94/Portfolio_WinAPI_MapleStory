@@ -2,6 +2,7 @@
 #include "Level.h"
 
 class ActiveSkill;
+class SkillSummonerObject;
 class GameObject;
 class Monster;
 
@@ -12,6 +13,9 @@ constexpr auto RECOVERY_AMOUNT_OF_GAUGE = 20;	// 한번에 회복되는 달빛게이지량
 
 constexpr auto COUNT_PER_SUMMON = 2;	// 한번에 소환되는 윌의 마릿수
 constexpr auto WILL_MAX_HP = 100;		// 윌 (1마리당) 최대체력
+
+constexpr auto INTERVAL_SUMMON_MONSTER = 2.f;	// 맵 자체 몬스터가 등장하는 주기 (초)
+constexpr auto COUNT_WATCHING_EYES = 3;			// 주시하는 눈동자 최대 마릿수
 
 // 윌 1페이즈
 class Level_Boss_Will_Phase1 final : public Level
@@ -36,6 +40,10 @@ private:
 	int willHP_cur_total = WillHP_max_total;						// 윌 전체체력 현재값
 	GameObject* willHP_gauge_total = nullptr;						// 윌 전체체력바 게이지 UI
 
+	// 윌 1페이지 자체몹
+	// 주시하는 눈동자
+	array<SkillSummonerObject*, COUNT_WATCHING_EYES> watchingEyes;
+
 private:
 	NO_CSTR_COPY_ASSIGN(Level_Boss_Will_Phase1);
 	Level_Boss_Will_Phase1();
@@ -44,6 +52,7 @@ private:
 	virtual void Enter() override;
 	virtual void Exit() override;
 
+	virtual void Tick() override;
 	virtual void FinalTick() override;
 
 public:
