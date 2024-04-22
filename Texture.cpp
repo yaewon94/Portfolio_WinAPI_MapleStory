@@ -132,26 +132,25 @@ void Texture::Render(int x, int y, int width, int height, int rscX, int rscY, in
 		, SRCCOPY);
 	*/
 
-	//// png 좌우변경 가능 함수
-	//const void* lpBits;
-	//BITMAPINFO bitmapInfo;
-	//UINT iUsage;
-
+	////// png 좌우변경 가능 함수
+	////const void* lpBits;
+	////BITMAPINFO bitmapInfo;
+	////UINT iUsage;
 	//StretchDIBits(Engine::GetInstance().GetSubDC()
-	//	, x, y
-	//	, width * renderRatio.x, height * renderRatio.y
+	//	, (int)(x + offset.x), (int)(y + offset.y)
+	//	, (int)(width * renderRatio.x), (int)(height * renderRatio.y)
 	//	, rscX, rscY
-	//	, rscWidth * sliceRatio.x, rscHeight * sliceRatio.y
-	//	, lpBits, &bitmapInfo, iUsage, SRCCOPY);
+	//	, (int)(rscWidth * sliceRatio.x), (int)(rscHeight * sliceRatio.y)
+	//	, bitmapInfo.bmBits, &bitmapInfo, DIB_RGB_COLORS, SRCCOPY);
 
 	// 얘는 좌우변경 못함
 	AlphaBlend(Engine::GetInstance().GetSubDC()
-		, x + offset.x, y + offset.y
-		, width * renderRatio.x, height * renderRatio.y
+		, (int)(x + offset.x), (int)(y + offset.y)
+		, (int)(width * renderRatio.x), (int)(height * renderRatio.y)
 		//, width * sliceRatio.x, height * sliceRatio.y
 		, this->GetDC()
 		, rscX, rscY
-		, rscWidth * sliceRatio.x, rscHeight * sliceRatio.y
+		, (int)(rscWidth * sliceRatio.x), (int)(rscHeight * sliceRatio.y)
 		, bf);
 
 	//DeleteObject(stretchBit);

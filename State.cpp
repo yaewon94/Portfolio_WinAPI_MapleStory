@@ -11,7 +11,7 @@ State::State(OBJECT_STATE type, float coolDown, float Duration)
 }
 
 State::State(OBJECT_STATE type, OBJECT_STATE nextState, float coolDown, float Duration) 
-	: type(type), nextState(nextState), CoolDown(coolDown), Duration(Duration)
+	: type(type), nextState(nextState), CoolDown(coolDown), Duration(Duration), fsm(nullptr)
 {
 	// fsm 초기화는 FSM::AddState()에서 담당
 }

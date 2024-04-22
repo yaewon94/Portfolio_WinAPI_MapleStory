@@ -29,8 +29,7 @@ void Map::Enter()
 {
 	// 배경 오브젝트 값 설정
 	Background* obj_background = (Background*)LevelManager::GetInstance().FindObject(LAYER_TYPE::BACKGROUND);
-	obj_background->Set(pos, scale, background); // Set()으로 한건 안사라지는데
-	// [ERROR] SetTexture()로 하면 몇초있다 사라짐
+	obj_background->Set(pos, scale, background);
 
 	// [임시 하드코딩]
 	// 오브젝트 정보 가져오기
