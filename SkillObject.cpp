@@ -20,7 +20,7 @@ SkillObject::SkillObject(const wstring& name, GameObject& caster, Vec2<float> of
 
 // 복사 생성자
 // ERROR : caster 설정하는데 문제있어서 쓰면안됌
-SkillObject::SkillObject(const SkillObject& origin) 
+SkillObject::SkillObject(const SkillObject& origin)
 	: GameObject(origin)
 	//, caster(nullptr) //, caster(origin.caster)
 	, caster(origin.caster)
@@ -88,18 +88,31 @@ void SkillObject::Tick()
 	float dt = TimeManager::GetInstance().GetDeltaTime();
 	time += dt;
 
-	// 스킬오브젝트 활성화 시간이 지나거나
-	// 최대 이동거리를 넘어서면 자동으로 비활성화
-	// 또는 상대방에게 맞았을 때 비활성화 (이건 외부에서 처리함)
-	if (time >= attackSkillPtr->GetDuration()
-		|| GetRealPos() - startPos > velocity)
+	// 스킬오브젝트 활성화 시간이 지나면 비활성화
+	if (time >= attackSkillPtr->GetDuration())
 	{
-		if (ID == 85) assert(nullptr);
 		time = 0.f;
 		SetActive(false);
 		return;
 	}
+	// 최대 이동거리를 넘어섰을 경우
+	if (GetRealPos() - startPos > velocity)
+	{
+		// 지속시간 제한이 따로 없는 경우 비활성화
+		if (attackSkillPtr->GetDuration() == NO_LIMIT_DURATION)
+		{
+			time = 0.f;
+			SetActive(false);
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+	// 또는 상대방에게 맞았을 때 비활성화 (이건 외부에서 처리함)
 
+	// 세가지 조건에 해당하지 않으면 스킬오브젝트 이동
 	Vec2<float> curPos = GetRealPos() + velocity * attackSkillPtr->GetSpeed() * TimeManager::GetInstance().GetDeltaTime();
 	SetRealPos(curPos);
 }
@@ -107,7 +120,7 @@ void SkillObject::Tick()
 // 충돌 시작
 void SkillObject::OnCollisionEnter(GameObject& other)
 {
-	if (other.GetLayer() == LAYER_TYPE::ENEMY) SetActive(false);
+	//if (other.GetLayer() == LAYER_TYPE::ENEMY) SetActive(false);
 }
 
 // 스킬오브젝트가 담당하는 스킬들 추가
@@ -144,17 +157,19 @@ void SkillObject::SetActive(bool flag)
 
 	if (flag)
 	{
+		// 현재 애니메이션 인덱스 0으로 설정
+		GetComponent<Animator>()->ResetAnimationIndex();
+
 		// 시전자를 기준으로 시작좌표 설정
 		startPos = caster.GetRealPos() + Offset;
 		SetRealPos(startPos);
-		auto render = GetRenderPos();
 	}
 	else
 	{
 		// 현재 애니메이션 인덱스 0으로 설정
-		GetComponent<Animator>()->ResetAnimationIndex();
+		//GetComponent<Animator>()->ResetAnimationIndex();
 
 		// 콜백함수가 있으면 호출
-		if(skillPtr != nullptr) skillPtr->OnDisappear(this);
+		if (skillPtr != nullptr) skillPtr->OnDisappear(this);
 	}
 }
