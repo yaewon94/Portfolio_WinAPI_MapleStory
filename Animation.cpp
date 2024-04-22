@@ -64,7 +64,8 @@ void Animation::FinalTick()
 			if (!isRepeat)
 			{
 				FSM* fsm = animator->GetOwner()->GetComponent<FSM>();
-				fsm->ChangeState(fsm->GetDefaultState());
+				if (fsm != nullptr) fsm->ChangeState(fsm->GetDefaultState());
+				else animator->GetOwner()->SetActive(false);
 			}
 		}
 	}

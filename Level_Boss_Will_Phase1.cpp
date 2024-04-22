@@ -128,7 +128,7 @@ void Level_Boss_Will_Phase1::Enter()
 	spiderLegs[0]->SetSkillObjectOffset(-50.f, 0.f);
 	spiderLegs[0]->SetParent(background);
 	animator = spiderLegs[0]->AddComponent<Animator>();
-	animator->AddAnimation(OBJECT_STATE::DEFAULT, AssetManager::GetInstance().LoadTexture(L"거미다리 내려찍기", L"Skill_SpiderLeg.png"), 12);
+	animator->AddAnimation(OBJECT_STATE::DEFAULT, AssetManager::GetInstance().LoadTexture(L"거미다리 내려찍기", L"Skill_SpiderLeg.png"), 12, false);
 	animator->ChangeAnimation(OBJECT_STATE::DEFAULT);
 	spiderLegs[0]->SetActive(false);
 	spiderLegs[1] = (SkillSummonerObject*)AddObject(*spiderLegs[0]->Clone());
