@@ -75,7 +75,7 @@ void Monster::OnCollisionEnter(GameObject& other)
 	// 플레이어 스킬에 맞았을 경우
 	if (other.GetLayer() == LAYER_TYPE::PLAYER_SKILL)
 	{
-		other.SetActive(false);
+		//other.SetActive(false);
 
 		// 현재 체력이 0 이상일때만
 		if (GetCurrentHP() > 0)

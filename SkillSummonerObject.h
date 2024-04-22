@@ -8,10 +8,13 @@ class SkillObject;
 class SkillSummonerObject : public GameObject
 {
 private:
-	vector<SkillObject*> skillObjects;
-	EnemyAttackSkill* skill;
-	vector<Vec2<float>> skillVelocityVec;
 	const int ObjCount;
+
+private:
+	EnemyAttackSkill* skill;
+	vector<SkillObject*> skillObjects;
+	vector<Vec2<float>> skillVelocityVec;
+	Vec2<float> skillObjOffset = DEFAULT_OBJECT_POS;
 
 public:
 	SkillSummonerObject(const wstring& name, LAYER_TYPE layer, int objCount, EnemyAttackSkill& skill);
@@ -25,4 +28,5 @@ public:
 public:
 	void UseSkill();
 	void AddSkillVelocity(Vec2<float> velocity, int index) { skillVelocityVec[index] = velocity; }
+	void SetSkillObjectOffset(float x, float y) { skillObjOffset = Vec2(x, y); }
 };

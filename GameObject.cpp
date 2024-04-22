@@ -147,7 +147,7 @@ void GameObject::Init()
 		component->Init();
 	}
 
-	SetActive(isActive);
+	GameObject::SetActive(isActive);
 }
 
 // 매 프레임마다 호출
