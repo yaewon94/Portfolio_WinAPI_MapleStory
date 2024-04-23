@@ -42,7 +42,7 @@ void SkillManager::Init()
 	skills.push_back(new PlayerEtcSkill(L"달빛게이지", 20, &SkillManager::UseMoonlightGauge_Phase1));
 	skills.back()->index = 1;
 
-	skills.push_back(new EnemyAttackSkill(L"윌 근거리공격", 0.2f, DEFAULT_ANIM_DURATION * 12, DEFAULT_ANIM_DURATION * 3, Vec2<float>::Right() * 200.f, 5.f));
+	skills.push_back(new EnemyAttackSkill(L"윌 근거리공격", 0.2f, DEFAULT_ANIM_DURATION * 12, DEFAULT_ANIM_DURATION * 3, Vec2<float>::Left() * 300.f, 5.f));
 	skills.back()->SetObjectState(OBJECT_STATE::BOSSWILL_ATTACK_MELEE);
 	skills.back()->index = 2;
 

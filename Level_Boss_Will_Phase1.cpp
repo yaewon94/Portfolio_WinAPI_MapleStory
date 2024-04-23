@@ -167,7 +167,8 @@ void Level_Boss_Will_Phase1::Enter()
 	//// 사운드 로딩
 	Sound* sound = AssetManager::GetInstance().LoadSound(L"윌 1페 브금", L"Sound_Boss_Will.wav");
 	sound->SetVolume(100.f);
-	sound->Play(true);
+	//sound->Play(true);
+	sound->PlayToBGM();
 }
 
 // 레벨 종료시 호출
